@@ -1,0 +1,114 @@
+/*
+ * GraphComp design tokens.
+ *
+ * Import once, after Tailwind and the React Flow base stylesheet:
+ *
+ *   @import "tailwindcss";
+ *   @import "@xyflow/react/dist/base.css";
+ *   @import "./graphcomp.css";
+ *
+ * Every GraphComp component reads its colors from these variables. Change a
+ * value here to re-theme every node, edge and widget at once. All names use
+ * the `gc-` prefix so they never collide with shadcn/ui tokens.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --gc-canvas: #f4f4f5;
+  --gc-grid: #e4e4e7;
+  --gc-node: #ffffff;
+  --gc-node-header: #f7f7f8;
+  --gc-node-border: #dcdce0;
+  --gc-inset: #eeeef0;
+  --gc-panel: #f4f4f5;
+  --gc-control: #e4e4e7;
+  --gc-fg: #1c1c1e;
+  --gc-muted: #6e6e73;
+  --gc-accent: #1a8ae0;
+  --gc-accent-strong: #1576c2;
+  --gc-accent-fg: #ffffff;
+  --gc-edge: #a1a1aa;
+  --gc-ring: #1a8ae0;
+  --gc-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.18);
+  --gc-radius: 4px;
+}
+
+.dark {
+  --gc-canvas: #1b1a1d;
+  --gc-grid: #252428;
+  --gc-node: #333333;
+  --gc-node-header: #3c3c3c;
+  --gc-node-border: #444446;
+  --gc-inset: #2b2b2b;
+  --gc-panel: #3c3c3c;
+  --gc-control: #4a4a4c;
+  --gc-fg: #ececec;
+  --gc-muted: #8e8e93;
+  --gc-accent: #299bed;
+  --gc-accent-strong: #2386ce;
+  --gc-accent-fg: #ffffff;
+  --gc-edge: #9a9a9e;
+  --gc-ring: #299bed;
+  --gc-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --color-gc-canvas: var(--gc-canvas);
+  --color-gc-grid: var(--gc-grid);
+  --color-gc-node: var(--gc-node);
+  --color-gc-node-header: var(--gc-node-header);
+  --color-gc-node-border: var(--gc-node-border);
+  --color-gc-inset: var(--gc-inset);
+  --color-gc-panel: var(--gc-panel);
+  --color-gc-control: var(--gc-control);
+  --color-gc-fg: var(--gc-fg);
+  --color-gc-muted: var(--gc-muted);
+  --color-gc-accent: var(--gc-accent);
+  --color-gc-accent-strong: var(--gc-accent-strong);
+  --color-gc-accent-fg: var(--gc-accent-fg);
+  --color-gc-edge: var(--gc-edge);
+  --color-gc-ring: var(--gc-ring);
+  --radius-gc: var(--gc-radius);
+  --shadow-gc: var(--gc-shadow);
+}
+
+/* React Flow overrides. GraphComp draws its own handles and edges. */
+
+.gc-canvas.react-flow {
+  --xy-background-color: var(--gc-canvas);
+  --xy-edge-stroke: var(--gc-edge);
+  --xy-edge-stroke-selected: var(--gc-accent);
+  --xy-connectionline-stroke: var(--gc-accent);
+  --xy-selection-background-color: color-mix(in srgb, var(--gc-accent) 8%, transparent);
+  --xy-selection-border: 1px solid color-mix(in srgb, var(--gc-accent) 60%, transparent);
+  color: var(--gc-fg);
+}
+
+.gc-canvas .react-flow__handle {
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.gc-canvas .react-flow__node {
+  border-radius: var(--gc-radius);
+}
+
+.gc-canvas .react-flow__node:focus-visible {
+  outline: 2px solid var(--gc-ring);
+  outline-offset: 2px;
+}
+
+.gc-canvas .react-flow__attribution {
+  background: transparent;
+  color: var(--gc-muted);
+}
+
+.gc-canvas .react-flow__attribution a {
+  color: inherit;
+}

@@ -1,0 +1,15 @@
+node_modules
+dist
+public/r
+test-results
+playwright-report
+verify/artifacts
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Ralph loop runtime state (agent-kit/LOOP.md)
+.claude/ralph-loop.local.md
+.claude/*.local.md

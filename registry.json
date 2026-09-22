@@ -1,0 +1,184 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "graphcomp",
+  "homepage": "https://github.com/ThyFriendlyFox/GraphComp",
+  "items": [
+    {
+      "name": "graphcomp-theme",
+      "type": "registry:file",
+      "title": "GraphComp Theme",
+      "description": "Design tokens for every GraphComp component, in light and dark, plus React Flow overrides.",
+      "files": [
+        {
+          "path": "registry/graphcomp/styles/graphcomp.css",
+          "type": "registry:file",
+          "target": "styles/graphcomp.css"
+        }
+      ],
+      "docs": "Import the theme once in your global CSS, after Tailwind and React Flow:\n\n  @import \"tailwindcss\";\n  @import \"@xyflow/react/dist/base.css\";\n  @import \"./styles/graphcomp.css\";"
+    },
+    {
+      "name": "use-controllable-state",
+      "type": "registry:hook",
+      "title": "useControllableState",
+      "description": "State that a parent may control or leave to the component.",
+      "files": [
+        {
+          "path": "registry/graphcomp/hooks/use-controllable-state.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "flow-edge",
+      "type": "registry:ui",
+      "title": "Flow Edge",
+      "description": "A right-angle edge with rounded corners, a draw-in animation and a midpoint dot.",
+      "dependencies": ["@xyflow/react", "motion"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/flow-edge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "flow-canvas",
+      "type": "registry:ui",
+      "title": "Flow Canvas",
+      "description": "React Flow with the GraphComp grid, edge defaults, toolbar and zoom control.",
+      "dependencies": ["@xyflow/react", "motion", "lucide-react"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/flow-edge.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/flow-canvas.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "node-port",
+      "type": "registry:ui",
+      "title": "Node Port",
+      "description": "A connection dot that sits outside the node edge.",
+      "dependencies": ["@xyflow/react"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-port.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "node-card",
+      "type": "registry:ui",
+      "title": "Node Card",
+      "description": "The node shell: header, status ring, title, collapsible body, grip, fields and panels.",
+      "dependencies": ["motion", "lucide-react"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "node-segmented",
+      "type": "registry:ui",
+      "title": "Node Segmented",
+      "description": "Mutually exclusive options with a sliding selection pill.",
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-segmented.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "node-select",
+      "type": "registry:ui",
+      "title": "Node Select",
+      "description": "A select whose list opens over its trigger and zooms with the canvas.",
+      "dependencies": ["motion", "lucide-react"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "node-stepper",
+      "type": "registry:ui",
+      "title": "Node Stepper",
+      "description": "A number input with minus and plus buttons, or up and down arrows.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-stepper.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "event-flow",
+      "type": "registry:block",
+      "title": "Event Flow",
+      "description": "A complete event graph: an entry point, stacked triggers and the scripts they run.",
+      "dependencies": ["@xyflow/react", "lucide-react"],
+      "registryDependencies": [
+        "https://thyfriendlyfox.github.io/GraphComp/r/flow-canvas.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-card.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-port.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-segmented.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-select.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-stepper.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/blocks/event-flow/event-flow.tsx",
+          "type": "registry:component",
+          "target": "components/event-flow/event-flow.tsx"
+        },
+        {
+          "path": "registry/graphcomp/blocks/event-flow/event-nodes.tsx",
+          "type": "registry:component",
+          "target": "components/event-flow/event-nodes.tsx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+dist
+public/r
+test-results
+playwright-report
+verify/artifacts
+agent-kit
