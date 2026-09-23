@@ -39,14 +39,20 @@ installed Chromium binary.
    `@xyflow/react`; it never forks or reimplements pan, zoom, selection
    or edge routing.
 6. **Widgets stay inside the canvas.** Interactive widgets carry the
-   `nodrag` class (and `nowheel` if they scroll). Popovers render inside
+   `nodrag` and `nokey` classes (and `nowheel` if they scroll). Without
+   `nokey`, React Flow also acts on the widget's keys: arrows move the
+   selected node and Backspace deletes it. Popovers render inside
    the node, not in a portal, so they pan and zoom with the canvas.
 7. **Accessible by default.** Every widget has a WAI-ARIA role, full
    keyboard support and a visible focus ring. Icon-only buttons take
    `aria-label`. A test proves the keyboard path.
 8. **Motion respects the user.** `FlowCanvas` wraps everything in
-   `MotionConfig reducedMotion="user"`. Durations stay under 400 ms.
+   `MotionConfig reducedMotion="user"`. No motion is longer than 500 ms.
    Motion never blocks input.
+9. **Every press answers.** Clickable parts of a widget are
+   `NodePressable` (spring scale and accent highlight) or animate their
+   result (value roll, confirm flash). A motion test in
+   `e2e/motion.spec.ts` proves each new motion.
 
 ## Landmine map
 
@@ -58,6 +64,8 @@ installed Chromium binary.
 | `ResizeObserver loop` errors in dev | Animated node heights make React Flow re-measure each frame. The browser reports a benign error. `index.html` filters it before the Vite client; do not "fix" it in the library. |
 | `registry.json` homepage URLs | `registryDependencies` point at `https://thyfriendlyfox.github.io/GraphComp/r/`. A rename of the repo or Pages path breaks every install. |
 | TypeScript version | `typescript-eslint` supports TypeScript < 6.1. Do not bump TypeScript past it until typescript-eslint does. |
+| Opacity animations in tests | Motion can hand opacity tweens to the Web Animations API, which ignores the fake clock. Motion that a test must see uses a motion value (`useSpring`). See `docs/TESTING.md`. |
+| `whileTap` and children | Motion does not pass `whileTap` states to children reliably; an inherited variant can freeze a child's animation. `NodePressable` drives its highlight from callbacks instead. |
 | Playwright browsers | The Playwright version pins a Chromium build. In sandboxes without the download, use `CHROMIUM_PATH`. |
 
 ## House style

@@ -68,6 +68,9 @@ Rules:
 | Select list | Scale-Y 0.9 → 1 from the top, and opacity, 250 ms; exit 120 ms |
 | Edge appears | Path draws from source to target, 500 ms ease-out; midpoint dot springs in after 250 ms |
 | Icon swap (+ / −) | Rotate 90° cross-fade, spring, 350 ms |
+| Press (any `NodePressable`) | Scale to 0.92 on a spring (bounce 0.35, 300 ms); accent highlight 0.1 on hover, 0.28 on press, 150 ms |
+| Stepper value changes | Old value rolls out and new value rolls in, up when it grows, down when it shrinks, spring, 300 ms |
+| Select choice | Chosen option flashes for 140 ms, then the list closes; the trigger label rolls to the new value |
 | Neighbours make room | Position spring, bounce 0, 350 ms (ROADMAP item "Neighbour reflow") |
 
 Rules:

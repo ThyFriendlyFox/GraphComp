@@ -50,3 +50,22 @@ test("the zoom control changes the zoom level", async ({ page }) => {
   await page.getByRole("button", { name: "Zoom out" }).click()
   await expect(level).not.toHaveText(before!)
 })
+
+test("widget keys do not move or delete the node", async ({ page }) => {
+  await page.getByRole("button", { name: "Expand" }).first().click()
+  const node = page.locator(".react-flow__node", { hasText: "On Mouse Down" })
+  const before = await node.boundingBox()
+
+  const spin = page.getByRole("spinbutton", { name: "Sensitivity" })
+  await spin.click()
+  for (const key of ["ArrowUp", "ArrowUp", "ArrowLeft", "Backspace"]) await page.keyboard.press(key)
+  await expect(spin).toHaveAttribute("aria-valuenow", "54")
+
+  await page.getByRole("radio", { name: "Trigger" }).focus()
+  await page.keyboard.press("ArrowRight")
+  await expect(page.getByRole("radio", { name: "Record" })).toHaveAttribute("aria-checked", "true")
+
+  await expect(node).toBeVisible()
+  const after = await node.boundingBox()
+  expect({ x: after!.x, y: after!.y }).toEqual({ x: before!.x, y: before!.y })
+})

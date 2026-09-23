@@ -3,7 +3,7 @@
 A registry item is one installable unit: a component, hook, block or
 theme, described in `registry.json` and served as
 `https://thyfriendlyfox.github.io/GraphComp/r/<name>.json`. GraphComp has
-10 items. Install one with the shadcn CLI:
+11 items. Install one with the shadcn CLI:
 
 ```sh
 npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/<name>.json
@@ -19,6 +19,7 @@ depends on `graphcomp-theme` and shadcn's `utils`.
 | `flow-canvas` | `registry:ui` | `FlowCanvas`, `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl` |
 | `flow-edge` | `registry:ui` | `FlowEdge` |
 | `node-port` | `registry:ui` | `NodePort` |
+| `node-pressable` | `registry:ui` | `NodePressable`, the press-feedback button every widget uses |
 | `node-card` | `registry:ui` | `NodeCard` and its parts |
 | `node-segmented` | `registry:ui` | `NodeSegmented` |
 | `node-select` | `registry:ui` | `NodeSelect` |
@@ -36,7 +37,8 @@ A new item PR includes all of these:
    `description`, `dependencies`, `registryDependencies`, `files`.
    `tests/registry.test.ts` fails until the entry is complete.
 3. A test in `tests/<name>.test.tsx` that proves the keyboard path and the
-   controlled and uncontrolled modes.
+   controlled and uncontrolled modes, and a motion test in
+   `e2e/motion.spec.ts` for every motion it adds (`docs/TESTING.md`).
 4. A use in a playground block, and an E2E step if the item moves,
    drags or opens anything.
 5. Its row in the table above, its tokens in `CONFIGURATION.md` if it

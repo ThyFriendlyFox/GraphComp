@@ -82,6 +82,23 @@
       ]
     },
     {
+      "name": "node-pressable",
+      "type": "registry:ui",
+      "title": "Node Pressable",
+      "description": "A button that shrinks on a spring and flashes an accent layer on every press.",
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "utils",
+        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-pressable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "node-card",
       "type": "registry:ui",
       "title": "Node Card",
@@ -90,7 +107,8 @@
       "registryDependencies": [
         "utils",
         "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
       ],
       "files": [
         {
@@ -108,7 +126,8 @@
       "registryDependencies": [
         "utils",
         "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
       ],
       "files": [
         {
@@ -126,7 +145,8 @@
       "registryDependencies": [
         "utils",
         "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
       ],
       "files": [
         {
@@ -140,11 +160,12 @@
       "type": "registry:ui",
       "title": "Node Stepper",
       "description": "A number input with minus and plus buttons, or up and down arrows.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "utils",
         "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json"
+        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
+        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
       ],
       "files": [
         {

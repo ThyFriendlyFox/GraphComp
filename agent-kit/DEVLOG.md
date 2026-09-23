@@ -41,6 +41,28 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-09-23 — Added press motion, motion tests and README GIFs
+
+The maintainer asked for GIFs of the components in use, for animation on
+every interaction, and for a way to test motion. I recorded the GIFs on
+Playwright's fake clock: time moves only when a frame is shot, so each
+clip has every frame at 50 fps. The first recording showed a real bug.
+Arrow keys in a widget also moved the node, and Backspace would delete
+it. React Flow ignores keys from elements with the `nokey` class, so
+every widget now carries it, and an E2E test proves the fix.
+
+I added `NodePressable`: a spring press and an accent highlight for every
+clickable part. The stepper value now rolls, and the select flashes the
+chosen option before it closes. The same fake clock now runs 8 motion
+tests that check smoothness, overshoot, the 500 ms budget and reduced
+motion. The highlight test failed twice before it passed. Motion does
+not pass `whileTap` states to children reliably, and it hands opacity
+tweens to the Web Animations API, which ignores the fake clock. The
+highlight now uses a spring motion value.
+
+Evidence: `pnpm verify` green; motion tests 40/40 over 5 repeats;
+`.github/assets/event-flow.gif`, `widgets.gif`, `edges.gif`.
+
 ## 2026-09-23 — Wrote the component catalog and the theming plan
 
 The maintainer asked for a full list of in-node components, and for

@@ -50,4 +50,5 @@ All `ReactFlow` props pass through. GraphComp adds or changes these:
 |---|---|---|---|
 | `CHROMIUM_PATH` | path | unset | Chromium binary for E2E when the Playwright download is unavailable |
 | `GRAPHCOMP_BASE` | string | `/` | Vite `base` for the playground build (Pages uses `/GraphComp/`) |
+| `FFMPEG_PATH` | path | `ffmpeg` on `PATH` | ffmpeg binary for `pnpm gifs` |
 | `CI` | any | unset | Set by CI. E2E may not skip; Playwright uses the GitHub reporter |

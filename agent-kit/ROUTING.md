@@ -17,6 +17,7 @@ already defines.
 | Writing or changing ANY code, at any time | `AGENTS.md` | The binding contract: commands, invariants, landmines, style. Always in effect. |
 | Asked "where does this project stand?" | `STATUS.md` | Answer from it; update it when state changes. |
 | The gate fails, or you're adding/changing checks | `VERIFICATION.md` | One command answers "is this repo healthy". |
+| Writing a test, testing motion, or recording the README GIFs | `docs/TESTING.md` | Frozen-clock motion tests and the GIF recorder. |
 | Cutting a release / tagging | `RELEASING.md` | Weekly cycle ends here. |
 | Triage, dependency updates, stale issues, deprecations | `MAINTENANCE.md` | The between-features runbook. |
 | Vulnerability report or anything secret-shaped | `../SECURITY.md` (repo root) | Overrides normal process. Never open a public issue for it. |

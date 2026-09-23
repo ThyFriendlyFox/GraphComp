@@ -4,6 +4,7 @@ import { Minus, Plus } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { useControllableState } from "@/registry/graphcomp/hooks/use-controllable-state"
+import { NodePressable } from "@/registry/graphcomp/ui/node-pressable"
 
 type NodeCardContextValue = {
   open: boolean
@@ -120,13 +121,12 @@ export function NodeTitle({
 }
 
 /** A round icon button at the end of a header. Always pass `aria-label`. */
-export function NodeAction({ className, ...props }: ComponentProps<"button">) {
+export function NodeAction({ className, ...props }: ComponentProps<typeof NodePressable>) {
   return (
-    <button
-      type="button"
+    <NodePressable
       data-slot="node-action"
       className={cn(
-        "nodrag ml-auto grid size-5 shrink-0 place-items-center rounded-full bg-gc-inset text-gc-muted",
+        "ml-auto grid size-5 shrink-0 place-items-center rounded-full bg-gc-inset text-gc-muted",
         "transition-colors hover:text-gc-fg focus-visible:ring-2 focus-visible:ring-gc-ring focus-visible:outline-none",
         "[&_svg]:size-3",
         className,
@@ -137,7 +137,7 @@ export function NodeAction({ className, ...props }: ComponentProps<"button">) {
 }
 
 /** A header action that opens and closes the node body. */
-export function NodeCollapseTrigger({ className, ...props }: ComponentProps<"button">) {
+export function NodeCollapseTrigger({ className, ...props }: ComponentProps<typeof NodeAction>) {
   const { open, setOpen, bodyId } = useNodeCard()
   return (
     <NodeAction
@@ -191,26 +191,25 @@ export function NodeBody({ className, children }: { className?: string; children
 }
 
 /** The pill bar at the bottom of an open node. Clicking it collapses the node. */
-export function NodeGrip({ className, ...props }: ComponentProps<"button">) {
+export function NodeGrip({ className, ...props }: ComponentProps<typeof NodePressable>) {
   const { open, setOpen, bodyId } = useNodeCard()
   if (!open) return null
   return (
-    <button
-      type="button"
+    <NodePressable
       data-slot="node-grip"
       aria-expanded={open}
       aria-controls={bodyId}
       aria-label="Collapse"
       onClick={() => setOpen(false)}
       className={cn(
-        "nodrag grid h-3.5 w-full place-items-center rounded-b-gc bg-gc-node-header",
+        "grid h-3.5 w-full place-items-center rounded-b-gc bg-gc-node-header",
         "focus-visible:ring-2 focus-visible:ring-gc-ring focus-visible:outline-none",
         className,
       )}
       {...props}
     >
       <span className="h-0.75 w-6 rounded-full bg-gc-muted/80" />
-    </button>
+    </NodePressable>
   )
 }
 

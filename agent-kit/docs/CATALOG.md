@@ -128,6 +128,7 @@ takes its colors from the node it sits in (see `docs/THEMING.md`).
 
 | Item | What it is | Status | Wave |
 |---|---|---|---|
+| `node-pressable` | Button with spring press and accent highlight; the base of every clickable part | ✅ | — |
 | `node-button` | Primary, secondary and ghost buttons | ◻️ | 1 |
 | `node-run-controls` | Play, pause, stop, step | ◻️ | 1 |
 | `node-split-button` | Action plus a menu of variants | ◻️ | 2 |

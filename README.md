@@ -6,11 +6,28 @@ and [Motion](https://motion.dev). Distributed the
 [shadcn/ui](https://ui.shadcn.com) way: you run one command and own the
 source.
 
-![The event-flow block in the GraphComp playground](.github/assets/event-flow.png)
+![The event-flow block: edges draw in, a trigger opens and pushes the card below it, widgets change, the canvas zooms](.github/assets/event-flow.gif)
 
 > **Status:** pre-release. The foundation is built and gated. The hosted
 > registry is the ROADMAP item [Publish the registry](agent-kit/ROADMAP.md). Until it ships, build
 > the registry locally (see [Develop](#develop)).
+
+## See it move
+
+Every press answers: buttons shrink on a spring and flash the accent, values
+roll, the select confirms the choice before it closes. Recorded at 50 fps
+from the playground with `pnpm gifs`.
+
+<table>
+  <tr>
+    <td width="40%"><img src=".github/assets/widgets.gif" alt="Node widgets: segmented control, select, spin input and stepper, used by mouse and keyboard" /></td>
+    <td width="60%"><img src=".github/assets/edges.gif" alt="Dragging nodes: edges re-route with rounded corners" /></td>
+  </tr>
+  <tr>
+    <td>Widgets, by mouse and keyboard</td>
+    <td>Edges follow as nodes move</td>
+  </tr>
+</table>
 
 ## Why
 
@@ -100,7 +117,7 @@ Pass it to `FlowCanvas` as a node type, like any React Flow custom node.
 
 Next up: per-node theming, then knob, waveform, drop zone, a sound block
 and neighbour reflow. See the [roadmap](agent-kit/ROADMAP.md) for the
-order and the [catalog](agent-kit/docs/CATALOG.md) for all 96
+order and the [catalog](agent-kit/docs/CATALOG.md) for all 97
 components: lists, timers, progress bars, charts, logs, editors and blocks.
 
 ## Theming
@@ -125,7 +142,12 @@ pnpm install
 pnpm dev        # playground at http://localhost:5173
 pnpm verify     # lint, typecheck, build, unit + registry tests, E2E
 pnpm build      # also builds the registry JSON into public/r
+pnpm gifs       # re-records the README GIFs (needs ffmpeg)
 ```
+
+Motion is tested frame by frame on a frozen clock: every animation must be
+smooth, must not overshoot, and must finish inside 500 ms. See
+[Testing](agent-kit/docs/TESTING.md).
 
 E2E needs Chromium: `pnpm exec playwright install chromium`, or set
 `CHROMIUM_PATH` to an installed Chromium binary.

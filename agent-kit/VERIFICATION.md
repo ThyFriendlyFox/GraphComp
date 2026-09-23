@@ -10,7 +10,9 @@
      once, every import declared, every `gc-*` token defined, light and
      dark define the same variables
 4. End-to-end — `pnpm test:e2e` (Playwright on the playground)
-   - Fails on any page error or console error
+   - `e2e/event-flow.spec.ts`: flows. Fails on any page error or console error.
+   - `e2e/motion.spec.ts`: motion, frame by frame on a frozen clock:
+     smooth, no overshoot, inside 500 ms, reduced motion. See `docs/TESTING.md`.
    - Writes screenshots to `verify/artifacts/` as evidence
 
 ## Rules

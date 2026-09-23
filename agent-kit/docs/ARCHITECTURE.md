@@ -10,7 +10,7 @@ and Motion. The repo has 5 parts.
 | Registry manifest | `registry.json` | Lists every item, its files and its dependencies. |
 | Playground | `playground/`, `index.html` | A Vite app that renders the blocks for development and E2E. |
 | Tests | `tests/`, `e2e/` | Vitest unit and registry gates; Playwright E2E. |
-| Gate and tooling | `verify/`, `.github/` | `pnpm verify` and CI. |
+| Gate and tooling | `verify/`, `.github/`, `scripts/` | `pnpm verify`, CI, and the GIF recorder. |
 
 ## Data flow
 
@@ -39,6 +39,7 @@ How a component reaches a user's app:
 | `ui/flow-canvas.tsx` | `FlowCanvas` (themed `ReactFlow`), `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl`. |
 | `ui/flow-edge.tsx` | `FlowEdge`, registered as edge type `flow`. |
 | `ui/node-port.tsx` | `NodePort`, a styled React Flow `Handle`. |
+| `ui/node-pressable.tsx` | `NodePressable`: spring press and accent highlight for every clickable part. |
 | `ui/node-card.tsx` | `NodeCard` and its parts; open/closed state lives in its context. |
 | `ui/node-segmented.tsx` | `NodeSegmented`. |
 | `ui/node-select.tsx` | `NodeSelect`. |

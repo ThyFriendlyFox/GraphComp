@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import { NodeSelect } from "@/registry/graphcomp/ui/node-select"
@@ -41,6 +41,9 @@ describe("NodeSelect", () => {
 
     await user.keyboard("{ArrowDown}{Enter}")
     expect(onValueChange).toHaveBeenCalledWith("open")
+    expect(screen.getByRole("option", { name: "Open Node" })).toHaveAttribute("data-confirming")
+
+    await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument())
     expect(screen.getByRole("combobox")).toHaveTextContent("Open Node")
     expect(screen.getByRole("combobox")).toHaveFocus()
   })

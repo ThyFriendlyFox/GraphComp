@@ -18,7 +18,8 @@
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc -b",
-    "verify": "bash verify/verify.sh"
+    "verify": "bash verify/verify.sh",
+    "gifs": "node scripts/record-gifs.mjs"
   },
   "dependencies": {
     "@xyflow/react": "^12.11.6",

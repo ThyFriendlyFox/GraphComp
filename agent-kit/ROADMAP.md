@@ -94,6 +94,7 @@ into the queue above, one at a time, with a promise.
 
 | Week | Feature | Release | Evidence |
 |---|---|---|---|
+| 2026-09-23 | Interaction motion (NodePressable, stepper roll, select confirm), frame-by-frame motion tests, README GIFs, widget `nokey` fix | unreleased | `e2e/motion.spec.ts` 40/40 over 5 repeats; `.github/assets/*.gif` |
 | 2026-09-22 | Foundation: tokens, FlowCanvas, FlowEdge, NodePort, NodeCard, NodeSegmented, NodeSelect, NodeStepper, event-flow block | unreleased | `pnpm verify` green; `verify/artifacts/event-flow-open.png` |
 
 ## Explicitly not doing
@@ -108,4 +109,5 @@ into the queue above, one at a time, with a promise.
      line here: date, what changed, why. -->
 
 - 2026-09-22 — Queue seeded by SETUP. Marked provisional.
+- 2026-09-23 — Shipped out of queue: interaction motion, motion tests and README GIFs. The maintainer asked for press and action animations and for a way to test them. The widget key bug surfaced while recording.
 - 2026-09-23 — Inserted "Node theming" at position 1. The maintainer wants node colors and backgrounds swappable; every later widget depends on that API, so it ships first.

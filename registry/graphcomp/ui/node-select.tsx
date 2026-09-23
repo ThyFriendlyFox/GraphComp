@@ -4,6 +4,10 @@ import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { useControllableState } from "@/registry/graphcomp/hooks/use-controllable-state"
+import { NodePressable } from "@/registry/graphcomp/ui/node-pressable"
+
+/** How long the chosen option flashes before the list closes. */
+const CONFIRM_MS = 140
 
 export type NodeSelectOption<T extends string> = {
   value: T
@@ -42,6 +46,7 @@ export function NodeSelect<T extends string>({
   })
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
+  const [confirming, setConfirming] = useState<number | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
@@ -58,6 +63,16 @@ export function NodeSelect<T extends string>({
     return () => document.removeEventListener("pointerdown", onPointerDown)
   }, [open])
 
+  useEffect(() => {
+    if (confirming === null) return
+    const timer = setTimeout(() => {
+      setConfirming(null)
+      setOpen(false)
+      triggerRef.current?.focus()
+    }, CONFIRM_MS)
+    return () => clearTimeout(timer)
+  }, [confirming])
+
   function show() {
     const index = options.findIndex((option) => option.value === value)
     setActive(index === -1 ? firstEnabled(options, 0, 1) : index)
@@ -71,9 +86,10 @@ export function NodeSelect<T extends string>({
 
   function choose(index: number) {
     const option = options[index]
-    if (!option || option.disabled) return
+    if (!option || option.disabled || confirming !== null) return
     setValue(option.value)
-    close()
+    setActive(index)
+    setConfirming(index)
   }
 
   function onTriggerKeyDown(event: KeyboardEvent) {
@@ -117,10 +133,14 @@ export function NodeSelect<T extends string>({
   }
 
   return (
-    <div ref={rootRef} data-slot="node-select" className={cn("nodrag nowheel relative", className)}>
-      <button
+    <div
+      ref={rootRef}
+      data-slot="node-select"
+      className={cn("nodrag nowheel nokey relative", className)}
+    >
+      <NodePressable
         ref={triggerRef}
-        type="button"
+        highlight={false}
         role="combobox"
         aria-label={ariaLabel}
         aria-haspopup="listbox"
@@ -129,14 +149,25 @@ export function NodeSelect<T extends string>({
         onClick={() => (open ? setOpen(false) : show())}
         onKeyDown={onTriggerKeyDown}
         className={cn(
-          "flex h-8 w-full items-center justify-between gap-2 rounded-gc bg-gc-inset px-2.5 text-left text-[12px]",
+          "flex h-8 w-full items-center justify-between gap-2 overflow-hidden rounded-gc bg-gc-inset px-2.5 text-left text-[12px]",
           "focus-visible:ring-2 focus-visible:ring-gc-ring focus-visible:outline-none",
           selected ? "text-gc-fg" : "text-gc-muted",
         )}
       >
-        <span className="truncate">{selected ? selected.label : placeholder}</span>
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.span
+            key={selected ? selected.value : "placeholder"}
+            className="truncate"
+            initial={{ y: 8, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -8, opacity: 0 }}
+            transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
+          >
+            {selected ? selected.label : placeholder}
+          </motion.span>
+        </AnimatePresence>
         <ChevronDown className="size-3.5 shrink-0 text-gc-muted" />
-      </button>
+      </NodePressable>
       <AnimatePresence>
         {open ? (
           <motion.ul
@@ -172,13 +203,25 @@ export function NodeSelect<T extends string>({
                 aria-disabled={option.disabled || undefined}
                 onPointerEnter={() => !option.disabled && setActive(index)}
                 onClick={() => choose(index)}
+                data-confirming={confirming === index || undefined}
                 className={cn(
-                  "flex h-6 cursor-default items-center px-2.5",
-                  index === active && "bg-white/15",
+                  "relative flex h-6 cursor-default items-center px-2.5",
                   option.disabled && "text-gc-accent-fg/40",
                 )}
               >
-                {option.label}
+                {index === active ? (
+                  <motion.span
+                    layoutId={`${id}-active`}
+                    className="absolute inset-0 bg-gc-accent-fg"
+                    initial={false}
+                    animate={{ opacity: confirming === index ? [0.15, 0.4, 0.25] : 0.15 }}
+                    transition={{
+                      layout: { type: "spring", bounce: 0.15, duration: 0.25 },
+                      opacity: { duration: CONFIRM_MS / 1000 },
+                    }}
+                  />
+                ) : null}
+                <span className="relative">{option.label}</span>
               </li>
             ))}
           </motion.ul>

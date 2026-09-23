@@ -15,6 +15,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - `NodeSegmented`, `NodeSelect` and `NodeStepper` widgets with full keyboard support.
 - `event-flow` block: an entry point, stacked triggers and two script nodes.
 - A shadcn-compatible registry in `registry.json`, built to `public/r`.
+- `NodePressable`: every button, segment and grip shrinks on a spring and flashes an accent highlight when pressed.
+- `NodeStepper` rolls the old value out and the new value in.
+- `NodeSelect` flashes the chosen option before it closes and rolls the trigger label to the new value.
+- Motion tests: frame-by-frame checks on a frozen clock for smoothness, overshoot, the 500 ms budget and reduced motion.
+- `pnpm gifs` records the README GIFs at 50 fps from the playground.
 
 ### Changed
 
@@ -23,5 +28,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 ### Removed
 
 ### Fixed
+
+- Keys pressed in a widget no longer move or delete the node. Widgets carry the React Flow `nokey` class.
 
 ### Security

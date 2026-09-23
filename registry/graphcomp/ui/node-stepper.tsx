@@ -1,8 +1,10 @@
-import type { KeyboardEvent } from "react"
+import { useState, type KeyboardEvent } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import { ChevronDown, ChevronUp, Minus, Plus } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { useControllableState } from "@/registry/graphcomp/hooks/use-controllable-state"
+import { NodePressable } from "@/registry/graphcomp/ui/node-pressable"
 
 type NodeStepperProps = {
   value?: number
@@ -19,7 +21,12 @@ type NodeStepperProps = {
   "aria-label"?: string
 }
 
-/** A number input that changes in steps, by buttons or arrow keys. */
+const rollSpring = { type: "spring", bounce: 0.2, duration: 0.3 } as const
+
+/**
+ * A number input that changes in steps, by buttons or arrow keys. The value
+ * rolls up when it grows and down when it shrinks.
+ */
 export function NodeStepper({
   value: valueProp,
   defaultValue,
@@ -38,9 +45,13 @@ export function NodeStepper({
     onChange: onValueChange,
   })
 
+  const [direction, setDirection] = useState<1 | -1>(1)
+
   function commit(next: number) {
     const clamped = Math.min(max, Math.max(min, roundToStep(next, step)))
-    if (clamped !== value) setValue(clamped)
+    if (clamped === value) return
+    setDirection(clamped > value ? 1 : -1)
+    setValue(clamped)
   }
 
   function onKeyDown(event: KeyboardEvent) {
@@ -61,7 +72,7 @@ export function NodeStepper({
   }
 
   const button =
-    "grid w-7 shrink-0 place-items-center text-gc-muted transition-colors hover:text-gc-fg disabled:opacity-30 disabled:hover:text-gc-muted [&_svg]:size-3"
+    "grid h-full w-7 shrink-0 place-items-center rounded-gc text-gc-muted transition-colors hover:text-gc-fg disabled:opacity-30 disabled:hover:text-gc-muted [&_svg]:size-3"
   const display = (
     <span
       role="spinbutton"
@@ -73,12 +84,30 @@ export function NodeStepper({
       aria-valuetext={format(value)}
       onKeyDown={onKeyDown}
       className={cn(
-        "flex-1 truncate rounded-gc px-1 text-[12px] text-gc-fg tabular-nums",
+        "relative flex h-6 flex-1 items-center overflow-hidden rounded-gc px-1 text-[12px] text-gc-fg tabular-nums",
         "focus-visible:ring-2 focus-visible:ring-gc-ring focus-visible:outline-none",
-        variant === "inline" ? "text-center" : "px-2.5",
+        variant === "inline" ? "justify-center" : "px-2.5",
       )}
     >
-      {format(value)}
+      <AnimatePresence initial={false} mode="popLayout" custom={direction}>
+        <motion.span
+          key={value}
+          data-slot="node-stepper-value"
+          custom={direction}
+          variants={{
+            enter: (d: number) => ({ y: d * 12, opacity: 0 }),
+            center: { y: 0, opacity: 1 },
+            exit: (d: number) => ({ y: d * -12, opacity: 0 }),
+          }}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={rollSpring}
+          className="truncate"
+        >
+          {format(value)}
+        </motion.span>
+      </AnimatePresence>
     </span>
   )
 
@@ -86,12 +115,11 @@ export function NodeStepper({
     <div
       data-slot="node-stepper"
       data-variant={variant}
-      className={cn("nodrag flex h-8 items-center rounded-gc bg-gc-inset", className)}
+      className={cn("nodrag nokey flex h-8 items-center rounded-gc bg-gc-inset", className)}
     >
       {variant === "inline" ? (
         <>
-          <button
-            type="button"
+          <NodePressable
             tabIndex={-1}
             aria-label="Decrease"
             disabled={value <= min}
@@ -99,10 +127,9 @@ export function NodeStepper({
             className={button}
           >
             <Minus strokeWidth={2.5} />
-          </button>
+          </NodePressable>
           {display}
-          <button
-            type="button"
+          <NodePressable
             tabIndex={-1}
             aria-label="Increase"
             disabled={value >= max}
@@ -110,14 +137,13 @@ export function NodeStepper({
             className={button}
           >
             <Plus strokeWidth={2.5} />
-          </button>
+          </NodePressable>
         </>
       ) : (
         <>
           {display}
           <div className="flex h-full flex-col justify-center pr-1">
-            <button
-              type="button"
+            <NodePressable
               tabIndex={-1}
               aria-label="Increase"
               disabled={value >= max}
@@ -125,9 +151,8 @@ export function NodeStepper({
               className={cn(button, "h-3")}
             >
               <ChevronUp strokeWidth={2.5} />
-            </button>
-            <button
-              type="button"
+            </NodePressable>
+            <NodePressable
               tabIndex={-1}
               aria-label="Decrease"
               disabled={value <= min}
@@ -135,7 +160,7 @@ export function NodeStepper({
               className={cn(button, "h-3")}
             >
               <ChevronDown strokeWidth={2.5} />
-            </button>
+            </NodePressable>
           </div>
         </>
       )}

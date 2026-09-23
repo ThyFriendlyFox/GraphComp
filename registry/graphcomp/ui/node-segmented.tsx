@@ -3,6 +3,7 @@ import { motion } from "motion/react"
 
 import { cn } from "@/lib/utils"
 import { useControllableState } from "@/registry/graphcomp/hooks/use-controllable-state"
+import { NodePressable } from "@/registry/graphcomp/ui/node-pressable"
 
 export type NodeSegmentedOption<T extends string> = {
   value: T
@@ -53,17 +54,17 @@ export function NodeSegmented<T extends string>({
       aria-label={ariaLabel}
       data-slot="node-segmented"
       onKeyDown={onKeyDown}
-      className={cn("nodrag flex h-8 rounded-gc bg-gc-inset p-0.5", className)}
+      className={cn("nodrag nokey flex h-8 gap-0.5 rounded-gc bg-gc-inset p-0.5", className)}
     >
       {options.map((option, index) => {
         const checked = option.value === value
         return (
-          <button
+          <NodePressable
             key={option.value}
+            highlight={false}
             ref={(element) => {
               refs.current[index] = element
             }}
-            type="button"
             role="radio"
             aria-checked={checked}
             disabled={option.disabled}
@@ -83,7 +84,7 @@ export function NodeSegmented<T extends string>({
               />
             ) : null}
             <span className="relative">{option.label}</span>
-          </button>
+          </NodePressable>
         )
       })}
     </div>
