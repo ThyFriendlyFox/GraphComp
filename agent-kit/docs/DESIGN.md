@@ -68,7 +68,7 @@ Rules:
 | Select list | Scale-Y 0.9 → 1 from the top, and opacity, 250 ms; exit 120 ms |
 | Edge appears | Path draws from source to target, 500 ms ease-out; midpoint dot springs in after 250 ms |
 | Icon swap (+ / −) | Rotate 90° cross-fade, spring, 350 ms |
-| Neighbours make room | Position spring, bounce 0, 350 ms (ROADMAP item 6) |
+| Neighbours make room | Position spring, bounce 0, 350 ms (ROADMAP item "Neighbour reflow") |
 
 Rules:
 

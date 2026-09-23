@@ -41,6 +41,20 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-09-23 — Wrote the component catalog and the theming plan
+
+The maintainer asked for a full list of in-node components, and for
+colors and node backgrounds that are easy to swap. I wrote
+`docs/CATALOG.md` with 96 items in 8 groups, each with a build
+wave. I checked the compiled CSS: every `gc` utility reads a plain CSS
+variable. So a node that sets `--gc-accent` already re-colors every
+widget inside it. I wrote `docs/THEMING.md` with 4 layers, and I put
+"Node theming" at the top of the queue, because every later widget
+depends on that API.
+
+Evidence: `.bg-gc-accent{background-color:var(--gc-accent)}` in the
+built CSS; `agent-kit/docs/CATALOG.md`; `agent-kit/ROADMAP.md` queue changes.
+
 ## 2026-09-22 — Installed the agent kit and built the foundation
 
 I started GraphComp from an empty repo. GraphComp is a copy-paste

@@ -23,7 +23,7 @@ How a component reaches a user's app:
 4. `pnpm build` runs `shadcn build`, which inlines each item's source into
    `public/r/<name>.json`.
 5. GitHub Pages serves `public/r` at
-   `https://thyfriendlyfox.github.io/GraphComp/r/` (ROADMAP item 1).
+   `https://thyfriendlyfox.github.io/GraphComp/r/` (ROADMAP item "Publish the registry").
 6. A user runs `npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/node-card.json`.
 7. The shadcn CLI resolves `registryDependencies`, installs npm
    `dependencies`, rewrites `@/registry/graphcomp/ui/*` imports to the

@@ -26,6 +26,8 @@ already defines.
 | Adding/changing any config option | `docs/CONFIGURATION.md` | Every knob lands in its table, same PR. |
 | Adding or changing a registry item (component, hook, block, theme) | `docs/REGISTRY.md` | Includes the new-item contract. |
 | Judging visual or motion quality, or designing a new component | `docs/DESIGN.md` | The quality bar. Every component meets it. |
+| Choosing the next component, or checking what is planned | `docs/CATALOG.md` | Every planned component, by group and wave. |
+| Colors, accents, per-node themes, node backgrounds | `docs/THEMING.md` | The 4 theming layers. |
 | Judging whether a feature is worth building, or writing roadmap items | `docs/USE-CASES.md` | Every ROADMAP item traces to a use case here. |
 | Writing ANY user-facing text (docs, UI copy, errors, release notes) | `docs/STYLE.md` | One voice, enforced terms table. |
 | Writing YOUR OWN words — commits, PR bodies, reports, devlog entries | `TONE.md` | The agent's voice. Always in effect, like AGENTS.md. |

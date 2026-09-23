@@ -9,7 +9,7 @@ source.
 ![The event-flow block in the GraphComp playground](.github/assets/event-flow.png)
 
 > **Status:** pre-release. The foundation is built and gated. The hosted
-> registry is [ROADMAP item 1](agent-kit/ROADMAP.md). Until it ships, build
+> registry is the ROADMAP item [Publish the registry](agent-kit/ROADMAP.md). Until it ships, build
 > the registry locally (see [Develop](#develop)).
 
 ## Why
@@ -98,8 +98,19 @@ Pass it to `FlowCanvas` as a node type, like any React Flow custom node.
 | `node-stepper`    | Number stepper: `− 53% +` or `2 sec ⇅`                                         |
 | `event-flow`      | Complete block: entry point, stacked triggers, script nodes                    |
 
-Next up: knob, waveform, drop zone, a sound block and neighbour reflow.
-See the [roadmap](agent-kit/ROADMAP.md).
+Next up: per-node theming, then knob, waveform, drop zone, a sound block
+and neighbour reflow. See the [roadmap](agent-kit/ROADMAP.md) for the
+order and the [catalog](agent-kit/docs/CATALOG.md) for all 96
+components: lists, timers, progress bars, charts, logs, editors and blocks.
+
+## Theming
+
+Every color is a `--gc-*` CSS variable, so you can re-theme the whole
+canvas, one group of nodes, or one node. Set `--gc-accent` on a node and
+its ports, pills, selects and focus rings all follow. Per-node `accent`,
+`tone` and `variant` props and a `NodeSurface` slot for custom node
+backgrounds (gradients, images, canvas, shaders) are next on the roadmap.
+See [Theming](agent-kit/docs/THEMING.md).
 
 Every component meets the [design quality bar](agent-kit/docs/DESIGN.md):
 token-only colors, spring motion that explains layout changes, reduced

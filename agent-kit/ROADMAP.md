@@ -22,42 +22,49 @@ patcher from GraphComp parts alone.
      ranked this queue yet. Re-order freely; record why under "Queue
      changes". -->
 
-### 1. Publish the registry
+### 1. Node theming
+- **Promise:** `NodeCard` accepts `accent`, `tone` and `variant` props, and a `NodeSurface` slot renders any React content behind the node, clipped and non-interactive; a playground node with a custom accent and an animated gradient surface passes E2E, and every existing widget inside it takes the node's accent.
+- **Evidence:** `tests/node-card.test.tsx` cases for each prop; E2E that reads the computed port color of a themed node; light and dark screenshots of the themed node.
+- **Use case:** Re-theme every canvas in a product.
+- **Scope guard:** No theme editor UI. No per-widget color props. 7 tone presets only.
+- **Status:** ready
+
+### 2. Publish the registry
 - **Promise:** In a fresh Vite + React + Tailwind project, `npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/event-flow.json` installs the block and its dependencies, and `vite build` passes, in a gate that runs in `pnpm verify`.
 - **Evidence:** A GitHub Pages deploy workflow that publishes `public/r` and the playground; a new `verify/install-smoke.sh` gate that installs from the built registry (served locally) into a scratch project and builds it.
 - **Use case:** Add a node canvas to an existing app.
 - **Scope guard:** No docs site. No custom CLI. No npm package.
 - **Status:** ready
 
-### 2. NodeKnob
+### 3. NodeKnob
 - **Promise:** `NodeKnob` changes its value by vertical drag, wheel and arrow keys, exposes `role="slider"` with `aria-valuenow`, and animates the indicator with a spring, proven by unit tests and an E2E drag test.
 - **Evidence:** `tests/node-knob.test.tsx`; E2E drag step; screenshot in `verify/artifacts/`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** No MIDI learn. No bipolar or stepped detents (queue them under Later if needed).
 - **Status:** ready
 
-### 3. NodeWaveform
+### 4. NodeWaveform
 - **Promise:** `NodeWaveform` draws bars from a peaks array, shows played bars in full color and unplayed bars dimmed, and seeks by click, drag or arrow keys on a `role="slider"` scrubber, proven by unit tests.
 - **Evidence:** `tests/node-waveform.test.tsx`; screenshot in `verify/artifacts/`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** Draws given peaks only; no audio decoding and no playback engine. Play state is a prop.
 - **Status:** ready
 
-### 4. NodeDropzone
+### 5. NodeDropzone
 - **Promise:** `NodeDropzone` accepts files by drop and by keyboard-activated file picker, filters by `accept`, shows a drag-over state, and calls `onFiles` with the accepted files, proven by unit tests.
 - **Evidence:** `tests/node-dropzone.test.tsx`; E2E drop test with `setInputFiles`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** No upload, no progress bar, no storage.
 - **Status:** ready
 
-### 5. Sound block
+### 6. Sound block
 - **Promise:** A `sound-flow` registry block composes NodeKnob, NodeWaveform and NodeDropzone into a "Tone Box" node that widens when a clip is added, and the E2E suite proves the width change animates.
 - **Evidence:** Block in `registry.json`; E2E width assertion; screenshot.
 - **Use case:** Build an audio patch editor.
-- **Scope guard:** Neighbour nodes do not move yet (that is item 6).
-- **Status:** blocked on items 2, 3 and 4
+- **Scope guard:** Neighbour nodes do not move yet (that is item 7).
+- **Status:** blocked on items 3, 4 and 5
 
-### 6. Neighbour reflow
+### 7. Neighbour reflow
 - **Promise:** When a node grows and overlaps a neighbour, `useNodeReflow` moves the neighbour clear with a spring, and moves it back when the node shrinks, proven by an E2E test that measures both positions.
 - **Evidence:** E2E test; screen recording linked in the PR.
 - **Use case:** Build a visual scripting editor.
@@ -65,6 +72,10 @@ patcher from GraphComp parts alone.
 - **Status:** ready
 
 ## Later — candidates, not yet specced
+
+The full component list is in `docs/CATALOG.md`. Items move from there
+into the queue above, one at a time, with a promise.
+
 
 - Docs site with live previews and copy buttons — the shadcn experience, not only the registry.
 - Node palette / command menu (the `⊕` button in the reference) — how users add nodes.
@@ -97,3 +108,4 @@ patcher from GraphComp parts alone.
      line here: date, what changed, why. -->
 
 - 2026-09-22 — Queue seeded by SETUP. Marked provisional.
+- 2026-09-23 — Inserted "Node theming" at position 1. The maintainer wants node colors and backgrounds swappable; every later widget depends on that API, so it ships first.
