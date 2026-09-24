@@ -12,8 +12,6 @@
  * the `gc-` prefix so they never collide with shadcn/ui tokens.
  */
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
   --gc-canvas: #f4f4f5;
   --gc-grid: #e4e4e7;

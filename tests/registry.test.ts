@@ -81,6 +81,10 @@ describe("registry.json", () => {
 })
 
 describe("graphcomp.css", () => {
+  it("does not declare the host app's dark variant", () => {
+    expect(css).not.toMatch(/@custom-variant\s+dark\b/)
+  })
+
   const sources = walk(join(root, "registry/graphcomp"))
     .filter((path) => /\.tsx?$/.test(path))
     .map((path) => [path.slice(root.length + 1), readFileSync(path, "utf8")] as const)

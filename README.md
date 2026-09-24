@@ -54,7 +54,11 @@ Then import the theme once in your global CSS:
 @import "./styles/graphcomp.css";
 ```
 
-Add the `dark` class to `<html>` for the dark theme.
+GraphComp dark tokens apply under `.dark`. GraphComp does not configure Tailwind's `dark:` variant. To use class-based dark utilities, declare the variant in your global CSS:
+
+```css
+@custom-variant dark (&:where(.dark, .dark *));
+```
 
 ## Use
 
