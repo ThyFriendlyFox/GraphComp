@@ -94,6 +94,7 @@ into the queue above, one at a time, with a promise.
 
 | Week | Feature | Release | Evidence |
 |---|---|---|---|
+| 2026-09-25 | NodePort refreshes React Flow port measurements when ports mount, unmount or change | unreleased | `tests/node-port.test.tsx`; `e2e/node-port.spec.ts` |
 | 2026-09-23 | Interaction motion (NodePressable, stepper roll, select confirm), frame-by-frame motion tests, README GIFs, widget `nokey` fix | unreleased | `e2e/motion.spec.ts` 40/40 over 5 repeats; `.github/assets/*.gif` |
 | 2026-09-22 | Foundation: tokens, FlowCanvas, FlowEdge, NodePort, NodeCard, NodeSegmented, NodeSelect, NodeStepper, event-flow block | unreleased | `pnpm verify` green; `verify/artifacts/event-flow-open.png` |
 

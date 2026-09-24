@@ -5,13 +5,18 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "types": ["node"],
+    "types": ["node", "vite/client"],
+    "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@/registry/*": ["./registry/*"],
+      "@/lib/*": ["./registry/graphcomp/lib/*"]
+    }
   },
   "include": ["vite.config.ts", "playwright.config.ts", "e2e", "verify"]
 }

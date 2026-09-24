@@ -29,6 +29,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 
 ### Fixed
 
+- `NodePort` refreshes React Flow port measurements when a port mounts, unmounts or changes its id, position or alignment.
 - Keys pressed in a widget no longer move or delete the node. Widgets carry the React Flow `nokey` class.
 
 ### Security
