@@ -23,6 +23,7 @@
     "assets": "node scripts/brand-assets.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "@xyflow/react": "^12.11.6",
     "clsx": "^2.1.1",
     "lucide-react": "^1.47.0",

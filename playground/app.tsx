@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { ReactFlowProvider } from "@xyflow/react"
 import { Moon, Sun } from "lucide-react"
+import { Analytics } from "@vercel/analytics/react"
 
 import { EventFlow } from "@/registry/graphcomp/blocks/event-flow/event-flow"
 
@@ -33,6 +34,7 @@ export function App() {
           <EventFlow />
         </ReactFlowProvider>
       </main>
+      <Analytics />
     </div>
   )
 }
