@@ -41,6 +41,20 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-10-01 — Made the docs previews play by themselves, added the listing badge
+
+The maintainer asked for the site examples to move. Every preview now
+plays a short script in a loop. A drawn cursor presses widgets, opens
+nodes, picks options, drags nodes and drags a connection between ports.
+The script sends the same pointer and mouse events a user sends, so each
+motion on screen is the component's own. A real press or key in the
+preview stops it, because synthetic events are not trusted. A Pause and
+Play button controls it, and reduced motion starts it paused. I also
+added the UsefulShelf badge to the footer, as the maintainer pasted it.
+The sandbox browser cannot load the badge image, so E2E stubs that host.
+
+Evidence: `pnpm verify` green; `e2e/site.spec.ts` 22 tests.
+
 ## 2026-10-01 — Added SEO tags, icons and Open Graph images to the docs site
 
 The maintainer asked for full SEO, OG images and icons, and named the

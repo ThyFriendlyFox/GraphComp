@@ -5,6 +5,7 @@ import { Command } from "../components/command"
 import { CanvasFrame } from "../components/preview"
 import { SiteFooter } from "../components/site-footer"
 import { SiteHeader } from "../components/site-header"
+import { eventFlowScript } from "../content/autoplay"
 import { componentDocs } from "../content/docs"
 import EventFlowDemo from "../demos/event-flow-demo"
 import { installUrl, registryItem } from "../lib/registry"
@@ -100,10 +101,14 @@ export function HomePage() {
                 <span className="size-2.5 rounded-full bg-gc-control" />
                 <span className="ml-3 text-[12px] text-gc-muted">event-flow.tsx</span>
               </div>
-              <CanvasFrame demo={EventFlowDemo} className="h-[460px] sm:h-[560px]" />
+              <CanvasFrame
+                demo={EventFlowDemo}
+                script={eventFlowScript}
+                className="h-[460px] sm:h-[560px]"
+              />
             </div>
             <p className="mt-3 text-center text-[13px] text-gc-muted">
-              This canvas is live. Open a trigger, change a value, drag a node.
+              This canvas is live. Click anywhere in it to take over.
             </p>
           </div>
         </section>

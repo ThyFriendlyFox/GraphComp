@@ -65,6 +65,8 @@ How a component reaches a user's app:
 |---|---|
 | `site/content/docs.ts` | One entry per docs page: demo, usage, props, keys, notes. A new registry item adds an entry here. |
 | `site/demos/*-demo.tsx` | Live demos. The Code tab shows this file with user import paths. |
+| `site/content/autoplay.ts` | One autoplay script per demo. Each script returns its demo to the start state. |
+| `site/lib/autoplay.ts` | Plays a script with synthetic pointer, mouse and key events and a drawn cursor. Trusted input stops it. |
 | `site/lib/registry.ts` | Reads `registry.json` and the raw source. |
 | `site/content/pages.ts` | Every route with its title, description and OG image; the head tags and JSON-LD. Node-safe: the SEO plugin reads it. |
 | `scripts/seo.ts` | Vite plugin: per-route HTML, `404.html`, `sitemap.xml`, `robots.txt`. `SITE_URL` overrides the domain. |
