@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { Analytics } from "@vercel/analytics/react"
 
 import { componentDoc } from "./content/docs"
 import { pageFor } from "./content/pages"
@@ -31,10 +32,19 @@ export function App() {
     if (hash) document.getElementById(hash)?.scrollIntoView()
   }, [path])
 
-  if (path === "/") return <HomePage />
+  if (path === "/")
+    return (
+      <>
+        <HomePage />
+        <Analytics />
+      </>
+    )
   return (
-    <DocsLayout>
-      <DocsRoute path={path} />
-    </DocsLayout>
+    <>
+      <DocsLayout>
+        <DocsRoute path={path} />
+      </DocsLayout>
+      <Analytics />
+    </>
   )
 }
