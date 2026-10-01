@@ -188,10 +188,13 @@ export function headTags(page: Page, siteUrl: string) {
     .join("\n    ")
 }
 
-/** Plain HTML for `#root` before the app mounts, for crawlers that do not run scripts. */
-export function fallbackBody(page: Page) {
+/**
+ * Plain HTML for `#root` before the app mounts, for crawlers that do not run
+ * scripts. `footer` is HTML placed after the page links.
+ */
+export function fallbackBody(page: Page, footer = "") {
   const links = pages
     .map((entry) => `<li><a href="${entry.path}">${escape(entry.title)}</a></li>`)
     .join("")
-  return `<div class="seo-fallback"><h1>${escape(page.path === "/" ? "Components for node canvases" : page.title)}</h1><p>${escape(page.description)}</p><nav><ul>${links}</ul></nav></div>`
+  return `<div class="seo-fallback"><h1>${escape(page.path === "/" ? "Components for node canvases" : page.title)}</h1><p>${escape(page.description)}</p><nav><ul>${links}</ul></nav>${footer}</div>`
 }

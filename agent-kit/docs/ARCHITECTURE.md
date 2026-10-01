@@ -69,7 +69,7 @@ How a component reaches a user's app:
 | `site/lib/autoplay.ts` | Plays a script with synthetic pointer, mouse and key events and a drawn cursor. Trusted input stops it. |
 | `site/lib/registry.ts` | Reads `registry.json` and the raw source. |
 | `site/content/pages.ts` | Every route with its title, description and OG image; the head tags and JSON-LD. Node-safe: the SEO plugin reads it. |
-| `scripts/seo.ts` | Vite plugin: per-route HTML, `404.html`, `sitemap.xml`, `robots.txt`. `SITE_URL` overrides the domain. |
+| `scripts/seo.ts` | Vite plugin: per-route HTML with the UsefulShelf badge, `404.html`, `sitemap.xml`, `robots.txt`. `SITE_URL` overrides the domain. |
 | `scripts/brand-assets.mjs` | `pnpm assets`: writes the icons and the OG images in `public/`. |
 | `site/lib/router.tsx` | A small history router. `vercel.json` rewrites unknown paths to `index.html`. |
 | `site/lib/highlight.ts` | Shiki, loaded on first use, with the TSX, CSS, Bash and JSON grammars. |

@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx"
   },
   "include": [
     "vite.config.ts",
@@ -19,6 +20,7 @@
     "e2e",
     "verify",
     "scripts/seo.ts",
-    "site/content/pages.ts"
+    "site/content/pages.ts",
+    "site/components/useful-shelf-badge.tsx"
   ]
 }
