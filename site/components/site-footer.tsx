@@ -1,4 +1,5 @@
 import { REPO_URL } from "../lib/registry"
+import { UsefulShelfBadge } from "./useful-shelf-badge"
 
 export function SiteFooter() {
   const link = "font-medium underline underline-offset-4 hover:text-gc-fg"
@@ -24,20 +25,7 @@ export function SiteFooter() {
           </a>{" "}
           under the MIT license.
         </p>
-        {/* UsefulShelf listing badge. The free dofollow listing goes private if
-            this link is removed or gets rel="nofollow", "sponsored" or "ugc". */}
-        <a
-          href="https://usefulshelf.co/?utm_source=graphcomp.reagent-systems.com&utm_medium=referral&utm_campaign=badge&utm_content=lime"
-          target="_blank"
-          rel="noopener"
-        >
-          <img
-            src="https://usefulshelf.co/badge/usefulshelf.svg?theme=lime"
-            alt="Featured on UsefulShelf"
-            width="248"
-            height="66"
-          />
-        </a>
+        <UsefulShelfBadge />
       </div>
     </footer>
   )
