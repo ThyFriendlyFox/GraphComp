@@ -166,3 +166,17 @@ test("the footer carries the UsefulShelf badge as a followed link", async ({ pag
   await expect(badge.getByRole("img", { name: "Featured on UsefulShelf" })).toBeVisible()
   await expect(badge).toHaveAttribute("rel", "noopener")
 })
+
+test("the badge is in the server HTML and visible without scripts", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  await page.route("https://usefulshelf.co/**", (route) =>
+    route.fulfill({
+      contentType: "image/svg+xml",
+      body: '<svg xmlns="http://www.w3.org/2000/svg"/>',
+    }),
+  )
+  await page.goto("/")
+  await expect(page.getByRole("link", { name: "Featured on UsefulShelf" })).toBeVisible()
+  await context.close()
+})

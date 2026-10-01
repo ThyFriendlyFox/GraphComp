@@ -41,6 +41,18 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-10-01 — Correction: the listing badge was not in the server HTML
+
+The UsefulShelf check failed with "Badge not found". It reads the HTML the
+server sends, and only the React footer drew the badge, after scripts ran.
+I named this risk when I added the badge but did not fix it. The SEO build
+plugin now renders the `UsefulShelfBadge` component into the static HTML of
+every page. Without scripts that HTML shows the badge; with scripts, React
+shows the same component in the footer. A unit test checks every built page
+for a followed badge link, and an E2E test finds it with scripts turned off.
+
+Evidence: `pnpm verify` green; `tests/seo.test.ts`; `e2e/site.spec.ts` 23 tests.
+
 ## 2026-10-01 — Made the docs previews play by themselves, added the listing badge
 
 The maintainer asked for the site examples to move. Every preview now

@@ -1,7 +1,10 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
+import { createElement } from "react"
+import { renderToStaticMarkup } from "react-dom/server"
 import type { Plugin } from "vite"
 
+import { UsefulShelfBadge } from "../site/components/useful-shelf-badge"
 import { fallbackBody, headTags, notFoundPage, pageFor, pages } from "../site/content/pages"
 
 /**
@@ -16,13 +19,21 @@ export function siteUrl() {
 const HEAD = "<!--seo-head-->"
 const ROOT = '<div id="root"></div>'
 
+// UsefulShelf checks the server-rendered HTML for its badge, so every page
+// carries it before scripts run. React's footer shows the same component.
+// React adds an image preload hint, which only matters inside a React tree.
+const badge = `<footer>${renderToStaticMarkup(createElement(UsefulShelfBadge)).replace(
+  /<link rel="preload"[^>]*>/,
+  "",
+)}</footer>`
+
 function render(html: string, path: string, url: string) {
   const page = path === notFoundPage.path ? notFoundPage : pageFor(path)
   return html
     .replace(HEAD, `<!--seo:start-->\n    ${headTags(page, url)}\n    <!--seo:end-->`)
     .replace(
       ROOT,
-      `<div id="root"><!--fallback:start-->${fallbackBody(page)}<!--fallback:end--></div>`,
+      `<div id="root"><!--fallback:start-->${fallbackBody(page, badge)}<!--fallback:end--></div>`,
     )
 }
 

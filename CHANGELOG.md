@@ -39,6 +39,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 
 ### Fixed
 
+- The UsefulShelf badge is in the server-rendered HTML of every docs site page. Before, only the client-side footer drew it, and the UsefulShelf check did not find it.
+
 - Keys pressed in a widget no longer move or delete the node. Widgets carry the React Flow `nokey` class.
 
 ### Security

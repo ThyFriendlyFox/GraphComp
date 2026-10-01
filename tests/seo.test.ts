@@ -90,6 +90,16 @@ describe("seo build plugin", () => {
     }
     expect(readFileSync(join(dir, "404.html"), "utf8")).toContain('content="noindex"')
 
+    // UsefulShelf reads the server HTML; the free listing needs a followed link.
+    const badgeLink =
+      /<a href="https:\/\/usefulshelf\.co\/\?utm_source=graphcomp\.reagent-systems\.com[^"]*" target="_blank" rel="noopener"><img src="https:\/\/usefulshelf\.co\/badge\/usefulshelf\.svg\?theme=lime" alt="Featured on UsefulShelf"/
+    for (const page of pages) {
+      const file = join(dir, page.path === "/" ? "" : page.path, "index.html")
+      const html = readFileSync(file, "utf8")
+      expect(html, page.path).toMatch(badgeLink)
+      expect(html, page.path).not.toMatch(/usefulshelf[^>]*rel="[^"]*(nofollow|sponsored|ugc)/)
+    }
+
     const sitemap = readFileSync(join(dir, "sitemap.xml"), "utf8")
     expect(sitemap.match(/<loc>/g)).toHaveLength(pages.length)
     expect(readFileSync(join(dir, "robots.txt"), "utf8")).toContain(`Sitemap: ${SITE}/sitemap.xml`)
