@@ -14,10 +14,11 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | NodeSegmented, NodeSelect, NodeStepper | ✅ | `tests/node-*.test.tsx` keyboard paths |
 | event-flow block | ✅ | E2E suite; `verify/artifacts/event-flow-open.png` |
 | Registry build (`public/r`) | ✅ | `pnpm build` runs `shadcn build` |
-| Registry hosting (GitHub Pages) | ❌ | ROADMAP "Publish the registry" |
+| Registry hosting (`graphcomp.reagent-systems.com/r`) | ❌ | ROADMAP "Publish the registry" |
 | CI | 🚧 | Workflows committed; first run pending on GitHub |
 | NodeKnob, NodeWaveform, NodeDropzone | ❌ | ROADMAP items NodeKnob, NodeWaveform, NodeDropzone |
-| Docs site (`site/`, Vercel config) | 🚧 | `e2e/site.spec.ts`: 16 tests; Vercel project not created yet |
+| Docs site (`site/`, Vercel config) | 🚧 | `e2e/site.spec.ts`: 18 tests; Vercel project not created yet |
+| Docs site SEO, icons, OG images | 🚧 | `tests/seo.test.ts`: 6 tests; `public/og/` 13 images |
 | NodePressable and interaction motion | ✅ | `e2e/motion.spec.ts`: 8 motion tests, 40/40 over 5 repeats |
 | README GIFs (`pnpm gifs`) | ✅ | `.github/assets/*.gif`, 50 fps |
 | Scoped token theming (`--gc-*` on any element) | ✅ | Utilities compile to `var(--gc-*)`; see `docs/THEMING.md` |

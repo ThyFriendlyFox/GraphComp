@@ -2,11 +2,11 @@
 
 A registry item is one installable unit: a component, hook, block or
 theme, described in `registry.json` and served as
-`https://thyfriendlyfox.github.io/GraphComp/r/<name>.json`. GraphComp has
+`https://graphcomp.reagent-systems.com/r/<name>.json`. GraphComp has
 11 items. Install one with the shadcn CLI:
 
 ```sh
-npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/<name>.json
+npx shadcn add https://graphcomp.reagent-systems.com/r/<name>.json
 ```
 
 The CLI installs the item's `registryDependencies` first. Every `ui` item

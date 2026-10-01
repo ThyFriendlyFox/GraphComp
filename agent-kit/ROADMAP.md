@@ -23,8 +23,8 @@ patcher from GraphComp parts alone.
      changes". -->
 
 ### 1. Docs site
-- **Promise:** A docs site at the root of the deploy shows a landing page with a live canvas, an install command with a copy button, and one page per registry item with a live preview, its highlighted source and its install command; the E2E suite opens every page and proves the copy button and the preview.
-- **Evidence:** `e2e/site.spec.ts`; a `vercel.json` that serves the site, the playground at `/playground/` and `public/r` at `/r/`; screenshots of the landing page and a component page in light and dark.
+- **Promise:** A docs site at the root of the deploy shows a landing page with a live canvas, an install command with a copy button, and one page per registry item with a live preview, its highlighted source and its install command; the E2E suite opens every page and proves the copy button and the preview. Every page has its own static HTML with title, description, canonical link, Open Graph and Twitter tags, JSON-LD and a 1200×630 OG image, listed in `sitemap.xml`.
+- **Evidence:** `e2e/site.spec.ts`; `tests/seo.test.ts`; `public/og/*.png` and the icons from `pnpm assets`; a `vercel.json` that serves the site, the playground at `/playground/` and `public/r` at `/r/`; screenshots of the landing page and a component page in light and dark.
 - **Use case:** Add a node canvas to an existing app.
 - **Scope guard:** No search. No MDX pipeline. No versioned docs. Pages cover shipped items only.
 - **Status:** in progress
@@ -37,8 +37,8 @@ patcher from GraphComp parts alone.
 - **Status:** ready
 
 ### 3. Publish the registry
-- **Promise:** In a fresh Vite + React + Tailwind project, `npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/event-flow.json` installs the block and its dependencies, and `vite build` passes, in a gate that runs in `pnpm verify`.
-- **Evidence:** A GitHub Pages deploy workflow that publishes `public/r` and the playground; a new `verify/install-smoke.sh` gate that installs from the built registry (served locally) into a scratch project and builds it.
+- **Promise:** In a fresh Vite + React + Tailwind project, `npx shadcn add https://graphcomp.reagent-systems.com/r/event-flow.json` installs the block and its dependencies, and `vite build` passes, in a gate that runs in `pnpm verify`.
+- **Evidence:** The Vercel deploy of the docs site serves `public/r`; a new `verify/install-smoke.sh` gate that installs from the built registry (served locally) into a scratch project and builds it.
 - **Use case:** Add a node canvas to an existing app.
 - **Scope guard:** No docs site. No custom CLI. No npm package.
 - **Status:** ready

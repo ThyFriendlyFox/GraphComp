@@ -43,7 +43,7 @@ GraphComp items install with the shadcn CLI into any React project with
 Tailwind CSS 4.
 
 ```sh
-npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/event-flow.json
+npx shadcn add https://graphcomp.reagent-systems.com/r/event-flow.json
 ```
 
 Then import the theme once in your global CSS:
@@ -164,9 +164,10 @@ E2E needs Chromium: `pnpm exec playwright install chromium`, or set
 ## Deploy the docs site
 
 `vercel.json` deploys the docs site to Vercel. The deploy serves the
-playground at `/playground/` and the registry JSON at `/r/`. Set
-`VITE_REGISTRY_URL` in the Vercel project to change the registry host in
-the install commands.
+playground at `/playground/` and the registry JSON at `/r/`, on
+`https://graphcomp.reagent-systems.com`. The build also writes one HTML
+file per route with its meta tags, `sitemap.xml` and `robots.txt`.
+`pnpm assets` re-renders the icons and the Open Graph images.
 
 ## How this project is run
 

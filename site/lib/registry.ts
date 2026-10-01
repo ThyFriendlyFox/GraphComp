@@ -1,10 +1,9 @@
 import manifest from "../../registry.json"
 
-// Set VITE_REGISTRY_URL at build time when the registry is served from another host.
-export const REGISTRY_URL = (
-  import.meta.env.VITE_REGISTRY_URL ?? "https://thyfriendlyfox.github.io/GraphComp/r"
-).replace(/\/$/, "")
-export const REPO_URL = "https://github.com/ThyFriendlyFox/GraphComp"
+export { REPO_URL } from "../content/pages"
+
+// The production registry, also in every `registryDependencies` URL of registry.json.
+export const REGISTRY_URL = "https://graphcomp.reagent-systems.com/r"
 
 type ManifestItem = (typeof manifest.items)[number] & {
   dependencies?: string[]

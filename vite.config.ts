@@ -4,10 +4,12 @@ import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "vite"
 
+import { seo } from "./scripts/seo"
+
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url))
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), seo()],
   base: process.env.GRAPHCOMP_BASE ?? "/",
   resolve: {
     // Mirrors tsconfig.app.json paths. Registry files import through these

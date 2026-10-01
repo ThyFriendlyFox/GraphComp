@@ -2,11 +2,9 @@ import { CodeBlock } from "../components/code-block"
 import { Command } from "../components/command"
 import { Code, H1, H2, Lead, List, P, Steps, Table, TextLink } from "../components/prose"
 import { installUrl, registryItem } from "../lib/registry"
-import { useTitle } from "../lib/router"
 import { DocsPager } from "./docs-layout"
 
 export function IntroductionPage() {
-  useTitle("Introduction")
   return (
     <article>
       <H1>Introduction</H1>
@@ -63,7 +61,6 @@ export function IntroductionPage() {
 }
 
 export function InstallationPage() {
-  useTitle("Installation")
   return (
     <article>
       <H1>Installation</H1>
@@ -192,7 +189,6 @@ const tokens: [string, string][] = [
 ]
 
 export function ThemingPage() {
-  useTitle("Theming")
   return (
     <article>
       <H1>Theming</H1>
@@ -260,7 +256,6 @@ function Swatch({ value }: { value?: string }) {
 }
 
 export function NotFoundPage() {
-  useTitle("Not found")
   return (
     <article>
       <H1>Page not found</H1>

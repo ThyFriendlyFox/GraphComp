@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 
 import { componentDoc } from "./content/docs"
+import { pageFor } from "./content/pages"
+import { applyHead } from "./lib/head"
 import { usePath } from "./lib/router"
 import { ComponentPage } from "./pages/component-page"
 import { DocsLayout } from "./pages/docs-layout"
@@ -19,6 +21,10 @@ function DocsRoute({ path }: { path: string }) {
 
 export function App() {
   const path = usePath()
+
+  useEffect(() => {
+    applyHead(pageFor(path))
+  }, [path])
 
   useEffect(() => {
     const hash = window.location.hash.slice(1)

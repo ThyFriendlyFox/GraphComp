@@ -8,7 +8,7 @@ import { SiteHeader } from "../components/site-header"
 import { componentDocs } from "../content/docs"
 import EventFlowDemo from "../demos/event-flow-demo"
 import { installUrl, registryItem } from "../lib/registry"
-import { Link, useTitle } from "../lib/router"
+import { Link } from "../lib/router"
 
 const features = [
   {
@@ -47,8 +47,6 @@ const button =
   "inline-flex h-10 items-center gap-2 rounded-md px-4 text-[14px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-gc-ring focus-visible:ring-offset-2 focus-visible:ring-offset-gc-canvas focus-visible:outline-none [&_svg]:size-4"
 
 export function HomePage() {
-  useTitle("GraphComp")
-
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader />

@@ -41,6 +41,21 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-10-01 — Added SEO tags, icons and Open Graph images to the docs site
+
+The maintainer asked for full SEO, OG images and icons, and named the
+domain: `graphcomp.reagent-systems.com`. The site is a single-page app,
+so link previews saw one title for every page. A Vite plugin now writes
+one HTML file per route with its own head tags, plus `404.html`,
+`sitemap.xml` and `robots.txt`. Unknown paths now get a real 404 status.
+`pnpm assets` renders the icons and 13 Open Graph images in Chromium.
+Each OG image shows a screenshot of the page's live preview. The first
+render cropped the nodes, because the preview frame was wider than the
+image slot. The script now sizes the frame to the slot before React Flow
+fits the view. The registry URLs moved to the new domain.
+
+Evidence: `pnpm verify` green; `tests/seo.test.ts` 6 tests; `public/og/`.
+
 ## 2026-10-01 — Built the docs site
 
 The maintainer asked for a website for the library, like the shadcn/ui

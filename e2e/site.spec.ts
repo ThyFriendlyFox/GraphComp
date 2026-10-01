@@ -97,3 +97,26 @@ test("an unknown docs path shows the not found page", async ({ page }) => {
   await page.goto("/docs/components/nothing")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Page not found")
 })
+
+test("the server sends each route with its own head tags", async ({ request }) => {
+  const html = await (await request.get("/docs/components/node-select")).text()
+  expect(html).toContain("<title>Node Select – GraphComp</title>")
+  expect(html).toMatch(
+    /<meta property="og:image" content="https:\/\/[^"]+\/og\/node-select\.png" \/>/,
+  )
+})
+
+test("client navigation updates the title, description and canonical link", async ({ page }) => {
+  await page.goto("/docs")
+  await page
+    .getByRole("navigation", { name: "Docs" })
+    .getByRole("link", { name: "Theming" })
+    .click()
+  await expect(page).toHaveTitle("Theming – GraphComp")
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /\/docs\/theming$/)
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    /\/og\/docs-theming\.png$/,
+  )
+  await expect(page.locator('meta[name="description"]')).toHaveCount(1)
+})

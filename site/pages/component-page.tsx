@@ -7,7 +7,6 @@ import { Code, H1, H2, H3, Inline, Lead, List, P, Steps, Table } from "../compon
 import { Tabs } from "../components/tabs"
 import type { ComponentDoc } from "../content/docs"
 import { installUrl, registryItem, REGISTRY_URL } from "../lib/registry"
-import { useTitle } from "../lib/router"
 import { DocsPager } from "./docs-layout"
 
 function dependencyName(url: string) {
@@ -73,7 +72,6 @@ function Installation({ name }: { name: string }) {
 
 export function ComponentPage({ doc }: { doc: ComponentDoc }) {
   const item = registryItem(doc.name)
-  useTitle(item.title)
 
   return (
     <article>

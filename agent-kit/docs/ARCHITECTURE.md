@@ -23,9 +23,9 @@ How a component reaches a user's app:
 3. `pnpm verify` lints, typechecks, runs the gates and the E2E suite.
 4. `pnpm build` runs `shadcn build`, which inlines each item's source into
    `public/r/<name>.json`.
-5. GitHub Pages serves `public/r` at
-   `https://thyfriendlyfox.github.io/GraphComp/r/` (ROADMAP item "Publish the registry").
-6. A user runs `npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/node-card.json`.
+5. The Vercel deploy serves `public/r` at
+   `https://graphcomp.reagent-systems.com/r/` (ROADMAP item "Publish the registry").
+6. A user runs `npx shadcn add https://graphcomp.reagent-systems.com/r/node-card.json`.
 7. The shadcn CLI resolves `registryDependencies`, installs npm
    `dependencies`, rewrites `@/registry/graphcomp/ui/*` imports to the
    user's `ui` alias, and writes the files into the user's project.
@@ -65,6 +65,9 @@ How a component reaches a user's app:
 |---|---|
 | `site/content/docs.ts` | One entry per docs page: demo, usage, props, keys, notes. A new registry item adds an entry here. |
 | `site/demos/*-demo.tsx` | Live demos. The Code tab shows this file with user import paths. |
-| `site/lib/registry.ts` | Reads `registry.json` and the raw source. `VITE_REGISTRY_URL` sets the host in install commands. |
+| `site/lib/registry.ts` | Reads `registry.json` and the raw source. |
+| `site/content/pages.ts` | Every route with its title, description and OG image; the head tags and JSON-LD. Node-safe: the SEO plugin reads it. |
+| `scripts/seo.ts` | Vite plugin: per-route HTML, `404.html`, `sitemap.xml`, `robots.txt`. `SITE_URL` overrides the domain. |
+| `scripts/brand-assets.mjs` | `pnpm assets`: writes the icons and the OG images in `public/`. |
 | `site/lib/router.tsx` | A small history router. `vercel.json` rewrites unknown paths to `index.html`. |
 | `site/lib/highlight.ts` | Shiki, loaded on first use, with the TSX, CSS, Bash and JSON grammars. |

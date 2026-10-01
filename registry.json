@@ -37,7 +37,7 @@
       "dependencies": ["@xyflow/react", "motion"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json"
       ],
       "files": [
         {
@@ -54,8 +54,8 @@
       "dependencies": ["@xyflow/react", "motion", "lucide-react"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/flow-edge.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/flow-edge.json"
       ],
       "files": [
         {
@@ -72,7 +72,7 @@
       "dependencies": ["@xyflow/react"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json"
       ],
       "files": [
         {
@@ -89,7 +89,7 @@
       "dependencies": ["motion"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json"
       ],
       "files": [
         {
@@ -106,9 +106,9 @@
       "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/use-controllable-state.json",
+        "https://graphcomp.reagent-systems.com/r/node-pressable.json"
       ],
       "files": [
         {
@@ -125,9 +125,9 @@
       "dependencies": ["motion"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/use-controllable-state.json",
+        "https://graphcomp.reagent-systems.com/r/node-pressable.json"
       ],
       "files": [
         {
@@ -144,9 +144,9 @@
       "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/use-controllable-state.json",
+        "https://graphcomp.reagent-systems.com/r/node-pressable.json"
       ],
       "files": [
         {
@@ -163,9 +163,9 @@
       "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "utils",
-        "https://thyfriendlyfox.github.io/GraphComp/r/graphcomp-theme.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/use-controllable-state.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-pressable.json"
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/use-controllable-state.json",
+        "https://graphcomp.reagent-systems.com/r/node-pressable.json"
       ],
       "files": [
         {
@@ -181,12 +181,12 @@
       "description": "A complete event graph: an entry point, stacked triggers and the scripts they run.",
       "dependencies": ["@xyflow/react", "lucide-react"],
       "registryDependencies": [
-        "https://thyfriendlyfox.github.io/GraphComp/r/flow-canvas.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-card.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-port.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-segmented.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-select.json",
-        "https://thyfriendlyfox.github.io/GraphComp/r/node-stepper.json"
+        "https://graphcomp.reagent-systems.com/r/flow-canvas.json",
+        "https://graphcomp.reagent-systems.com/r/node-card.json",
+        "https://graphcomp.reagent-systems.com/r/node-port.json",
+        "https://graphcomp.reagent-systems.com/r/node-segmented.json",
+        "https://graphcomp.reagent-systems.com/r/node-select.json",
+        "https://graphcomp.reagent-systems.com/r/node-stepper.json"
       ],
       "files": [
         {

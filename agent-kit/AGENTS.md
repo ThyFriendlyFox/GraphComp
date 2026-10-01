@@ -62,7 +62,7 @@ installed Chromium binary.
 | `FlowCanvas` `edgeTypes` / `nodeTypes` | React Flow warns and remounts when these objects change identity. Memoize or define them at module scope. |
 | `NodePort` inside nested cards | Handles position against the nearest `relative` ancestor. `NodeCard` is `relative` on purpose; do not remove it. Ports in one flow node need unique `id`s. |
 | `ResizeObserver loop` errors in dev | Animated node heights make React Flow re-measure each frame. The browser reports a benign error. `index.html` filters it before the Vite client; do not "fix" it in the library. |
-| `registry.json` homepage URLs | `registryDependencies` point at `https://thyfriendlyfox.github.io/GraphComp/r/`. A rename of the repo or Pages path breaks every install. |
+| `registry.json` homepage URLs | `registryDependencies` point at `https://graphcomp.reagent-systems.com/r/`. A change of the domain breaks every install. |
 | TypeScript version | `typescript-eslint` supports TypeScript < 6.1. Do not bump TypeScript past it until typescript-eslint does. |
 | Opacity animations in tests | Motion can hand opacity tweens to the Web Animations API, which ignores the fake clock. Motion that a test must see uses a motion value (`useSpring`). See `docs/TESTING.md`. |
 | `whileTap` and children | Motion does not pass `whileTap` states to children reliably; an inherited variant can freeze a child's animation. `NodePressable` drives its highlight from callbacks instead. |

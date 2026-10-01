@@ -1,6 +1,6 @@
-import { useEffect, useSyncExternalStore, type ComponentProps, type MouseEvent } from "react"
+import { useSyncExternalStore, type ComponentProps, type MouseEvent } from "react"
 
-// The site is served under a sub-path on GitHub Pages (`/GraphComp/`).
+// Vite `base`; non-empty only when the site is served under a sub-path.
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "")
 
 function subscribe(callback: () => void) {
@@ -39,11 +39,4 @@ export function Link({ to, onClick, ...props }: ComponentProps<"a"> & { to: stri
     navigate(to)
   }
   return <a href={href(to)} onClick={handleClick} {...props} />
-}
-
-/** Sets the document title for the current page. */
-export function useTitle(title: string) {
-  useEffect(() => {
-    document.title = title === "GraphComp" ? title : `${title} – GraphComp`
-  }, [title])
 }
