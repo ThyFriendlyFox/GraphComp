@@ -5,6 +5,13 @@ import manifest from "../registry.json" with { type: "json" }
 let errors: string[] = []
 
 test.beforeEach(async ({ page }) => {
+  // The listing badge image is third-party; tests do not depend on its host.
+  await page.route("https://usefulshelf.co/**", (route) =>
+    route.fulfill({
+      contentType: "image/svg+xml",
+      body: '<svg xmlns="http://www.w3.org/2000/svg"/>',
+    }),
+  )
   errors = []
   page.on("pageerror", (error) => errors.push(String(error)))
   page.on("console", (message) => message.type() === "error" && errors.push(message.text()))
@@ -119,4 +126,43 @@ test("client navigation updates the title, description and canonical link", asyn
     /\/og\/docs-theming\.png$/,
   )
   await expect(page.locator('meta[name="description"]')).toHaveCount(1)
+})
+
+test("a preview plays by itself until the user presses inside it", async ({ page }) => {
+  await page.goto("/docs/components/node-segmented")
+  const frame = page.locator('[data-slot="canvas-frame"]')
+  await expect(frame).toHaveAttribute("data-autoplay", "playing")
+  await expect(frame.getByRole("radio", { name: "Record" })).toHaveAttribute(
+    "aria-checked",
+    "true",
+    {
+      timeout: 8000,
+    },
+  )
+
+  await frame.locator(".react-flow__pane").click({ position: { x: 20, y: 20 } })
+  await expect(frame).toHaveAttribute("data-autoplay", "paused")
+  await frame.getByRole("button", { name: "Play demo" }).click()
+  await expect(frame).toHaveAttribute("data-autoplay", "playing")
+})
+
+test("autoplay drags a connection between two ports", async ({ page }) => {
+  await page.goto("/docs/components/node-port")
+  const frame = page.locator('[data-slot="canvas-frame"]')
+  await expect(frame.locator('[data-slot="flow-edge"]')).toHaveCount(1, { timeout: 8000 })
+})
+
+test("reduced motion starts the previews paused", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await page.goto("/")
+  const frame = page.locator('[data-slot="canvas-frame"]')
+  await expect(frame).toHaveAttribute("data-autoplay", "paused")
+  await expect(frame.getByRole("button", { name: "Play demo" })).toBeVisible()
+})
+
+test("the footer carries the UsefulShelf badge as a followed link", async ({ page }) => {
+  await page.goto("/docs")
+  const badge = page.locator('footer a[href^="https://usefulshelf.co/"]')
+  await expect(badge.getByRole("img", { name: "Featured on UsefulShelf" })).toBeVisible()
+  await expect(badge).toHaveAttribute("rel", "noopener")
 })

@@ -23,6 +23,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - Docs site: a landing page with a live canvas, and one page per registry item with a live preview, its source, its install command, its props and its keys.
 - `vercel.json` deploys the docs site, the playground at `/playground/` and the registry at `/r/`.
 - Docs site SEO: one static HTML file per route with title, description, canonical link, Open Graph, Twitter and JSON-LD tags; `404.html`, `sitemap.xml` and `robots.txt`.
+- Docs site previews play by themselves: a drawn cursor presses, drags and connects the real components in a loop. A press or key in the preview stops it; a Pause/Play button controls it; reduced motion starts it paused.
+- The UsefulShelf listing badge in the docs site footer.
 - Site icons (`favicon.ico`, `icon.svg`, Apple touch icon, 192 and 512 px icons, maskable icon, web manifest) and one Open Graph image per page. `pnpm assets` renders them.
 
 ### Changed

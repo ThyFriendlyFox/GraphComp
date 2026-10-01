@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+import { autoplayScripts } from "../content/autoplay"
 import { CodeBlock } from "../components/code-block"
 import { Command } from "../components/command"
 import { Preview } from "../components/preview"
@@ -78,7 +79,12 @@ export function ComponentPage({ doc }: { doc: ComponentDoc }) {
       <H1>{item.title}</H1>
       <Lead className="mt-3">{item.description}</Lead>
 
-      <Preview demo={doc.demo} code={doc.demoSource} className="mt-8" />
+      <Preview
+        demo={doc.demo}
+        code={doc.demoSource}
+        script={autoplayScripts[doc.name]}
+        className="mt-8"
+      />
 
       <H2>Installation</H2>
       <Installation name={doc.name} />
