@@ -13,5 +13,12 @@
     "moduleDetection": "force",
     "verbatimModuleSyntax": true
   },
-  "include": ["vite.config.ts", "playwright.config.ts", "e2e", "verify"]
+  "include": [
+    "vite.config.ts",
+    "playwright.config.ts",
+    "e2e",
+    "verify",
+    "scripts/seo.ts",
+    "site/content/pages.ts"
+  ]
 }

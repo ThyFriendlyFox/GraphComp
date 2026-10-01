@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="GraphComp: copy-paste components for node-based canvas interfaces."
+    />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <title>GraphComp Playground</title>
+    <script>
+      // Animated node heights make React Flow's ResizeObserver re-measure every
+      // frame. Browsers report that as a benign "ResizeObserver loop" error.
+      // This classic script runs before the Vite client, so it can stop the
+      // dev server from reporting the error as a crash.
+      window.addEventListener("error", function (event) {
+        if (String(event.message).indexOf("ResizeObserver loop") === 0) {
+          event.stopImmediatePropagation()
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

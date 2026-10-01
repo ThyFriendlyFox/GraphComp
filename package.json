@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && pnpm registry:build",
+    "build": "tsc -b && pnpm registry:build && vite build",
     "registry:build": "shadcn build --output public/r",
     "test": "vitest run",
     "test:e2e": "playwright test",
@@ -19,7 +19,8 @@
     "format": "prettier --write .",
     "typecheck": "tsc -b",
     "verify": "bash verify/verify.sh",
-    "gifs": "node scripts/record-gifs.mjs"
+    "gifs": "node scripts/record-gifs.mjs",
+    "assets": "node scripts/brand-assets.mjs"
   },
   "dependencies": {
     "@xyflow/react": "^12.11.6",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@fontsource-variable/inter": "^5.3.0",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",
@@ -48,6 +50,7 @@
     "jsdom": "^30.1.1",
     "prettier": "^3.9.8",
     "shadcn": "^4.21.0",
+    "shiki": "^4.5.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.70.1",

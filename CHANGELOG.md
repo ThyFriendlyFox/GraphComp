@@ -20,8 +20,16 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - `NodeSelect` flashes the chosen option before it closes and rolls the trigger label to the new value.
 - Motion tests: frame-by-frame checks on a frozen clock for smoothness, overshoot, the 500 ms budget and reduced motion.
 - `pnpm gifs` records the README GIFs at 50 fps from the playground.
+- Docs site: a landing page with a live canvas, and one page per registry item with a live preview, its source, its install command, its props and its keys.
+- `vercel.json` deploys the docs site, the playground at `/playground/` and the registry at `/r/`.
+- Docs site SEO: one static HTML file per route with title, description, canonical link, Open Graph, Twitter and JSON-LD tags; `404.html`, `sitemap.xml` and `robots.txt`.
+- Site icons (`favicon.ico`, `icon.svg`, Apple touch icon, 192 and 512 px icons, maskable icon, web manifest) and one Open Graph image per page. `pnpm assets` renders them.
 
 ### Changed
+
+- The playground moved from `/` to `/playground/`. The docs site is the root page.
+- `pnpm build` builds the registry before the Vite build, so `dist/r` holds the registry JSON.
+- The registry moved to `https://graphcomp.reagent-systems.com/r/`. Every `registryDependencies` URL in `registry.json` points there.
 
 ### Deprecated
 

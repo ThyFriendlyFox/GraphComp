@@ -41,6 +41,37 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-10-01 — Added SEO tags, icons and Open Graph images to the docs site
+
+The maintainer asked for full SEO, OG images and icons, and named the
+domain: `graphcomp.reagent-systems.com`. The site is a single-page app,
+so link previews saw one title for every page. A Vite plugin now writes
+one HTML file per route with its own head tags, plus `404.html`,
+`sitemap.xml` and `robots.txt`. Unknown paths now get a real 404 status.
+`pnpm assets` renders the icons and 13 Open Graph images in Chromium.
+Each OG image shows a screenshot of the page's live preview. The first
+render cropped the nodes, because the preview frame was wider than the
+image slot. The script now sizes the frame to the slot before React Flow
+fits the view. The registry URLs moved to the new domain.
+
+Evidence: `pnpm verify` green; `tests/seo.test.ts` 6 tests; `public/og/`.
+
+## 2026-10-01 — Built the docs site
+
+The maintainer asked for a website for the library, like the shadcn/ui
+site, hosted on Vercel. I added it to the roadmap as item 1 and built it
+in `site/`. The landing page shows the event-flow block as a live canvas
+and an install command with a copy button. Every registry item has a page
+with a live preview, its highlighted source, its install command, its
+props and its keys. The site is now the root page, so the playground
+moved to `/playground/` and the E2E suite followed it. React Flow zooms
+on the wheel and blocks page scroll, which made long docs pages hard to
+read. A capture listener on each preview frame now lets the wheel scroll
+the page; pinch still zooms. `vercel.json` serves the site, the
+playground and the registry JSON from one deploy.
+
+Evidence: `pnpm verify` green; `e2e/site.spec.ts` 16 tests; `verify/artifacts/site-home.png`.
+
 ## 2026-09-23 — Added press motion, motion tests and README GIFs
 
 The maintainer asked for GIFs of the components in use, for animation on

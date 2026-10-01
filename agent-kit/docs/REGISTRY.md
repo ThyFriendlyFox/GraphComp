@@ -2,11 +2,11 @@
 
 A registry item is one installable unit: a component, hook, block or
 theme, described in `registry.json` and served as
-`https://thyfriendlyfox.github.io/GraphComp/r/<name>.json`. GraphComp has
+`https://graphcomp.reagent-systems.com/r/<name>.json`. GraphComp has
 11 items. Install one with the shadcn CLI:
 
 ```sh
-npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/<name>.json
+npx shadcn add https://graphcomp.reagent-systems.com/r/<name>.json
 ```
 
 The CLI installs the item's `registryDependencies` first. Every `ui` item
@@ -39,8 +39,9 @@ A new item PR includes all of these:
 3. A test in `tests/<name>.test.tsx` that proves the keyboard path and the
    controlled and uncontrolled modes, and a motion test in
    `e2e/motion.spec.ts` for every motion it adds (`docs/TESTING.md`).
-4. A use in a playground block, and an E2E step if the item moves,
+4. A docs page entry in `site/content/docs.ts` with a demo in `site/demos/`.
+5. A use in a playground block, and an E2E step if the item moves,
    drags or opens anything.
-5. Its row in the table above, its tokens in `CONFIGURATION.md` if it
+6. Its row in the table above, its tokens in `CONFIGURATION.md` if it
    adds any, and a line in `CHANGELOG.md`.
-6. It meets every rule in `docs/DESIGN.md`.
+7. It meets every rule in `docs/DESIGN.md`.
