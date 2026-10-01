@@ -2,13 +2,14 @@
 
 GraphComp is a shadcn-compatible component registry for node canvases,
 written in React 19 and TypeScript, built on React Flow 12, Tailwind CSS 4
-and Motion. The repo has 5 parts.
+and Motion. The repo has 6 parts.
 
 | Part | Folder | Task |
 |---|---|---|
 | Registry source | `registry/graphcomp/` | The components users copy. The product. |
 | Registry manifest | `registry.json` | Lists every item, its files and its dependencies. |
-| Playground | `playground/`, `index.html` | A Vite app that renders the blocks for development and E2E. |
+| Docs site | `site/`, `index.html`, `vercel.json` | The public website: landing page and one docs page per registry item, with live previews. |
+| Playground | `playground/` | A Vite app at `/playground/` that renders the blocks for development and E2E. |
 | Tests | `tests/`, `e2e/` | Vitest unit and registry gates; Playwright E2E. |
 | Gate and tooling | `verify/`, `.github/`, `scripts/` | `pnpm verify`, CI, and the GIF recorder. |
 
@@ -56,3 +57,14 @@ How a component reaches a user's app:
 | widgets ↔ canvas | Widgets are plain React. They know nothing about React Flow except the `nodrag` / `nowheel` classes. |
 | blocks ↔ ui | Blocks compose `ui/` items. `ui/` never imports a block. |
 | playground ↔ registry | The playground imports the registry. The registry never imports the playground. |
+| site ↔ registry | The site imports the registry and reads `registry.json` and the raw source. The registry never imports the site. |
+
+## Docs site
+
+| File | Task |
+|---|---|
+| `site/content/docs.ts` | One entry per docs page: demo, usage, props, keys, notes. A new registry item adds an entry here. |
+| `site/demos/*-demo.tsx` | Live demos. The Code tab shows this file with user import paths. |
+| `site/lib/registry.ts` | Reads `registry.json` and the raw source. `VITE_REGISTRY_URL` sets the host in install commands. |
+| `site/lib/router.tsx` | A small history router. `vercel.json` rewrites unknown paths to `index.html`. |
+| `site/lib/highlight.ts` | Shiki, loaded on first use, with the TSX, CSS, Bash and JSON grammars. |

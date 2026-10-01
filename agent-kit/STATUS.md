@@ -17,7 +17,7 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | Registry hosting (GitHub Pages) | ❌ | ROADMAP "Publish the registry" |
 | CI | 🚧 | Workflows committed; first run pending on GitHub |
 | NodeKnob, NodeWaveform, NodeDropzone | ❌ | ROADMAP items NodeKnob, NodeWaveform, NodeDropzone |
-| Docs site | ❌ | ROADMAP "Later" |
+| Docs site (`site/`, Vercel config) | 🚧 | `e2e/site.spec.ts`: 16 tests; Vercel project not created yet |
 | NodePressable and interaction motion | ✅ | `e2e/motion.spec.ts`: 8 motion tests, 40/40 over 5 repeats |
 | README GIFs (`pnpm gifs`) | ✅ | `.github/assets/*.gif`, 50 fps |
 | Scoped token theming (`--gc-*` on any element) | ✅ | Utilities compile to `var(--gc-*)`; see `docs/THEMING.md` |
@@ -27,6 +27,6 @@ States: ✅ done (gated) · 🚧 in progress · ❌ not started · 🧊 frozen/w
 
 ## Current week
 
-- **Shipping:** between cycles. Next: ROADMAP item 1, "Node theming".
+- **Shipping:** ROADMAP item 1, "Docs site". Next: "Node theming".
 - **Last release:** none.
 - **Known red:** none. `pnpm verify` passes locally: 27 unit/registry tests, 13 E2E tests (8 of them motion tests).

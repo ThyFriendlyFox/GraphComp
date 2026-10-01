@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && pnpm registry:build",
+    "build": "tsc -b && pnpm registry:build && vite build",
     "registry:build": "shadcn build --output public/r",
     "test": "vitest run",
     "test:e2e": "playwright test",
@@ -48,6 +48,7 @@
     "jsdom": "^30.1.1",
     "prettier": "^3.9.8",
     "shadcn": "^4.21.0",
+    "shiki": "^4.5.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.70.1",

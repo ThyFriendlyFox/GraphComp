@@ -6,11 +6,11 @@ When this conflicts with intuition, this wins.
 ## Commands
 
 ```sh
-pnpm build      # typecheck, build the playground, build the registry to public/r
+pnpm build      # typecheck, build the registry to public/r, build the site and playground
 pnpm test       # unit tests and registry gates (Vitest)
 pnpm lint       # Prettier check + ESLint
 pnpm verify     # full health gate — must pass before any push
-pnpm dev        # playground at http://localhost:5173
+pnpm dev        # docs site at http://localhost:5173, playground at /playground/
 ```
 
 Requires Node.js 22+ and pnpm 10+. The E2E step needs Chromium: run

@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
   errors = []
   page.on("pageerror", (error) => errors.push(String(error)))
   page.on("console", (message) => message.type() === "error" && errors.push(message.text()))
-  await page.goto("/")
+  await page.goto("/playground/")
   await expect(page.locator(".react-flow__node")).toHaveCount(4)
 })
 

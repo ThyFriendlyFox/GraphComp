@@ -19,6 +19,10 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
+    rollupOptions: {
+      // The docs site is the root page; the playground lives at /playground/.
+      input: { site: r("./index.html"), playground: r("./playground/index.html") },
+    },
   },
   test: {
     environment: "jsdom",

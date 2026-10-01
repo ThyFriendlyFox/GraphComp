@@ -22,5 +22,5 @@
       "@/lib/*": ["./registry/graphcomp/lib/*"]
     }
   },
-  "include": ["registry", "playground"]
+  "include": ["registry", "playground", "site"]
 }

@@ -3,13 +3,13 @@
 `pnpm verify` runs `verify/verify.sh`, in order:
 
 1. Lint / format check — `pnpm lint` (Prettier, ESLint with React Hooks rules)
-2. Build — `pnpm build` (`tsc -b`, Vite build of the playground, `shadcn build` of the registry)
+2. Build — `pnpm build` (`tsc -b`, `shadcn build` of the registry, Vite build of the docs site and the playground)
 3. Tests — `pnpm test` (Vitest + Testing Library, jsdom)
    - `tests/node-*.test.tsx` — widget behavior and keyboard paths
    - `tests/registry.test.ts` — registry integrity gate: every file listed
      once, every import declared, every `gc-*` token defined, light and
      dark define the same variables
-4. End-to-end — `pnpm test:e2e` (Playwright on the playground)
+4. End-to-end — `pnpm test:e2e` (Playwright on the playground and the docs site)
    - `e2e/event-flow.spec.ts`: flows. Fails on any page error or console error.
    - `e2e/motion.spec.ts`: motion, frame by frame on a frozen clock:
      smooth, no overshoot, inside 500 ms, reduced motion. See `docs/TESTING.md`.
