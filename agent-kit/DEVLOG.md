@@ -41,6 +41,63 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-10-01 — Correction: the listing badge was not in the server HTML
+
+The UsefulShelf check failed with "Badge not found". It reads the HTML the
+server sends, and only the React footer drew the badge, after scripts ran.
+I named this risk when I added the badge but did not fix it. The SEO build
+plugin now renders the `UsefulShelfBadge` component into the static HTML of
+every page. Without scripts that HTML shows the badge; with scripts, React
+shows the same component in the footer. A unit test checks every built page
+for a followed badge link, and an E2E test finds it with scripts turned off.
+
+Evidence: `pnpm verify` green; `tests/seo.test.ts`; `e2e/site.spec.ts` 23 tests.
+
+## 2026-10-01 — Made the docs previews play by themselves, added the listing badge
+
+The maintainer asked for the site examples to move. Every preview now
+plays a short script in a loop. A drawn cursor presses widgets, opens
+nodes, picks options, drags nodes and drags a connection between ports.
+The script sends the same pointer and mouse events a user sends, so each
+motion on screen is the component's own. A real press or key in the
+preview stops it, because synthetic events are not trusted. A Pause and
+Play button controls it, and reduced motion starts it paused. I also
+added the UsefulShelf badge to the footer, as the maintainer pasted it.
+The sandbox browser cannot load the badge image, so E2E stubs that host.
+
+Evidence: `pnpm verify` green; `e2e/site.spec.ts` 22 tests.
+
+## 2026-10-01 — Added SEO tags, icons and Open Graph images to the docs site
+
+The maintainer asked for full SEO, OG images and icons, and named the
+domain: `graphcomp.reagent-systems.com`. The site is a single-page app,
+so link previews saw one title for every page. A Vite plugin now writes
+one HTML file per route with its own head tags, plus `404.html`,
+`sitemap.xml` and `robots.txt`. Unknown paths now get a real 404 status.
+`pnpm assets` renders the icons and 13 Open Graph images in Chromium.
+Each OG image shows a screenshot of the page's live preview. The first
+render cropped the nodes, because the preview frame was wider than the
+image slot. The script now sizes the frame to the slot before React Flow
+fits the view. The registry URLs moved to the new domain.
+
+Evidence: `pnpm verify` green; `tests/seo.test.ts` 6 tests; `public/og/`.
+
+## 2026-10-01 — Built the docs site
+
+The maintainer asked for a website for the library, like the shadcn/ui
+site, hosted on Vercel. I added it to the roadmap as item 1 and built it
+in `site/`. The landing page shows the event-flow block as a live canvas
+and an install command with a copy button. Every registry item has a page
+with a live preview, its highlighted source, its install command, its
+props and its keys. The site is now the root page, so the playground
+moved to `/playground/` and the E2E suite followed it. React Flow zooms
+on the wheel and blocks page scroll, which made long docs pages hard to
+read. A capture listener on each preview frame now lets the wheel scroll
+the page; pinch still zooms. `vercel.json` serves the site, the
+playground and the registry JSON from one deploy.
+
+Evidence: `pnpm verify` green; `e2e/site.spec.ts` 16 tests; `verify/artifacts/site-home.png`.
+
 ## 2026-09-23 — Added press motion, motion tests and README GIFs
 
 The maintainer asked for GIFs of the components in use, for animation on

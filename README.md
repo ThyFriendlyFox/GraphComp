@@ -43,7 +43,7 @@ GraphComp items install with the shadcn CLI into any React project with
 Tailwind CSS 4.
 
 ```sh
-npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/event-flow.json
+npx shadcn add https://graphcomp.reagent-systems.com/r/event-flow.json
 ```
 
 Then import the theme once in your global CSS:
@@ -139,7 +139,7 @@ Requires Node.js 22+ and pnpm 10+.
 
 ```sh
 pnpm install
-pnpm dev        # playground at http://localhost:5173
+pnpm dev        # docs site at http://localhost:5173, playground at /playground/
 pnpm verify     # lint, typecheck, build, unit + registry tests, E2E
 pnpm build      # also builds the registry JSON into public/r
 pnpm gifs       # re-records the README GIFs (needs ffmpeg)
@@ -156,9 +156,18 @@ E2E needs Chromium: `pnpm exec playwright install chromium`, or set
 | --------------------- | ------------------------------------------------------ |
 | `registry/graphcomp/` | The component source that users copy                   |
 | `registry.json`       | The registry manifest                                  |
+| `site/`               | The docs site: landing page and component pages        |
 | `playground/`         | Vite app for development and E2E                       |
 | `tests/`, `e2e/`      | Vitest and Playwright suites                           |
 | `agent-kit/`          | How work happens here: roadmap, contract, weekly cycle |
+
+## Deploy the docs site
+
+`vercel.json` deploys the docs site to Vercel. The deploy serves the
+playground at `/playground/` and the registry JSON at `/r/`, on
+`https://graphcomp.reagent-systems.com`. The build also writes one HTML
+file per route with its meta tags, `sitemap.xml` and `robots.txt`.
+`pnpm assets` re-renders the icons and the Open Graph images.
 
 ## How this project is run
 

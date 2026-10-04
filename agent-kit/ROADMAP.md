@@ -22,49 +22,56 @@ patcher from GraphComp parts alone.
      ranked this queue yet. Re-order freely; record why under "Queue
      changes". -->
 
-### 1. Node theming
+### 1. Docs site
+- **Promise:** A docs site at the root of the deploy shows a landing page with a live canvas, an install command with a copy button, and one page per registry item with a live preview, its highlighted source and its install command; the E2E suite opens every page and proves the copy button and the preview. Every page has its own static HTML with title, description, canonical link, Open Graph and Twitter tags, JSON-LD and a 1200×630 OG image, listed in `sitemap.xml`.
+- **Evidence:** `e2e/site.spec.ts`; `tests/seo.test.ts`; `public/og/*.png` and the icons from `pnpm assets`; a `vercel.json` that serves the site, the playground at `/playground/` and `public/r` at `/r/`; screenshots of the landing page and a component page in light and dark.
+- **Use case:** Add a node canvas to an existing app.
+- **Scope guard:** No search. No MDX pipeline. No versioned docs. Pages cover shipped items only.
+- **Status:** in progress
+
+### 2. Node theming
 - **Promise:** `NodeCard` accepts `accent`, `tone` and `variant` props, and a `NodeSurface` slot renders any React content behind the node, clipped and non-interactive; a playground node with a custom accent and an animated gradient surface passes E2E, and every existing widget inside it takes the node's accent.
 - **Evidence:** `tests/node-card.test.tsx` cases for each prop; E2E that reads the computed port color of a themed node; light and dark screenshots of the themed node.
 - **Use case:** Re-theme every canvas in a product.
 - **Scope guard:** No theme editor UI. No per-widget color props. 7 tone presets only.
 - **Status:** ready
 
-### 2. Publish the registry
-- **Promise:** In a fresh Vite + React + Tailwind project, `npx shadcn add https://thyfriendlyfox.github.io/GraphComp/r/event-flow.json` installs the block and its dependencies, and `vite build` passes, in a gate that runs in `pnpm verify`.
-- **Evidence:** A GitHub Pages deploy workflow that publishes `public/r` and the playground; a new `verify/install-smoke.sh` gate that installs from the built registry (served locally) into a scratch project and builds it.
+### 3. Publish the registry
+- **Promise:** In a fresh Vite + React + Tailwind project, `npx shadcn add https://graphcomp.reagent-systems.com/r/event-flow.json` installs the block and its dependencies, and `vite build` passes, in a gate that runs in `pnpm verify`.
+- **Evidence:** The Vercel deploy of the docs site serves `public/r`; a new `verify/install-smoke.sh` gate that installs from the built registry (served locally) into a scratch project and builds it.
 - **Use case:** Add a node canvas to an existing app.
 - **Scope guard:** No docs site. No custom CLI. No npm package.
 - **Status:** ready
 
-### 3. NodeKnob
+### 4. NodeKnob
 - **Promise:** `NodeKnob` changes its value by vertical drag, wheel and arrow keys, exposes `role="slider"` with `aria-valuenow`, and animates the indicator with a spring, proven by unit tests and an E2E drag test.
 - **Evidence:** `tests/node-knob.test.tsx`; E2E drag step; screenshot in `verify/artifacts/`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** No MIDI learn. No bipolar or stepped detents (queue them under Later if needed).
 - **Status:** ready
 
-### 4. NodeWaveform
+### 5. NodeWaveform
 - **Promise:** `NodeWaveform` draws bars from a peaks array, shows played bars in full color and unplayed bars dimmed, and seeks by click, drag or arrow keys on a `role="slider"` scrubber, proven by unit tests.
 - **Evidence:** `tests/node-waveform.test.tsx`; screenshot in `verify/artifacts/`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** Draws given peaks only; no audio decoding and no playback engine. Play state is a prop.
 - **Status:** ready
 
-### 5. NodeDropzone
+### 6. NodeDropzone
 - **Promise:** `NodeDropzone` accepts files by drop and by keyboard-activated file picker, filters by `accept`, shows a drag-over state, and calls `onFiles` with the accepted files, proven by unit tests.
 - **Evidence:** `tests/node-dropzone.test.tsx`; E2E drop test with `setInputFiles`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** No upload, no progress bar, no storage.
 - **Status:** ready
 
-### 6. Sound block
+### 7. Sound block
 - **Promise:** A `sound-flow` registry block composes NodeKnob, NodeWaveform and NodeDropzone into a "Tone Box" node that widens when a clip is added, and the E2E suite proves the width change animates.
 - **Evidence:** Block in `registry.json`; E2E width assertion; screenshot.
 - **Use case:** Build an audio patch editor.
-- **Scope guard:** Neighbour nodes do not move yet (that is item 7).
-- **Status:** blocked on items 3, 4 and 5
+- **Scope guard:** Neighbour nodes do not move yet (that is item 8).
+- **Status:** blocked on items 4, 5 and 6
 
-### 7. Neighbour reflow
+### 8. Neighbour reflow
 - **Promise:** When a node grows and overlaps a neighbour, `useNodeReflow` moves the neighbour clear with a spring, and moves it back when the node shrinks, proven by an E2E test that measures both positions.
 - **Evidence:** E2E test; screen recording linked in the PR.
 - **Use case:** Build a visual scripting editor.
@@ -77,7 +84,6 @@ The full component list is in `docs/CATALOG.md`. Items move from there
 into the queue above, one at a time, with a promise.
 
 
-- Docs site with live previews and copy buttons — the shadcn experience, not only the registry.
 - Node palette / command menu (the `⊕` button in the reference) — how users add nodes.
 - Canvas side rail and minimap themed with tokens.
 - Edge labels, animated "flow" edges and edge context menu.
@@ -112,3 +118,4 @@ into the queue above, one at a time, with a promise.
 - 2026-09-22 — Queue seeded by SETUP. Marked provisional.
 - 2026-09-23 — Shipped out of queue: interaction motion, motion tests and README GIFs. The maintainer asked for press and action animations and for a way to test them. The widget key bug surfaced while recording.
 - 2026-09-23 — Inserted "Node theming" at position 1. The maintainer wants node colors and backgrounds swappable; every later widget depends on that API, so it ships first.
+- 2026-10-01 — Inserted "Docs site" at position 1. The maintainer asked for a website for the library, like the shadcn/ui site. The maintainer hosts it on Vercel. The deploy also serves `public/r`, so item 3 must pick one registry host.

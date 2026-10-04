@@ -30,13 +30,23 @@ describe("NodePort", () => {
 
     expect(updateNodeInternals).toHaveBeenCalledWith("node-1")
 
-    rerender(<NodePort id="renamed" type="target" position={Position.Right} align="header" />)
+    rerender(<NodePort id="first" type="target" position={Position.Left} align="header" />)
     expect(updateNodeInternals).toHaveBeenCalledTimes(3)
     expect(updateNodeInternals).toHaveBeenNthCalledWith(2, "node-1")
     expect(updateNodeInternals).toHaveBeenNthCalledWith(3, "node-1")
 
+    rerender(<NodePort id="first" type="target" position={Position.Right} align="header" />)
+    expect(updateNodeInternals).toHaveBeenCalledTimes(5)
+    expect(updateNodeInternals).toHaveBeenNthCalledWith(4, "node-1")
+    expect(updateNodeInternals).toHaveBeenNthCalledWith(5, "node-1")
+
+    rerender(<NodePort id="renamed" type="target" position={Position.Right} align="header" />)
+    expect(updateNodeInternals).toHaveBeenCalledTimes(7)
+    expect(updateNodeInternals).toHaveBeenNthCalledWith(6, "node-1")
+    expect(updateNodeInternals).toHaveBeenNthCalledWith(7, "node-1")
+
     unmount()
-    expect(updateNodeInternals).toHaveBeenCalledTimes(4)
+    expect(updateNodeInternals).toHaveBeenCalledTimes(8)
     expect(updateNodeInternals).toHaveBeenLastCalledWith("node-1")
   })
 })

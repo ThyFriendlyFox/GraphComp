@@ -41,7 +41,7 @@ async function pressAndHold(page: Page, target: ReturnType<Page["locator"]>) {
 
 test.beforeEach(async ({ page }) => {
   await freezeTime(page)
-  await page.goto("/")
+  await page.goto("/playground/")
   await expect(page.locator(".react-flow__node")).toHaveCount(4)
   await advance(page, 1000)
 })

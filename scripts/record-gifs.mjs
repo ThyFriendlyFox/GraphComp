@@ -275,7 +275,7 @@ try {
   mkdirSync(OUT_DIR, { recursive: true })
   for (const [name, record] of Object.entries(clips)) {
     if (only.length && !only.includes(name)) continue
-    const { rec, width } = await record(browser, "http://localhost:4180/")
+    const { rec, width } = await record(browser, "http://localhost:4180/playground/")
     encode(name, rec, width)
   }
 } finally {
