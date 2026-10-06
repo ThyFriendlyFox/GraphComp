@@ -108,6 +108,14 @@ describe("graphcomp.css", () => {
     }
   })
 
+  it("declares no custom variant, so the host's dark: keeps its meaning", () => {
+    expect(css).not.toMatch(/@custom-variant/)
+  })
+
+  it("has no component that uses the host's dark: variant", () => {
+    for (const [path, source] of sources) expect(source, path).not.toMatch(/(?<![\w-])dark:/)
+  })
+
   it("defines the same variables in light and dark", () => {
     const block = (selector: string) =>
       css.match(new RegExp(`^${selector.replace(".", "\\.")} \\{([^}]*)\\}`, "m"))?.[1] ?? ""

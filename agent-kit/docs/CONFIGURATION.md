@@ -12,6 +12,8 @@ nothing crashes.
 
 Set on `:root` (light) and `.dark` (dark). Tailwind utilities use the
 `gc-` prefix: `bg-gc-node`, `text-gc-muted`, `rounded-gc`, `shadow-gc`.
+The file declares no `dark` variant; the host's `dark:` keeps its own
+meaning.
 
 | Field | Type | Default (light / dark) | Use |
 |---|---|---|---|
