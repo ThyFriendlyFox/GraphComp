@@ -21,6 +21,9 @@ const BUDGET_MS = 500
 /** No single frame may cover more than a third of a motion. A jump is 1. */
 const SMOOTH = 0.34
 const CARDS = '[data-slot="node-card"]'
+/** The script card with the Note textarea, then the textarea, in document order. */
+const NOTE = '[data-slot="node-card"]:has([data-slot="node-textarea"]), [data-slot="node-textarea"]'
+const FIVE_LINES = "1\n2\n3\n4\n5"
 
 function sensitivity(page: Page) {
   return page
@@ -142,6 +145,37 @@ test("the select confirms the choice before it closes", async ({ page }) => {
   await advance(page, BUDGET_MS)
   await expect(page.getByRole("listbox")).toHaveCount(0)
   await expect(trigger).toHaveText("Open Node")
+})
+
+test("a textarea grows with its text, and its node grows in the same frames", async ({ page }) => {
+  const start = await rectsOf(page, NOTE)
+  await page.getByRole("textbox", { name: "Note" }).fill(FIVE_LINES)
+
+  const sampled = await sample(page, 700, () => rectsOf(page, NOTE))
+  // The height before the change leads the series, so a jump in the first frame shows.
+  const frames = [start, ...sampled]
+  const heights = frames.map(([, field]) => field.height)
+  const end = heights.at(-1)!
+
+  expect(frames.at(-1)![0].height - start[0].height).toBeGreaterThan(40)
+  expect(Math.max(...heights)).toBeLessThanOrEqual(end + 0.5)
+  expect(reversals(heights)).toBe(0)
+  expect(largestStep(heights)).toBeLessThan(SMOOTH)
+  expect(settledAt(sampled.map(([, field]) => field.height))).toBeLessThanOrEqual(BUDGET_MS)
+  const gaps = frames.map(([node, field]) => node.height - field.height)
+  expect(Math.max(...gaps) - Math.min(...gaps)).toBeLessThanOrEqual(1)
+})
+
+test("reduced motion makes the textarea change height at once", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await page.reload()
+  await advance(page, 1000)
+  const [, before] = await rectsOf(page, NOTE)
+  await page.getByRole("textbox", { name: "Note" }).fill(FIVE_LINES)
+
+  const heights = await sample(page, 200, async () => (await rectsOf(page, NOTE))[1].height)
+  expect(heights[0] - before.height).toBeGreaterThan(40)
+  expect(new Set(heights).size).toBe(1)
 })
 
 test("reduced motion removes the press scale", async ({ page }) => {

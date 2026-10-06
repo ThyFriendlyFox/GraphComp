@@ -113,6 +113,8 @@ Pass it to `FlowCanvas` as a node type, like any React Flow custom node.
 | `node-segmented`  | Segmented control with a sliding selection pill                                |
 | `node-select`     | Select whose list opens over its trigger and zooms with the canvas             |
 | `node-stepper`    | Number stepper: `− 53% +` or `2 sec ⇅`                                         |
+| `node-input`      | Single-line text field that types without moving or deleting the node          |
+| `node-textarea`   | Multi-line text field that grows with its text, on the node spring             |
 | `event-flow`      | Complete block: entry point, stacked triggers, script nodes                    |
 
 Next up: per-node theming, then knob, waveform, drop zone, a sound block

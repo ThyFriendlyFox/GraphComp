@@ -45,6 +45,8 @@ How a component reaches a user's app:
 | `ui/node-segmented.tsx` | `NodeSegmented`. |
 | `ui/node-select.tsx` | `NodeSelect`. |
 | `ui/node-stepper.tsx` | `NodeStepper`. |
+| `ui/node-input.tsx` | `NodeInput`. |
+| `ui/node-textarea.tsx` | `NodeTextarea`: grows with its text on the node spring. |
 | `blocks/event-flow/*` | The reference block: `EventFlow` and its node types. |
 
 ## Boundaries

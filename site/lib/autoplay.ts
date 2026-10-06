@@ -15,6 +15,7 @@ export type Step =
   | { drag: Find; by: [number, number] }
   | { connect: [Find, Find] }
   | { key: string }
+  | { type: Find; text: string }
   | { wait: number }
 
 // Finders. Each takes the element to search in and returns the target.
@@ -139,8 +140,41 @@ async function glide(
   }
 }
 
+/**
+ * Sets a text field's value through the native setter, then sends an input
+ * event. React reads the change the same way it reads typing.
+ */
+function setText(field: HTMLInputElement | HTMLTextAreaElement, text: string) {
+  const prototype = Object.getPrototypeOf(field) as HTMLInputElement | HTMLTextAreaElement
+  Object.getOwnPropertyDescriptor(prototype, "value")?.set?.call(field, text)
+  field.dispatchEvent(new Event("input", { bubbles: true }))
+}
+
+/** Deletes back to the shared start, then adds `text` one character per step. */
+async function typeInto(field: HTMLInputElement | HTMLTextAreaElement, text: string) {
+  let shared = 0
+  while (shared < field.value.length && field.value[shared] === text[shared]) shared++
+  for (let length = field.value.length - 1; length >= shared; length--) {
+    setText(field, field.value.slice(0, length))
+    await sleep(18)
+  }
+  for (let length = shared + 1; length <= text.length; length++) {
+    setText(field, text.slice(0, length))
+    await sleep(45)
+  }
+}
+
 async function play(step: Step, root: HTMLElement, cursor: Cursor) {
   if ("wait" in step) return sleep(step.wait)
+
+  if ("type" in step) {
+    const field = step.type(root)
+    if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement)) return
+    const { x, y } = center(field)
+    await moveCursor(cursor, x, y)
+    await typeInto(field, step.text)
+    return sleep(320)
+  }
 
   if ("key" in step) {
     const init = { key: step.key, bubbles: true, cancelable: true }

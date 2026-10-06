@@ -67,8 +67,8 @@ takes its colors from the node it sits in (see `docs/THEMING.md`).
 | `node-stepper` | `− 53% +` and `2 sec ⇅` | ✅ | — |
 | `node-knob` | Rotary knob: drag, wheel, keys | 🔜 | — |
 | `node-dropzone` | Drop files, or pick them with the keyboard | 🔜 | — |
-| `node-input` | Single-line text | ◻️ | 1 |
-| `node-textarea` | Multi-line text that grows with content | ◻️ | 1 |
+| `node-input` | Single-line text | ✅ | — |
+| `node-textarea` | Multi-line text that grows with content | ✅ | — |
 | `node-switch` | On/off toggle | ◻️ | 1 |
 | `node-checkbox` | Checkbox with label | ◻️ | 1 |
 | `node-slider` | Horizontal slider with value readout | ◻️ | 1 |

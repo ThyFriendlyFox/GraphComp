@@ -152,6 +152,17 @@ test("autoplay drags a connection between two ports", async ({ page }) => {
   await expect(frame.locator('[data-slot="flow-edge"]')).toHaveCount(1, { timeout: 8000 })
 })
 
+test("autoplay types into a textarea and the node grows", async ({ page }) => {
+  await page.goto("/docs/components/node-textarea")
+  const frame = page.locator('[data-slot="canvas-frame"]')
+  const node = frame.locator(".react-flow__node")
+  const before = (await node.boundingBox())!.height
+  await expect(frame.getByRole("textbox", { name: "Instruction" })).toHaveValue(/next steps\.$/, {
+    timeout: 12000,
+  })
+  await expect.poll(async () => (await node.boundingBox())!.height).toBeGreaterThan(before + 20)
+})
+
 test("reduced motion starts the previews paused", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" })
   await page.goto("/")

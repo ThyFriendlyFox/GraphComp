@@ -3,7 +3,7 @@
 A registry item is one installable unit: a component, hook, block or
 theme, described in `registry.json` and served as
 `https://graphcomp.reagent-systems.com/r/<name>.json`. GraphComp has
-11 items. Install one with the shadcn CLI:
+13 items. Install one with the shadcn CLI:
 
 ```sh
 npx shadcn add https://graphcomp.reagent-systems.com/r/<name>.json
@@ -24,6 +24,8 @@ depends on `graphcomp-theme` and shadcn's `utils`.
 | `node-segmented` | `registry:ui` | `NodeSegmented` |
 | `node-select` | `registry:ui` | `NodeSelect` |
 | `node-stepper` | `registry:ui` | `NodeStepper` |
+| `node-input` | `registry:ui` | `NodeInput` |
+| `node-textarea` | `registry:ui` | `NodeTextarea` |
 | `event-flow` | `registry:block` | `components/event-flow/*` |
 
 ## Writing a new item

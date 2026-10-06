@@ -105,5 +105,21 @@ export const autoplayScripts: Record<string, Step[]> = {
     ...step("On Key Press", "Sensitivity", "Decrease", 4),
     ...step("On Key Press", "Delay", "Decrease", 3),
   ],
+  "node-input": [
+    { type: label("Label"), text: "Billing" },
+    { wait: 400 },
+    { type: label("Queue"), text: "Tier 2" },
+    { wait: 900 },
+    { type: label("Label"), text: "Support" },
+    { type: label("Queue"), text: "Tier 1" },
+  ],
+  "node-textarea": [
+    {
+      type: label("Instruction"),
+      text: "Summarize the ticket in 3 bullet points. Name the customer and the product, then list the next steps.",
+    },
+    { wait: 1200 },
+    { type: label("Instruction"), text: "Summarize the ticket." },
+  ],
   "event-flow": eventFlowScript,
 }

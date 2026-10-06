@@ -12,10 +12,12 @@ import {
   NodeStatus,
   NodeTitle,
 } from "@/registry/graphcomp/ui/node-card"
+import { NodeInput } from "@/registry/graphcomp/ui/node-input"
 import { NodePort } from "@/registry/graphcomp/ui/node-port"
 import { NodeSegmented } from "@/registry/graphcomp/ui/node-segmented"
 import { NodeSelect } from "@/registry/graphcomp/ui/node-select"
 import { NodeStepper } from "@/registry/graphcomp/ui/node-stepper"
+import { NodeTextarea } from "@/registry/graphcomp/ui/node-textarea"
 
 export type EntryNodeType = Node<Record<string, never>, "entry">
 
@@ -144,6 +146,11 @@ export function ScriptNode({ data, selected }: NodeProps<ScriptNodeType>) {
             ]}
           />
         </NodeField>
+        <NodeTextarea
+          aria-label="Note"
+          maxRows={6}
+          defaultValue="Opens the inventory and adds the item."
+        />
       </NodeBody>
       <NodeGrip />
     </NodeCard>
@@ -177,6 +184,9 @@ export function ItemNode({ selected }: NodeProps<ItemNodeType>) {
         </NodeField>
         <NodeField label="Amount">
           <NodeStepper aria-label="Amount" defaultValue={23} min={1} max={999} />
+        </NodeField>
+        <NodeField label="Tag">
+          <NodeInput aria-label="Tag" defaultValue="Loot" />
         </NodeField>
       </NodeBody>
       <NodeGrip />

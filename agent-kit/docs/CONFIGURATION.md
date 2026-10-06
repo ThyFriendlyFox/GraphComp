@@ -20,11 +20,11 @@ Set on `:root` (light) and `.dark` (dark). Tailwind utilities use the
 | `--gc-node` | color | `#ffffff` / `#333333` | Node body |
 | `--gc-node-header` | color | `#f7f7f8` / `#3c3c3c` | Node header, grip, toolbar |
 | `--gc-node-border` | color | `#dcdce0` / `#444446` | Node and toolbar borders |
-| `--gc-inset` | color | `#eeeef0` / `#2b2b2b` | Widget wells (select, stepper, segmented) |
+| `--gc-inset` | color | `#eeeef0` / `#2b2b2b` | Widget wells (select, stepper, segmented, input, textarea) |
 | `--gc-panel` | color | `#f4f4f5` / `#3c3c3c` | `NodePanel` surface |
 | `--gc-control` | color | `#e4e4e7` / `#4a4a4c` | Raised controls (knob face, reserved) |
 | `--gc-fg` | color | `#1c1c1e` / `#ececec` | Text, edge dots |
-| `--gc-muted` | color | `#6e6e73` / `#8e8e93` | Eyebrows, icons, inactive text |
+| `--gc-muted` | color | `#6e6e73` / `#8e8e93` | Eyebrows, icons, inactive text, placeholders |
 | `--gc-accent` | color | `#1a8ae0` / `#299bed` | Ports, selection, active pill |
 | `--gc-accent-strong` | color | `#1576c2` / `#2386ce` | Open `NodeSelect` list |
 | `--gc-accent-fg` | color | `#ffffff` / `#ffffff` | Text on accent |

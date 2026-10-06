@@ -28,6 +28,8 @@ export const componentNames = [
   "node-segmented",
   "node-select",
   "node-stepper",
+  "node-input",
+  "node-textarea",
   "event-flow",
 ]
 
