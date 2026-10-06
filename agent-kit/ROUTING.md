@@ -20,6 +20,7 @@ already defines.
 | Writing a test, testing motion, or recording the README GIFs | `docs/TESTING.md` | Frozen-clock motion tests and the GIF recorder. |
 | Cutting a release / tagging | `RELEASING.md` | Weekly cycle ends here. |
 | Triage, dependency updates, stale issues, deprecations | `MAINTENANCE.md` | The between-features runbook. |
+| Reviewing or merging a pull request from a fork | `MAINTENANCE.md` § Outside pull requests | Read the diff before CI runs it. |
 | Vulnerability report or anything secret-shaped | `../SECURITY.md` (repo root) | Overrides normal process. Never open a public issue for it. |
 | Human contributor questions, PR conventions | `../CONTRIBUTING.md` (repo root) | |
 | CI is missing or broken, workflows need creating | `CI.md` | Source blocks for `.github/workflows/`. |

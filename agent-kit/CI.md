@@ -144,3 +144,15 @@ updates:
 
 - Require the `verify` check; require PRs; require up-to-date branches;
   squash-merge only; auto-delete head branches.
+- Set required approvals to 0 while there is 1 maintainer. GitHub does
+  not let an author approve their own PR.
+- Settings → Rules → Rulesets → New branch ruleset, target the default
+  branch. The older "Branch protection rules" page also works.
+
+## Fork pull requests (repo Settings → Actions → General)
+
+- "Fork pull request workflows": require approval for first-time
+  contributors, or stricter. The maintainer approves each run after
+  the diff review in `MAINTENANCE.md` § Outside pull requests.
+- Workflow permissions: read repository contents only. Do not send
+  write tokens or secrets to workflows from fork PRs.

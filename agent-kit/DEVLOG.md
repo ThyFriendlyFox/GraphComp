@@ -41,6 +41,25 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-10-06 — Merged the first outside contribution
+
+@mikemikimike sent PR #16 for issue #6. An edge vanished when its port
+was renamed on a node that kept its size. The fix makes `NodePort` ask
+React Flow to re-measure the node when a port mounts, unmounts or
+changes. I read the whole diff before the maintainer approved CI. It
+touched no dependencies, workflows or scripts. I reverted the fix and
+the new E2E test failed 3 of 3 times; with the fix it passed 5 of 5.
+The maintainer approved the workflow run, CI went green, and I
+squash-merged it with a thank-you comment.
+
+The local gate first showed 23 red E2E tests. A sandbox proxy blocked 2
+third-party URLs, and `main` failed the same way. I wrote the review
+steps into `MAINTENANCE.md` and the proxy case into `docs/TESTING.md`.
+I queued "Hermetic E2E" so the gate stops depending on those hosts.
+
+Evidence: merge commit `b9995a0`; CI green on `main` at `b9995a0`;
+37 E2E tests pass with the proxy workaround, 36 on `main` before.
+
 ## 2026-10-01 — Correction: the listing badge was not in the server HTML
 
 The UsefulShelf check failed with "Badge not found". It reads the HTML the
