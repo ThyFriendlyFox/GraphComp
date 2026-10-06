@@ -26,6 +26,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - Docs site previews play by themselves: a drawn cursor presses, drags and connects the real components in a loop. A press or key in the preview stops it; a Pause/Play button controls it; reduced motion starts it paused.
 - The UsefulShelf listing badge in the docs site footer.
 - Site icons (`favicon.ico`, `icon.svg`, Apple touch icon, 192 and 512 px icons, maskable icon, web manifest) and one Open Graph image per page. `pnpm assets` renders them.
+- `FlowCanvas` `connectOnNodeDrop`: let go of a connection over a node to connect it to the node's first free port. An accent ring marks the node while you drag over it. `isValidConnection` applies.
 
 ### Changed
 

@@ -41,6 +41,7 @@ All `ReactFlow` props pass through. GraphComp adds or changes these:
 |---|---|---|---|
 | `grid` | boolean | `true` | Draw the line grid |
 | `gridGap` | number | `24` | Grid cell size in flow units |
+| `connectOnNodeDrop` | boolean | `false` | Letting go of a connection over a node calls `onConnect` with the node's first free port of the matching type. Rings the node in `--gc-accent` during the drag. Honors `isValidConnection`; calls your `onConnectEnd` too |
 | `edgeTypes` | `EdgeTypes` | `{ flow: FlowEdge }` | Merged over the default |
 | `defaultEdgeOptions` | object | `{ type: "flow" }` | Merged over the default |
 

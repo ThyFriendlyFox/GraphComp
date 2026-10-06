@@ -55,6 +55,13 @@ export const componentDocs: ComponentDoc[] = [
             default: "24",
             description: "Grid cell size in flow units.",
           },
+          {
+            name: "connectOnNodeDrop",
+            type: "boolean",
+            default: "false",
+            description:
+              "Letting go of a connection over a node connects it to the node's first free port. An accent ring marks the node during the drag.",
+          },
           { name: "...props", type: "ReactFlowProps", description: "Every React Flow prop." },
         ],
       },
