@@ -404,6 +404,102 @@ import { NodePort } from "@/components/ui/node-port"
     ],
   },
   {
+    name: "node-input",
+    group: "Widgets",
+    ...demo("node-input"),
+    usage: `import { NodeInput } from "@/components/ui/node-input"
+
+<NodeField label="Label">
+  <NodeInput aria-label="Label" defaultValue="Support" />
+</NodeField>`,
+    props: [
+      {
+        component: "NodeInput",
+        rows: [
+          { name: "value", type: "string", description: "The text, when controlled." },
+          {
+            name: "defaultValue",
+            type: "string",
+            default: '""',
+            description: "The text on first render.",
+          },
+          {
+            name: "onValueChange",
+            type: "(value: string) => void",
+            description: "Called on every change to the text.",
+          },
+          {
+            name: "...props",
+            type: 'ComponentProps<"input">',
+            description: "Every `input` prop except `onChange`.",
+          },
+        ],
+      },
+    ],
+    keyboard: [
+      { keys: "Tab", action: "Moves focus into the field." },
+      { keys: "Every key", action: "Edits the text. The canvas does not act on it." },
+    ],
+    notes: [
+      "Typing, selecting text and scrolling inside the field never pan, zoom, move or delete the node.",
+      "Give the field an `aria-label`, or point `aria-labelledby` at a visible label.",
+    ],
+  },
+  {
+    name: "node-textarea",
+    group: "Widgets",
+    ...demo("node-textarea"),
+    usage: `import { NodeTextarea } from "@/components/ui/node-textarea"
+
+<NodeTextarea aria-label="Instruction" maxRows={8} defaultValue="Summarize the ticket." />`,
+    props: [
+      {
+        component: "NodeTextarea",
+        rows: [
+          { name: "value", type: "string", description: "The text, when controlled." },
+          {
+            name: "defaultValue",
+            type: "string",
+            default: '""',
+            description: "The text on first render.",
+          },
+          {
+            name: "onValueChange",
+            type: "(value: string) => void",
+            description: "Called on every change to the text.",
+          },
+          {
+            name: "minRows",
+            type: "number",
+            default: "2",
+            description: "The rows shown when the text is shorter.",
+          },
+          {
+            name: "maxRows",
+            type: "number",
+            description:
+              "The rows after which the field stops growing and scrolls. No limit by default.",
+          },
+          {
+            name: "...props",
+            type: 'ComponentProps<"textarea">',
+            description: "Every `textarea` prop except `onChange` and `rows`.",
+          },
+        ],
+      },
+    ],
+    keyboard: [
+      { keys: "Tab", action: "Moves focus into the field." },
+      { keys: "Every key", action: "Edits the text. The canvas does not act on it." },
+    ],
+    notes: [
+      "The field grows with its text on the node spring, so the node grows in the same frames.",
+      "With reduced motion, the field changes height at once.",
+      "Typing, selecting text and scrolling inside the field never pan, zoom, move or delete the node.",
+      "Plain text only.",
+    ],
+  },
+  {
     name: "event-flow",
     group: "Blocks",
     ...demo("event-flow"),

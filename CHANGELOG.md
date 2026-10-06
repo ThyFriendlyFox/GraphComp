@@ -13,6 +13,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - `NodePort`: a connection dot outside the node edge, centered or aligned to the header.
 - `NodeCard` family: `NodeHeader`, `NodeStatus`, `NodeTitle`, `NodeAction`, `NodeCollapseTrigger`, `NodeBody`, `NodeGrip`, `NodeField` and `NodePanel`.
 - `NodeSegmented`, `NodeSelect` and `NodeStepper` widgets with full keyboard support.
+- `NodeInput` and `NodeTextarea`: plain-text fields inside a node. Typing, selecting text and scrolling in them never pan, zoom, move or delete the node. `NodeTextarea` grows with its text on the node spring, up to an optional `maxRows`, then scrolls.
 - `event-flow` block: an entry point, stacked triggers and two script nodes.
 - A shadcn-compatible registry in `registry.json`, built to `public/r`.
 - `NodePressable`: every button, segment and grip shrinks on a spring and flashes an accent highlight when pressed.

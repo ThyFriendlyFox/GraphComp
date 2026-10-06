@@ -175,6 +175,41 @@
       ]
     },
     {
+      "name": "node-input",
+      "type": "registry:ui",
+      "title": "Node Input",
+      "description": "A single-line text field that types without moving, zooming or deleting the node.",
+      "registryDependencies": [
+        "utils",
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/use-controllable-state.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "node-textarea",
+      "type": "registry:ui",
+      "title": "Node Textarea",
+      "description": "A multi-line text field that grows with its text; the node grows on the node spring.",
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "utils",
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/use-controllable-state.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "event-flow",
       "type": "registry:block",
       "title": "Event Flow",
@@ -186,7 +221,9 @@
         "https://graphcomp.reagent-systems.com/r/node-port.json",
         "https://graphcomp.reagent-systems.com/r/node-segmented.json",
         "https://graphcomp.reagent-systems.com/r/node-select.json",
-        "https://graphcomp.reagent-systems.com/r/node-stepper.json"
+        "https://graphcomp.reagent-systems.com/r/node-stepper.json",
+        "https://graphcomp.reagent-systems.com/r/node-input.json",
+        "https://graphcomp.reagent-systems.com/r/node-textarea.json"
       ],
       "files": [
         {
