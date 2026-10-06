@@ -21,6 +21,23 @@ test("renders the event flow with its edges", async ({ page }) => {
   await page.screenshot({ path: "verify/artifacts/event-flow.png" })
 })
 
+test("fitView frames every node", async ({ page }) => {
+  const pane = await page.locator(".react-flow").boundingBox()
+  if (!pane) throw new Error("the canvas has no box")
+  await expect(async () => {
+    for (const box of await page
+      .locator(".react-flow__node")
+      .evaluateAll((nodes) =>
+        nodes.map((node) => node.getBoundingClientRect().toJSON() as DOMRect),
+      )) {
+      expect(box.left).toBeGreaterThanOrEqual(pane.x)
+      expect(box.top).toBeGreaterThanOrEqual(pane.y)
+      expect(box.right).toBeLessThanOrEqual(pane.x + pane.width)
+      expect(box.bottom).toBeLessThanOrEqual(pane.y + pane.height)
+    }
+  }).toPass({ timeout: 3000 })
+})
+
 test("opening a trigger pushes the card below it down", async ({ page }) => {
   const below = page.locator('[data-slot="node-card"]', { hasText: "On Key Press" })
   const before = await below.boundingBox()

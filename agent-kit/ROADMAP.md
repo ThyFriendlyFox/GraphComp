@@ -127,3 +127,4 @@ into the queue above, one at a time, with a promise.
 - 2026-09-23 — Inserted "Node theming" at position 1. The maintainer wants node colors and backgrounds swappable; every later widget depends on that API, so it ships first.
 - 2026-10-01 — Inserted "Docs site" at position 1. The maintainer asked for a website for the library, like the shadcn/ui site. The maintainer hosts it on Vercel. The deploy also serves `public/r`, so item 3 must pick one registry host.
 - 2026-10-06 — Inserted "Hermetic E2E" at position 2. While reviewing PR #16 I found that the E2E gate loads 2 third-party URLs; it goes red when a proxy blocks them, and would go red if either host went down. It is small and protects every later item. "Publish the registry" is now item 4.
+- 2026-10-06 — Shipped out of queue: a fix for 2 regressions from PR #16. `fitView` framed 1 node, and a node id with a quote crashed the canvas. Both blocked work on the open issue PRs.

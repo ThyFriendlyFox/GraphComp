@@ -1,11 +1,5 @@
-import { useLayoutEffect, type CSSProperties } from "react"
-import {
-  Handle,
-  Position,
-  useNodeId,
-  useUpdateNodeInternals,
-  type HandleProps,
-} from "@xyflow/react"
+import { useLayoutEffect, useRef, type CSSProperties } from "react"
+import { Handle, Position, useNodeId, useStoreApi, type HandleProps } from "@xyflow/react"
 
 import { cn } from "@/lib/utils"
 
@@ -30,14 +24,30 @@ export function NodePort({
   ...props
 }: NodePortProps) {
   const nodeId = useNodeId()
-  const updateNodeInternals = useUpdateNodeInternals()
+  const store = useStoreApi()
+  const portRef = useRef<HTMLDivElement>(null)
 
+  // Re-measures the node when a port mounts, unmounts or moves, so React Flow
+  // finds its handle. This skips `useUpdateNodeInternals`: it looks the node
+  // up by an unescaped `data-id` selector, which throws on an id with a quote.
   useLayoutEffect(() => {
-    if (!nodeId) return
+    // Captured now: React detaches the ref before this effect's cleanup runs.
+    const nodeElement = portRef.current?.closest<HTMLDivElement>(".react-flow__node")
+    if (!nodeId || !nodeElement) return
 
-    updateNodeInternals(nodeId)
-    return () => updateNodeInternals(nodeId)
-  }, [align, id, nodeId, position, updateNodeInternals])
+    const refresh = () => {
+      requestAnimationFrame(() => {
+        const { nodeLookup, updateNodeInternals } = store.getState()
+        // Until React Flow measures the node, its own measurement includes this
+        // port. Measuring one node earlier resolves the initial fitView early.
+        if (!nodeElement.isConnected || !nodeLookup.get(nodeId)?.internals.handleBounds) return
+        updateNodeInternals(new Map([[nodeId, { id: nodeId, nodeElement, force: true }]]))
+      })
+    }
+
+    refresh()
+    return refresh
+  }, [align, id, nodeId, position, store])
 
   const placement: CSSProperties = {}
   if (position === Position.Left) placement.left = -offset
@@ -50,6 +60,7 @@ export function NodePort({
 
   return (
     <Handle
+      ref={portRef}
       position={position}
       id={id}
       data-slot="node-port"
