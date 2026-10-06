@@ -75,7 +75,8 @@ export const componentDocs: ComponentDoc[] = [
     ...demo("flow-edge"),
     usage: `const edges = [
   { id: "a-b", source: "a", target: "b" },
-  { id: "a-c", source: "a", target: "c", data: { dot: false } },
+  { id: "a-c", source: "a", target: "c", data: { label: "Yes" } },
+  { id: "a-d", source: "a", target: "d", data: { dot: false } },
 ]
 
 <FlowCanvas nodes={nodes} edges={edges} />`,
@@ -89,13 +90,22 @@ export const componentDocs: ComponentDoc[] = [
             default: "true",
             description: "Draws a dot at the middle of the edge.",
           },
+          {
+            name: "label",
+            type: "ReactNode",
+            description: "Text at the middle of the edge, in place of the dot.",
+          },
         ],
       },
     ],
     notes: [
       "FlowCanvas uses FlowEdge for every edge. You do not register it.",
-      "The path draws from source to target in 500 ms. The midpoint dot springs in after 250 ms.",
+      "The path draws from source to target in 500 ms. The midpoint dot or label springs in after 250 ms.",
       "A selected edge takes the accent color.",
+      "The label of a selected edge takes the accent color.",
+      "A click on the dot or the label selects the edge and calls `onEdgeClick`.",
+      "The label shrinks on a spring while it is pressed.",
+      "The label is not part of the edge's accessible name. Set the edge's `ariaLabel` to name the branch.",
     ],
   },
   {

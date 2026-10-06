@@ -93,7 +93,8 @@ into the queue above, one at a time, with a promise.
 
 - Node palette / command menu (the `⊕` button in the reference) — how users add nodes.
 - Canvas side rail and minimap themed with tokens.
-- Edge labels, animated "flow" edges and edge context menu.
+- Animated "flow" edges and edge context menu.
+- Fix: a selected `FlowEdge` keeps the `--gc-edge` stroke and the `--gc-fg` dot. Motion does not update the inline `stroke` and `fill` styles after mount. Found while shipping issue #11.
 - Context menu for nodes (duplicate, delete, disable).
 - Visual regression snapshots for light and dark.
 - `graphcomp` CLI wrapper with a registry namespace (`npx shadcn add @graphcomp/node-card`).
@@ -107,6 +108,7 @@ into the queue above, one at a time, with a promise.
 
 | Week | Feature | Release | Evidence |
 |---|---|---|---|
+| 2026-10-06 | FlowEdge labels: `data.label` at the midpoint, in place of the dot; a click on the label selects the edge (issue #11) | unreleased | `e2e/flow-edge.spec.ts` 4 tests and the label press test in `e2e/motion.spec.ts`, 25/25 over 5 repeats; `verify/artifacts/flow-edge-labels.png` |
 | 2026-09-25 | NodePort refreshes React Flow port measurements when ports mount, unmount or change | unreleased | `tests/node-port.test.tsx`; `e2e/node-port.spec.ts` |
 | 2026-09-23 | Interaction motion (NodePressable, stepper roll, select confirm), frame-by-frame motion tests, README GIFs, widget `nokey` fix | unreleased | `e2e/motion.spec.ts` 40/40 over 5 repeats; `.github/assets/*.gif` |
 | 2026-09-22 | Foundation: tokens, FlowCanvas, FlowEdge, NodePort, NodeCard, NodeSegmented, NodeSelect, NodeStepper, event-flow block | unreleased | `pnpm verify` green; `verify/artifacts/event-flow-open.png` |
@@ -127,3 +129,4 @@ into the queue above, one at a time, with a promise.
 - 2026-09-23 — Inserted "Node theming" at position 1. The maintainer wants node colors and backgrounds swappable; every later widget depends on that API, so it ships first.
 - 2026-10-01 — Inserted "Docs site" at position 1. The maintainer asked for a website for the library, like the shadcn/ui site. The maintainer hosts it on Vercel. The deploy also serves `public/r`, so item 3 must pick one registry host.
 - 2026-10-06 — Inserted "Hermetic E2E" at position 2. While reviewing PR #16 I found that the E2E gate loads 2 third-party URLs; it goes red when a proxy blocks them, and would go red if either host went down. It is small and protects every later item. "Publish the registry" is now item 4.
+- 2026-10-06 — Shipped out of queue: FlowEdge labels, from issue #11. The maintainer asked to resolve every open issue.

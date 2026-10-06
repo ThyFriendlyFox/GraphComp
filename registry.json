@@ -33,7 +33,7 @@
       "name": "flow-edge",
       "type": "registry:ui",
       "title": "Flow Edge",
-      "description": "A right-angle edge with rounded corners, a draw-in animation and a midpoint dot.",
+      "description": "A right-angle edge with rounded corners, a draw-in animation and a midpoint dot or label.",
       "dependencies": ["@xyflow/react", "motion"],
       "registryDependencies": [
         "utils",
