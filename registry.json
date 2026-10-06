@@ -118,6 +118,25 @@
       ]
     },
     {
+      "name": "node-port-list",
+      "type": "registry:ui",
+      "title": "Node Port List",
+      "description": "Labeled rows, one port per row, that move to the header while the node is closed.",
+      "dependencies": ["@xyflow/react", "motion"],
+      "registryDependencies": [
+        "utils",
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json",
+        "https://graphcomp.reagent-systems.com/r/node-card.json",
+        "https://graphcomp.reagent-systems.com/r/node-port.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/node-port-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "node-segmented",
       "type": "registry:ui",
       "title": "Node Segmented",
@@ -184,6 +203,7 @@
         "https://graphcomp.reagent-systems.com/r/flow-canvas.json",
         "https://graphcomp.reagent-systems.com/r/node-card.json",
         "https://graphcomp.reagent-systems.com/r/node-port.json",
+        "https://graphcomp.reagent-systems.com/r/node-port-list.json",
         "https://graphcomp.reagent-systems.com/r/node-segmented.json",
         "https://graphcomp.reagent-systems.com/r/node-select.json",
         "https://graphcomp.reagent-systems.com/r/node-stepper.json"

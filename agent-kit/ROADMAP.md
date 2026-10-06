@@ -85,6 +85,13 @@ patcher from GraphComp parts alone.
 - **Scope guard:** One axis (horizontal push). No general auto-layout.
 - **Status:** ready
 
+### 10. fitView with NodePort
+- **Promise:** A canvas with `fitView` whose nodes hold `NodePort`s fits every node on first load: the playground opens with all 4 event-flow nodes inside the viewport, proven by an E2E test.
+- **Evidence:** E2E test that reads every node's box against the canvas box after load; the docs previews and the OG images show whole graphs again.
+- **Use case:** Add a node canvas to an existing app.
+- **Scope guard:** NodePort and its tests only. Keep the port refresh from PR #16.
+- **Status:** ready
+
 ## Later — candidates, not yet specced
 
 The full component list is in `docs/CATALOG.md`. Items move from there
@@ -107,6 +114,7 @@ into the queue above, one at a time, with a promise.
 
 | Week | Feature | Release | Evidence |
 |---|---|---|---|
+| 2026-10-06 | NodePortList: one port per row; the ports move to the header while the node is closed, so no edge drops (issue #8) | unreleased | `tests/node-port-list.test.tsx`; `e2e/node-port-list.spec.ts` counts 3 edges in every frame of a collapse and a reopen, 10/10 over 5 repeats; `e2e/motion.spec.ts` "a port list closes in the same frames as the body above it" |
 | 2026-09-25 | NodePort refreshes React Flow port measurements when ports mount, unmount or change | unreleased | `tests/node-port.test.tsx`; `e2e/node-port.spec.ts` |
 | 2026-09-23 | Interaction motion (NodePressable, stepper roll, select confirm), frame-by-frame motion tests, README GIFs, widget `nokey` fix | unreleased | `e2e/motion.spec.ts` 40/40 over 5 repeats; `.github/assets/*.gif` |
 | 2026-09-22 | Foundation: tokens, FlowCanvas, FlowEdge, NodePort, NodeCard, NodeSegmented, NodeSelect, NodeStepper, event-flow block | unreleased | `pnpm verify` green; `verify/artifacts/event-flow-open.png` |
@@ -127,3 +135,4 @@ into the queue above, one at a time, with a promise.
 - 2026-09-23 — Inserted "Node theming" at position 1. The maintainer wants node colors and backgrounds swappable; every later widget depends on that API, so it ships first.
 - 2026-10-01 — Inserted "Docs site" at position 1. The maintainer asked for a website for the library, like the shadcn/ui site. The maintainer hosts it on Vercel. The deploy also serves `public/r`, so item 3 must pick one registry host.
 - 2026-10-06 — Inserted "Hermetic E2E" at position 2. While reviewing PR #16 I found that the E2E gate loads 2 third-party URLs; it goes red when a proxy blocks them, and would go red if either host went down. It is small and protects every later item. "Publish the registry" is now item 4.
+- 2026-10-06 — Shipped out of queue: NodePortList, from issue #8. The maintainer asked to resolve every open issue.

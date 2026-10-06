@@ -40,6 +40,7 @@ How a component reaches a user's app:
 | `ui/flow-canvas.tsx` | `FlowCanvas` (themed `ReactFlow`), `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl`. |
 | `ui/flow-edge.tsx` | `FlowEdge`, registered as edge type `flow`. |
 | `ui/node-port.tsx` | `NodePort`, a styled React Flow `Handle`. |
+| `ui/node-port-list.tsx` | `NodePortList`: rows with one `NodePort` each; the ports move to the header while the card is closed. |
 | `ui/node-pressable.tsx` | `NodePressable`: spring press and accent highlight for every clickable part. |
 | `ui/node-card.tsx` | `NodeCard` and its parts; open/closed state lives in its context. |
 | `ui/node-segmented.tsx` | `NodeSegmented`. |

@@ -87,6 +87,34 @@ test("the card below moves in the same frames as the card that opens", async ({ 
   expect(Math.max(...gaps) - Math.min(...gaps)).toBeLessThanOrEqual(1)
 })
 
+test("a port list closes in the same frames as the body above it", async ({ page }) => {
+  const item = page.locator(CARDS, { hasText: "Add Item" })
+  const heights = () =>
+    item.evaluate((card) =>
+      ["node-body", "node-port-list"].map(
+        (slot) => card.querySelector(`[data-slot="${slot}"]`)?.getBoundingClientRect().height ?? 0,
+      ),
+    )
+  const [bodyStart, listStart] = await heights()
+  // The playground opens zoomed past this node (ROADMAP item 10). A dispatched
+  // click does not scroll the canvas to reach it.
+  await item.getByRole("button", { name: "Collapse" }).first().dispatchEvent("click")
+
+  const frames = await sample(page, 700, heights)
+  const list = frames.map(([, height]) => height)
+
+  expect(listStart).toBeGreaterThan(60)
+  expect(list.at(-1)).toBe(0)
+  expect(Math.max(...list)).toBeLessThanOrEqual(listStart + 0.5)
+  expect(reversals(list)).toBe(0)
+  expect(largestStep(list)).toBeLessThan(SMOOTH)
+  expect(settledAt(list)).toBeLessThanOrEqual(BUDGET_MS)
+  // Same spring: both regions are the same share of the way closed in every frame.
+  for (const [body, height] of frames) {
+    expect(Math.abs(body / bodyStart - height / listStart)).toBeLessThan(0.02)
+  }
+})
+
 test("the segmented pill slides to the pressed option", async ({ page }) => {
   await openFirstTrigger(page)
   const record = page.getByRole("radio", { name: "Record" })

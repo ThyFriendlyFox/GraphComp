@@ -14,13 +14,25 @@ type NodeCardContextValue = {
 
 const NodeCardContext = createContext<NodeCardContextValue | null>(null)
 
-function useNodeCard() {
+/** The open state, its setter and the body id of the enclosing `NodeCard`. */
+export function useNodeCard() {
   const context = useContext(NodeCardContext)
   if (!context) throw new Error("NodeCard parts must be rendered inside <NodeCard>.")
   return context
 }
 
 export const nodeSpring = { type: "spring", bounce: 0, duration: 0.35 } as const
+
+/**
+ * The open and close motion of a collapsible region. Overflow is clipped
+ * only while animating, so popovers inside (NodeSelect) are not cut off.
+ */
+export const nodeBodyMotion = {
+  initial: { height: 0, opacity: 0, overflow: "hidden" },
+  animate: { height: "auto", opacity: 1, transitionEnd: { overflow: "visible" } },
+  exit: { height: 0, opacity: 0, overflow: "hidden" },
+  transition: nodeSpring,
+} as const
 
 type NodeCardProps = ComponentProps<"div"> & {
   /** Pass the `selected` prop that React Flow gives a custom node. */
@@ -164,25 +176,13 @@ export function NodeCollapseTrigger({ className, ...props }: ComponentProps<type
   )
 }
 
-/**
- * The collapsible part of a node. Height animates between 0 and auto.
- * Overflow is clipped only while animating, so popovers inside the body
- * (NodeSelect) are not cut off when the body is open.
- */
+/** The collapsible part of a node. Height animates between 0 and auto. */
 export function NodeBody({ className, children }: { className?: string; children?: ReactNode }) {
   const { open, bodyId } = useNodeCard()
   return (
     <AnimatePresence initial={false}>
       {open ? (
-        <motion.div
-          key="body"
-          id={bodyId}
-          data-slot="node-body"
-          initial={{ height: 0, opacity: 0, overflow: "hidden" }}
-          animate={{ height: "auto", opacity: 1, transitionEnd: { overflow: "visible" } }}
-          exit={{ height: 0, opacity: 0, overflow: "hidden" }}
-          transition={nodeSpring}
-        >
+        <motion.div key="body" id={bodyId} data-slot="node-body" {...nodeBodyMotion}>
           <div className={cn("flex flex-col gap-3 p-3", className)}>{children}</div>
         </motion.div>
       ) : null}

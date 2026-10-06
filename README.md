@@ -109,6 +109,7 @@ Pass it to `FlowCanvas` as a node type, like any React Flow custom node.
 | `flow-canvas`     | `FlowCanvas`, `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl`               |
 | `flow-edge`       | Right-angle edge with rounded corners, draw-in animation, midpoint dot         |
 | `node-port`       | Connection dot outside the node edge, centered or header-aligned               |
+| `node-port-list`  | Labeled rows, one port per row; the ports move to the header when it closes    |
 | `node-card`       | Node shell: header, status ring, title, collapsible body, grip, fields, panels |
 | `node-segmented`  | Segmented control with a sliding selection pill                                |
 | `node-select`     | Select whose list opens over its trigger and zooms with the canvas             |
