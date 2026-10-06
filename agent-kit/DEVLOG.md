@@ -41,6 +41,25 @@ Evidence: <commit / tag / gate run / screenshot>
 
 <!-- Entries below, newest first. -->
 
+## 2026-10-06 — Fixed 2 regressions from the first outside contribution
+
+PR #16 made `NodePort` re-measure its node on mount. I reviewed and merged
+it, and I missed 2 bugs in it. The playground opened at 125% zoom with a
+node off screen: React Flow resolves the first `fitView` on the first
+re-measure, and the port re-measured 1 node before React Flow measured
+all 4. A node id with a `"` also crashed the canvas, because React Flow's
+hook builds an unescaped selector. An agent building issue #8 found the
+zoom bug; I found the selector bug while reviewing issue #12.
+
+`NodePort` now waits until React Flow has measured the node, and finds the
+node element from its own DOM position. My review of PR #16 checked the
+port rename only, on a page with 2 nodes and no `fitView` assertion. The
+new E2E test checks that `fitView` frames every playground node.
+
+Evidence: `e2e/event-flow.spec.ts` "fitView frames every node" and the
+quoted-id node in `e2e/fixtures/node-port.tsx` fail on `main` and pass
+with the fix; the PR #16 rename test still passes, 20 of 20 repeats.
+
 ## 2026-10-06 — Merged the first outside contribution
 
 @mikemikimike sent PR #16 for issue #6. An edge vanished when its port

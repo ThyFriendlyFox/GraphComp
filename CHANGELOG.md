@@ -40,6 +40,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 ### Fixed
 
 - `NodePort` refreshes React Flow port measurements when a port mounts, unmounts or changes its id, position or alignment.
+- `fitView` frames every node again. Since the `NodePort` refresh above, a port re-measured its node before React Flow's first measurement, and the initial fit framed 1 node. A node id with a `"` also crashed the canvas. `NodePort` now waits for the first measurement and finds its node element without a selector.
 - The UsefulShelf badge is in the server-rendered HTML of every docs site page. Before, only the client-side footer drew it, and the UsefulShelf check did not find it.
 
 - Keys pressed in a widget no longer move or delete the node. Widgets carry the React Flow `nokey` class.

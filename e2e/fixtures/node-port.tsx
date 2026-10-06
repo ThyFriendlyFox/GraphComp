@@ -67,6 +67,13 @@ const initialNodes: FixtureNode[] = [
     position: { x: 440, y: 100 },
     data: {},
   },
+  // A quote in a node id must not break the port's re-measure.
+  {
+    id: 'say "hi"',
+    type: "target",
+    position: { x: 440, y: 260 },
+    data: {},
+  },
 ]
 
 const initialEdges: Edge[] = [

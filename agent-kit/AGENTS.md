@@ -60,6 +60,7 @@ installed Chromium binary.
 |---|---|
 | `NodeBody` overflow | Body clips overflow only while it animates. Clip it always and `NodeSelect` lists get cut off at the node edge. |
 | `FlowCanvas` `edgeTypes` / `nodeTypes` | React Flow warns and remounts when these objects change identity. Memoize or define them at module scope. |
+| Re-measuring a node (`updateNodeInternals`) | React Flow resolves the initial `fitView` on the first re-measure. A re-measure before React Flow measures every node fits only the nodes measured so far. `NodePort` waits for `internals.handleBounds`, and finds the node element with `closest()`: `useUpdateNodeInternals` builds an unescaped `data-id` selector. |
 | `NodePort` inside nested cards | Handles position against the nearest `relative` ancestor. `NodeCard` is `relative` on purpose; do not remove it. Ports in one flow node need unique `id`s. |
 | `ResizeObserver loop` errors in dev | Animated node heights make React Flow re-measure each frame. The browser reports a benign error. `index.html` filters it before the Vite client; do not "fix" it in the library. |
 | `registry.json` homepage URLs | `registryDependencies` point at `https://graphcomp.reagent-systems.com/r/`. A change of the domain breaks every install. |
