@@ -23,6 +23,7 @@ export const componentNames = [
   "flow-canvas",
   "flow-edge",
   "node-port",
+  "node-port-list",
   "node-card",
   "node-pressable",
   "node-segmented",

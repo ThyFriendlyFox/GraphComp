@@ -34,6 +34,24 @@ test("opening a trigger pushes the card below it down", async ({ page }) => {
   await page.screenshot({ path: "verify/artifacts/event-flow-open.png" })
 })
 
+test("the outcome ports of a closed node move to its header", async ({ page }) => {
+  const item = page.locator('[data-slot="node-card"]', { hasText: "Add Item" })
+  const outcomes = item.locator(
+    '.react-flow__handle[data-handleid="added"], .react-flow__handle[data-handleid="full"]',
+  )
+  await expect(item.getByRole("list", { name: "Outcomes" }).getByRole("listitem")).toHaveCount(2)
+
+  // The playground opens zoomed past this node (ROADMAP item 10). A dispatched
+  // click does not scroll the canvas to reach it.
+  await item.getByRole("button", { name: "Collapse" }).first().dispatchEvent("click")
+  await expect(item.getByRole("list", { name: "Outcomes" })).toHaveCount(0)
+  await expect(outcomes).toHaveCount(2)
+  const header = (await item.locator('[data-slot="node-header"]').boundingBox())!
+  for (const box of [await outcomes.nth(0).boundingBox(), await outcomes.nth(1).boundingBox()]) {
+    expect(Math.abs(box!.y + box!.height / 2 - (header.y + header.height / 2))).toBeLessThan(2)
+  }
+})
+
 test("the select opens inside the node and picks with the keyboard", async ({ page }) => {
   await page.getByRole("button", { name: "Expand" }).first().click()
   const trigger = page.getByRole("combobox", { name: "Trigger" }).first()

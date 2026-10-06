@@ -13,6 +13,7 @@ import {
   NodeTitle,
 } from "@/registry/graphcomp/ui/node-card"
 import { NodePort } from "@/registry/graphcomp/ui/node-port"
+import { NodePortList } from "@/registry/graphcomp/ui/node-port-list"
 import { NodeSegmented } from "@/registry/graphcomp/ui/node-segmented"
 import { NodeSelect } from "@/registry/graphcomp/ui/node-select"
 import { NodeStepper } from "@/registry/graphcomp/ui/node-stepper"
@@ -152,7 +153,12 @@ export function ScriptNode({ data, selected }: NodeProps<ScriptNodeType>) {
 
 export type ItemNodeType = Node<Record<string, never>, "item">
 
-/** Adds an item to an inventory. */
+const itemOutcomes = [
+  { id: "added", label: "Added" },
+  { id: "full", label: "Inventory Full" },
+]
+
+/** Adds an item to an inventory, and branches on the outcome. */
 export function ItemNode({ selected }: NodeProps<ItemNodeType>) {
   return (
     <NodeCard selected={selected} className="w-56">
@@ -179,6 +185,7 @@ export function ItemNode({ selected }: NodeProps<ItemNodeType>) {
           <NodeStepper aria-label="Amount" defaultValue={23} min={1} max={999} />
         </NodeField>
       </NodeBody>
+      <NodePortList aria-label="Outcomes" type="source" ports={itemOutcomes} />
       <NodeGrip />
     </NodeCard>
   )

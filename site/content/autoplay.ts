@@ -72,6 +72,15 @@ export const autoplayScripts: Record<string, Step[]> = {
     { click: select(".react-flow__edge") },
     { key: "Backspace" },
   ],
+  "node-port-list": [
+    { click: card("Decision", label("Collapse")) },
+    { wait: 900 },
+    { drag: header("Decision"), by: [0, 60] },
+    { wait: 300 },
+    { drag: header("Decision"), by: [0, -60] },
+    { click: card("Decision", label("Expand")) },
+    { wait: 900 },
+  ],
   "node-card": [
     { click: label("Collapse") },
     { wait: 600 },

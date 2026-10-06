@@ -137,6 +137,77 @@ import { NodePort } from "@/components/ui/node-port"
     ],
   },
   {
+    name: "node-port-list",
+    group: "Nodes",
+    ...demo("node-port-list"),
+    usage: `import { Position } from "@xyflow/react"
+import { NodePortList } from "@/components/ui/node-port-list"
+
+<NodeCard>
+  <NodeHeader>...</NodeHeader>
+  <NodeBody>...</NodeBody>
+  <NodePortList
+    aria-label="Answers"
+    type="source"
+    position={Position.Right}
+    ports={[
+      { id: "yes", label: "Yes" },
+      { id: "no", label: "No" },
+      { id: "later", label: "Later", trailing: "2 days" },
+    ]}
+  />
+  <NodeGrip />
+</NodeCard>`,
+    props: [
+      {
+        component: "NodePortList",
+        rows: [
+          {
+            name: "ports",
+            type: "{ id; label; trailing? }[]",
+            description:
+              "The rows, in order. `id` is the handle id; `trailing` sits at the far end of the row, away from the port.",
+          },
+          {
+            name: "type",
+            type: '"source" | "target"',
+            description: "The handle type of every port.",
+          },
+          {
+            name: "position",
+            type: "Position.Left | Position.Right",
+            default: "Position.Right",
+            description: "The node edge the ports sit on.",
+          },
+          {
+            name: "offset",
+            type: "number",
+            default: "14",
+            description: "Distance in pixels between the node edge and the port dot.",
+          },
+          {
+            name: "...props",
+            type: 'ComponentProps<"div">',
+            description: "Props of the list element.",
+          },
+        ],
+      },
+    ],
+    keyboard: [
+      {
+        keys: "Enter / Space",
+        action:
+          "On the header action or the grip: closes the list with the body and moves the ports to the header.",
+      },
+    ],
+    notes: [
+      "Render NodePortList in NodeCard, directly after NodeBody, not inside it. It opens and closes with the body.",
+      "Each port sits on the node edge at the standard NodePort offset and lines up with its row, whatever the padding.",
+      "While the node is closed, the ports sit at the header port position, so their edges stay connected.",
+      "Port ids must be unique among all ports of the flow node.",
+    ],
+  },
+  {
     name: "node-card",
     group: "Nodes",
     ...demo("node-card"),

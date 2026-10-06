@@ -56,7 +56,7 @@ takes its colors from the node it sits in (see `docs/THEMING.md`).
 | `flow-edge-button` | Edge with a delete or insert button on hover | ◻️ | 2 |
 | `node-port` | Accent dot outside the node edge | ✅ | — |
 | `node-port-typed` | Port colored and shaped by data type; rejects wrong types | ◻️ | 1 |
-| `node-port-list` | Labeled inputs and outputs in rows, one port per row | ◻️ | 1 |
+| `node-port-list` | Labeled inputs and outputs in rows, one port per row | ✅ | — |
 
 ## 4. Widgets: inputs
 
