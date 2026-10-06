@@ -71,6 +71,8 @@ Rules:
 | Press (any `NodePressable`) | Scale to 0.92 on a spring (bounce 0.35, 300 ms); accent highlight 0.1 on hover, 0.28 on press, 150 ms |
 | Stepper value changes | Old value rolls out and new value rolls in, up when it grows, down when it shrinks, spring, 300 ms |
 | Select choice | Chosen option flashes for 140 ms, then the list closes; the trigger label rolls to the new value |
+| Status enters `running` | Dot springs in (bounce 0, 350 ms), then pulses: scale 1 ↔ 0.55, ease-in-out, 450 ms per leg, looping. Reduced motion: a still dot |
+| Status enters `done` or `error` | Check or cross springs in from scale 0, bounce 0, 350 ms |
 | Neighbours make room | Position spring, bounce 0, 350 ms (ROADMAP item "Neighbour reflow") |
 
 Rules:
@@ -79,6 +81,9 @@ Rules:
 - Everything that moves because something else changed moves in the same
   frame with the same spring. No staggered chains except the edge dot.
 - No motion is longer than 500 ms. Input is never blocked by motion.
+  A looping motion (the `running` pulse) meets this per leg: each leg
+  settles inside 500 ms, eases with no jump and no overshoot, and the
+  loop stops under reduced motion.
 - `prefers-reduced-motion: reduce` removes transform and layout motion
   (`MotionConfig reducedMotion="user"` in `FlowCanvas`).
 

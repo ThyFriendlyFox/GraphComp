@@ -28,6 +28,8 @@
   --gc-accent: #1a8ae0;
   --gc-accent-strong: #1576c2;
   --gc-accent-fg: #ffffff;
+  --gc-success: #178a4c;
+  --gc-danger: #d0342c;
   --gc-edge: #a1a1aa;
   --gc-ring: #1a8ae0;
   --gc-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.18);
@@ -48,6 +50,8 @@
   --gc-accent: #299bed;
   --gc-accent-strong: #2386ce;
   --gc-accent-fg: #ffffff;
+  --gc-success: #34c26f;
+  --gc-danger: #ff6159;
   --gc-edge: #9a9a9e;
   --gc-ring: #299bed;
   --gc-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.6);
@@ -67,6 +71,8 @@
   --color-gc-accent: var(--gc-accent);
   --color-gc-accent-strong: var(--gc-accent-strong);
   --color-gc-accent-fg: var(--gc-accent-fg);
+  --color-gc-success: var(--gc-success);
+  --color-gc-danger: var(--gc-danger);
   --color-gc-edge: var(--gc-edge);
   --color-gc-ring: var(--gc-ring);
   --radius-gc: var(--gc-radius);

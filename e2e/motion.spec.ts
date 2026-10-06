@@ -156,3 +156,85 @@ test("reduced motion removes the press scale", async ({ page }) => {
   await page.mouse.up()
   expect(scales.filter((scale) => scale > 0.93 && scale < 0.999)).toEqual([])
 })
+
+// NodeStatus run state, on its own fixture page. The running pulse loops,
+// so the 500 ms rule applies to each leg: every rise or fall settles inside
+// the budget, eases without a jump, and stays inside its range.
+
+const STATUS_FIXTURE = "/e2e/fixtures/node-status.html"
+
+function statusPart(page: Page, node: string, part: "dot" | "mark") {
+  return page.locator(`.react-flow__node[data-id="${node}"] [data-slot="node-status-${part}"]`)
+}
+
+/** Splits a series into runs that move in one direction. */
+function legs(values: number[], tolerance = 1e-4) {
+  const result: number[][] = []
+  let leg = [values[0]]
+  let direction = 0
+  for (let i = 1; i < values.length; i++) {
+    const step = values[i] - values[i - 1]
+    const sign = Math.abs(step) <= tolerance ? 0 : Math.sign(step)
+    if (sign !== 0 && direction !== 0 && sign !== direction) {
+      result.push(leg)
+      leg = [values[i - 1]]
+    }
+    if (sign !== 0) direction = sign
+    leg.push(values[i])
+  }
+  result.push(leg)
+  return result
+}
+
+async function openStatusFixture(page: Page) {
+  await page.goto(STATUS_FIXTURE)
+  await expect(page.locator(".react-flow__node")).toHaveCount(5)
+  await advance(page, 1000)
+}
+
+test("a running status springs in, then pulses with every leg inside the budget", async ({
+  page,
+}) => {
+  await openStatusFixture(page)
+  const dot = statusPart(page, "deploy", "dot")
+  expect(await scaleOf(dot)).toBe(0)
+  await page.getByRole("button", { name: "Deploy running" }).click()
+
+  const scales = await sample(page, 2000, () => scaleOf(dot))
+  const runs = legs(scales)
+  const peak = scales.indexOf(Math.max(...scales))
+
+  expect(runs.length).toBeGreaterThanOrEqual(4)
+  expect(Math.max(...scales)).toBeLessThanOrEqual(1.005)
+  expect(Math.min(...scales.slice(peak))).toBeGreaterThan(0.54)
+  for (const run of runs.slice(0, -1)) {
+    expect(Math.abs(run.at(-1)! - run[0])).toBeGreaterThan(0.4)
+    expect(largestStep(run)).toBeLessThan(SMOOTH)
+    expect((run.length - 1) * FRAME_MS).toBeLessThanOrEqual(BUDGET_MS)
+  }
+})
+
+test("a done or error mark springs in without overshoot", async ({ page }) => {
+  await openStatusFixture(page)
+  for (const state of ["done", "error"]) {
+    await page.getByRole("button", { name: `Deploy ${state}` }).click()
+    const mark = statusPart(page, "deploy", "mark").last()
+    const scales = await sample(page, 600, () => scaleOf(mark))
+
+    expect(scales.at(-1)).toBeCloseTo(1, 2)
+    expect(Math.max(...scales)).toBeLessThanOrEqual(1.005)
+    expect(largestStep(scales)).toBeLessThan(SMOOTH)
+    expect(settledAt(scales, 0.005)).toBeLessThanOrEqual(BUDGET_MS)
+  }
+})
+
+test("reduced motion stops the running pulse", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await openStatusFixture(page)
+  const scales = await sample(page, 1000, () => scaleOf(statusPart(page, "running", "dot")))
+  expect(new Set(scales)).toEqual(new Set([1]))
+
+  await page.getByRole("button", { name: "Deploy running" }).click()
+  const entry = await sample(page, 300, () => scaleOf(statusPart(page, "deploy", "dot")))
+  expect(entry.filter((scale) => scale > 0.001 && scale < 0.999)).toEqual([])
+})

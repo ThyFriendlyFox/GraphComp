@@ -11,6 +11,7 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | FlowEdge | ✅ | E2E "renders the event flow with its edges" |
 | NodePort | ✅ | `tests/node-port.test.tsx`; E2E keeps an edge connected after a port id changes |
 | NodeCard family | ✅ | `tests/node-card.test.tsx`; E2E "opening a trigger pushes the card below it down" |
+| NodeStatus run state and `NodeCard` `runState` | ✅ | `tests/node-card.test.tsx`; `e2e/motion.spec.ts`: 3 run-state tests; `verify/artifacts/node-status-{light,dark}.png` |
 | NodeSegmented, NodeSelect, NodeStepper | ✅ | `tests/node-*.test.tsx` keyboard paths |
 | event-flow block | ✅ | E2E suite; `verify/artifacts/event-flow-open.png` |
 | Registry build (`public/r`) | ✅ | `pnpm build` runs `shadcn build` |

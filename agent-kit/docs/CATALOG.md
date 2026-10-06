@@ -31,7 +31,7 @@ takes its colors from the node it sits in (see `docs/THEMING.md`).
 
 | Item | What it is | Status | Wave |
 |---|---|---|---|
-| `node-card` | Header, status ring, title, collapsible body, grip, fields, panels | ✅ | — |
+| `node-card` | Header, status ring with run state, title, collapsible body, grip, fields, panels | ✅ | — |
 | `node-surface` | Slot for the node background: gradient, image, SVG, canvas, shader | 🔜 | — |
 | `node-stack` | Column of cards in one flow node; opening one pushes the rest | ◻️ | 1 |
 | `node-group` | Titled frame around nodes; moves them together | ◻️ | 1 |

@@ -182,6 +182,8 @@ const tokens: [string, string][] = [
   ["--gc-accent", "Ports, selection, active state"],
   ["--gc-accent-strong", "Open select list"],
   ["--gc-accent-fg", "Text on the accent"],
+  ["--gc-success", "Done run state"],
+  ["--gc-danger", "Error run state"],
   ["--gc-edge", "Edges"],
   ["--gc-ring", "Focus ring"],
   ["--gc-shadow", "Node shadow"],

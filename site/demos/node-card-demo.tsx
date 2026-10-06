@@ -29,7 +29,7 @@ function Delay({ selected }: NodeProps<DelayNode>) {
       </NodeHeader>
       <NodeBody>
         <NodePanel className="flex items-center gap-2.5 bg-gc-node-header">
-          <NodeStatus active={false} />
+          <NodeStatus state="done" />
           <NodeTitle eyebrow="Output">Done</NodeTitle>
         </NodePanel>
         <NodeField label="Wait">
