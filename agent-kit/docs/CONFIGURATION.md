@@ -28,6 +28,8 @@ Set on `:root` (light) and `.dark` (dark). Tailwind utilities use the
 | `--gc-accent` | color | `#1a8ae0` / `#299bed` | Ports, selection, active pill |
 | `--gc-accent-strong` | color | `#1576c2` / `#2386ce` | Open `NodeSelect` list |
 | `--gc-accent-fg` | color | `#ffffff` / `#ffffff` | Text on accent |
+| `--gc-success` | color | `#178a4c` / `#34c26f` | `NodeStatus` and `NodeCard` in the `done` run state |
+| `--gc-danger` | color | `#d0342c` / `#ff6159` | `NodeStatus` and `NodeCard` in the `error` run state |
 | `--gc-edge` | color | `#a1a1aa` / `#9a9a9e` | Edge stroke |
 | `--gc-ring` | color | `#1a8ae0` / `#299bed` | Focus ring |
 | `--gc-shadow` | shadow | see file | Node elevation |

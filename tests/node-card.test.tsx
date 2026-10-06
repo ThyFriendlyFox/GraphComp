@@ -7,6 +7,7 @@ import {
   NodeCollapseTrigger,
   NodeGrip,
   NodeHeader,
+  NodeStatus,
   NodeTitle,
 } from "@/registry/graphcomp/ui/node-card"
 
@@ -54,5 +55,57 @@ describe("NodeCard", () => {
   it("throws a clear error when a part renders outside NodeCard", () => {
     vi.spyOn(console, "error").mockImplementation(() => {})
     expect(() => render(<NodeGrip />)).toThrow("NodeCard parts must be rendered inside <NodeCard>.")
+  })
+})
+
+describe("NodeStatus", () => {
+  it.each([
+    ["idle", "Idle", null],
+    ["running", "Running", null],
+    ["done", "Done", "lucide-check"],
+    ["error", "Error", "lucide-x"],
+  ] as const)("names the %s state and draws its own shape", (state, name, glyph) => {
+    const { container } = render(<NodeStatus state={state} />)
+
+    const status = screen.getByRole("img", { name })
+    expect(status).toHaveAttribute("data-run-state", state)
+    expect(status).not.toHaveAttribute("data-active")
+    const mark = container.querySelector('[data-slot="node-status-mark"] svg')
+    if (glyph) expect(mark).toHaveClass(glyph)
+    else expect(mark).toBeNull()
+  })
+
+  it("keeps `active` as it was when no state is set", () => {
+    const { container, rerender } = render(<NodeStatus />)
+    const status = container.querySelector('[data-slot="node-status"]')
+
+    expect(status).toHaveAttribute("data-active", "true")
+    expect(status).not.toHaveAttribute("role")
+    expect(status).not.toHaveAttribute("data-run-state")
+    rerender(<NodeStatus active={false} />)
+    expect(status).not.toHaveAttribute("data-active")
+    expect(container.querySelector('[data-slot="node-status-mark"]')).toBeNull()
+  })
+
+  it("lets `state` win over `active`", () => {
+    render(<NodeStatus active state="error" />)
+    expect(screen.getByRole("img", { name: "Error" })).not.toHaveAttribute("data-active")
+  })
+
+  it("takes a custom accessible name", () => {
+    render(<NodeStatus state="running" aria-label="Running step 2" />)
+    expect(screen.getByRole("img", { name: "Running step 2" })).toBeInTheDocument()
+  })
+})
+
+describe("NodeCard run state", () => {
+  it("sets data-run-state for the border to follow, apart from data-state", () => {
+    const { container, rerender } = render(<NodeCard runState="error" />)
+    const card = container.querySelector('[data-slot="node-card"]')
+
+    expect(card).toHaveAttribute("data-run-state", "error")
+    expect(card).toHaveAttribute("data-state", "open")
+    rerender(<NodeCard />)
+    expect(card).not.toHaveAttribute("data-run-state")
   })
 })

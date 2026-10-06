@@ -1,6 +1,20 @@
-import { createContext, useContext, useId, type ComponentProps, type ReactNode } from "react"
-import { AnimatePresence, motion } from "motion/react"
-import { Minus, Plus } from "lucide-react"
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useId,
+  type ComponentProps,
+  type ReactNode,
+} from "react"
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotionConfig,
+  type AnimationPlaybackControls,
+} from "motion/react"
+import { Check, Minus, Plus, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { useControllableState } from "@/registry/graphcomp/hooks/use-controllable-state"
@@ -22,16 +36,39 @@ function useNodeCard() {
 
 export const nodeSpring = { type: "spring", bounce: 0, duration: 0.35 } as const
 
+/** Where a node is in a run of the graph. */
+export type NodeRunState = "idle" | "running" | "done" | "error"
+
+/** One leg of the running pulse. Each leg stays inside the 500 ms budget. */
+export const runPulse = {
+  duration: 0.45,
+  ease: "easeInOut",
+  repeat: Infinity,
+  repeatType: "reverse",
+} as const
+
+const runPulseLow = 0.55
+
+const runStateLabels: Record<NodeRunState, string> = {
+  idle: "Idle",
+  running: "Running",
+  done: "Done",
+  error: "Error",
+}
+
 type NodeCardProps = ComponentProps<"div"> & {
   /** Pass the `selected` prop that React Flow gives a custom node. */
   selected?: boolean
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
+  /** The node's run state. Sets `data-run-state`, and the border follows it. */
+  runState?: NodeRunState
 }
 
 export function NodeCard({
   selected,
+  runState,
   open: openProp,
   defaultOpen = true,
   onOpenChange,
@@ -52,9 +89,12 @@ export function NodeCard({
         data-slot="node-card"
         data-state={open ? "open" : "closed"}
         data-selected={selected || undefined}
+        data-run-state={runState}
         className={cn(
           "group/node relative min-w-44 rounded-gc border border-gc-node-border bg-gc-node text-[12px] text-gc-fg shadow-gc",
           "transition-[border-color,box-shadow] duration-150",
+          "data-[run-state=running]:border-gc-accent data-[run-state=done]:border-gc-success",
+          "data-[run-state=error]:border-dashed data-[run-state=error]:border-gc-danger",
           "data-selected:border-gc-accent data-selected:ring-1 data-selected:ring-gc-accent/40",
           className,
         )}
@@ -80,28 +120,82 @@ export function NodeHeader({ className, ...props }: ComponentProps<"div">) {
   )
 }
 
-/** The ring indicator at the start of a header. */
+/**
+ * The ring indicator at the start of a header. Without `state`, `active`
+ * fills the ring with the accent dot. With `state`, each run state has its
+ * own shape, so the states stay apart without color: an empty ring (idle),
+ * a pulsing dot (running), a check (done) and a cross (error). The dot
+ * scale is a motion value, so the pulse runs in Motion's frame loop.
+ */
 export function NodeStatus({
   active = true,
+  state,
   className,
   ...props
-}: ComponentProps<"span"> & { active?: boolean }) {
+}: ComponentProps<"span"> & { active?: boolean; state?: NodeRunState }) {
+  const reduceMotion = useReducedMotionConfig()
+  const dot = state ? state === "running" : active
+  const pulse = state === "running"
+  const scale = useMotionValue(dot ? 1 : 0)
+
+  useEffect(() => {
+    if (reduceMotion) {
+      scale.jump(dot ? 1 : 0)
+      return
+    }
+    let cancelled = false
+    let controls: AnimationPlaybackControls = animate(scale, dot ? 1 : 0, nodeSpring)
+    if (pulse) {
+      controls.finished.then(() => {
+        if (!cancelled) controls = animate(scale, runPulseLow, runPulse)
+      })
+    }
+    return () => {
+      cancelled = true
+      controls.stop()
+    }
+  }, [scale, dot, pulse, reduceMotion])
+
+  const Mark = state === "done" ? Check : state === "error" ? X : null
+
   return (
     <span
       data-slot="node-status"
-      data-active={active || undefined}
+      data-active={state ? undefined : active || undefined}
+      data-run-state={state}
+      role={state ? "img" : undefined}
+      aria-label={state ? runStateLabels[state] : undefined}
       className={cn(
         "grid size-4 shrink-0 place-items-center rounded-full border-2 border-gc-muted/70",
+        "data-[run-state=running]:border-gc-accent data-[run-state=done]:border-gc-success",
+        "data-[run-state=error]:border-gc-danger",
         className,
       )}
       {...props}
     >
       <motion.span
-        className="size-2 rounded-full bg-gc-accent"
-        initial={false}
-        animate={{ scale: active ? 1 : 0, opacity: active ? 1 : 0 }}
-        transition={nodeSpring}
+        data-slot="node-status-dot"
+        className="col-start-1 row-start-1 size-2 rounded-full bg-gc-accent"
+        style={{ scale }}
       />
+      <AnimatePresence initial={false}>
+        {Mark ? (
+          <motion.span
+            key={state}
+            data-slot="node-status-mark"
+            className={cn(
+              "col-start-1 row-start-1 grid place-items-center [&_svg]:size-2.5",
+              state === "done" ? "text-gc-success" : "text-gc-danger",
+            )}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            transition={nodeSpring}
+          >
+            <Mark strokeWidth={4} aria-hidden />
+          </motion.span>
+        ) : null}
+      </AnimatePresence>
     </span>
   )
 }

@@ -183,6 +183,12 @@ import { NodePort } from "@/components/ui/node-port"
             type: "(open: boolean) => void",
             description: "Called when the body opens or closes.",
           },
+          {
+            name: "runState",
+            type: '"idle" | "running" | "done" | "error"',
+            description:
+              "Sets `data-run-state`. The border turns accent, success or danger; an error border is dashed.",
+          },
         ],
       },
       {
@@ -192,7 +198,13 @@ import { NodePort } from "@/components/ui/node-port"
             name: "active",
             type: "boolean",
             default: "true",
-            description: "Fills the ring with the accent dot.",
+            description: "Fills the ring with the accent dot. Ignored when `state` is set.",
+          },
+          {
+            name: "state",
+            type: '"idle" | "running" | "done" | "error"',
+            description:
+              "The run state: an empty ring, a pulsing dot, a check or a cross. Each one has an accessible name.",
           },
         ],
       },
@@ -222,6 +234,7 @@ import { NodePort } from "@/components/ui/node-port"
     notes: [
       "NodeCard is `relative` so that ports position against it. Do not remove it.",
       "The body clips overflow only while it animates, so a NodeSelect list is not cut off.",
+      "To show a run, pass the same value to `NodeCard` `runState` and `NodeStatus` `state`. The running pulse stops under reduced motion.",
     ],
   },
   {
