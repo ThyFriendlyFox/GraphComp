@@ -103,21 +103,23 @@ Pass it to `FlowCanvas` as a node type, like any React Flow custom node.
 
 ## Components
 
-| Item              | What it gives you                                                              |
-| ----------------- | ------------------------------------------------------------------------------ |
-| `graphcomp-theme` | `gc-*` design tokens, light and dark, and React Flow overrides                 |
-| `flow-canvas`     | `FlowCanvas`, `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl`               |
-| `flow-edge`       | Right-angle edge with rounded corners, draw-in animation, midpoint dot         |
-| `node-port`       | Connection dot outside the node edge, centered or header-aligned               |
-| `node-card`       | Node shell: header, status ring, title, collapsible body, grip, fields, panels |
-| `node-segmented`  | Segmented control with a sliding selection pill                                |
-| `node-select`     | Select whose list opens over its trigger and zooms with the canvas             |
-| `node-stepper`    | Number stepper: `− 53% +` or `2 sec ⇅`                                         |
-| `event-flow`      | Complete block: entry point, stacked triggers, script nodes                    |
+| Item                 | What it gives you                                                              |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `graphcomp-theme`    | `gc-*` design tokens, light and dark, and React Flow overrides                 |
+| `flow-canvas`        | `FlowCanvas`, `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl`               |
+| `flow-edge`          | Right-angle edge with rounded corners, draw-in animation, midpoint dot         |
+| `flow-bezier-edge`   | Curved edge, draw-in animation, midpoint dot                                   |
+| `flow-straight-edge` | Straight edge, draw-in animation, midpoint dot                                 |
+| `node-port`          | Connection dot outside the node edge, centered or header-aligned               |
+| `node-card`          | Node shell: header, status ring, title, collapsible body, grip, fields, panels |
+| `node-segmented`     | Segmented control with a sliding selection pill                                |
+| `node-select`        | Select whose list opens over its trigger and zooms with the canvas             |
+| `node-stepper`       | Number stepper: `− 53% +` or `2 sec ⇅`                                         |
+| `event-flow`         | Complete block: entry point, stacked triggers, script nodes                    |
 
 Next up: per-node theming, then knob, waveform, drop zone, a sound block
 and neighbour reflow. See the [roadmap](agent-kit/ROADMAP.md) for the
-order and the [catalog](agent-kit/docs/CATALOG.md) for all 97
+order and the [catalog](agent-kit/docs/CATALOG.md) for all 98
 components: lists, timers, progress bars, charts, logs, editors and blocks.
 
 ## Theming

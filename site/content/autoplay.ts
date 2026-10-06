@@ -62,6 +62,20 @@ export const autoplayScripts: Record<string, Step[]> = {
     { wait: 300 },
     { drag: header("Store"), by: [-70, -60] },
   ],
+  "flow-bezier-edge": [
+    { connect: [port("fetch", "out"), port("parse", "in")] },
+    { wait: 300 },
+    { drag: header("Parse"), by: [0, 110] },
+    { wait: 300 },
+    { drag: header("Parse"), by: [0, -110] },
+  ],
+  "flow-straight-edge": [
+    { connect: [port("fetch", "out"), port("parse", "in")] },
+    { wait: 300 },
+    { drag: header("Parse"), by: [0, 110] },
+    { wait: 300 },
+    { drag: header("Parse"), by: [0, -110] },
+  ],
   "node-port": [
     { connect: [port("a", "out"), port("b", "in")] },
     { wait: 500 },

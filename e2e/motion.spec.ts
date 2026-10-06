@@ -63,6 +63,28 @@ test("edges draw in from source to target on load", async ({ page }) => {
   expect(settledAt(drawn, 0.001)).toBeLessThanOrEqual(BUDGET_MS)
 })
 
+test("edges of a new style draw in from source to target", async ({ page }) => {
+  for (const [style, slot] of [
+    ["Curve", "flow-bezier-edge"],
+    ["Straight", "flow-straight-edge"],
+  ]) {
+    await page.getByRole("radio", { name: style }).click()
+    const edge = page.locator(`[data-slot="${slot}"] path.react-flow__edge-path`).first()
+    await expect(edge).toHaveCount(1)
+    const drawn = await sample(page, 700, () =>
+      edge.evaluate((path) => {
+        const [dash] = (path.getAttribute("stroke-dasharray") ?? "1").split(/[\s,]+/).map(Number)
+        return Number.isFinite(dash) ? dash : 1
+      }),
+    )
+    expect(drawn[0]).toBeLessThan(0.5)
+    expect(drawn.at(-1)).toBeCloseTo(1, 2)
+    expect(reversals(drawn, 0.001)).toBe(0)
+    expect(largestStep(drawn)).toBeLessThan(SMOOTH)
+    expect(settledAt(drawn, 0.001)).toBeLessThanOrEqual(BUDGET_MS)
+  }
+})
+
 test("a node body opens smoothly, without overshoot, inside the budget", async ({ page }) => {
   const start = (await rectsOf(page, CARDS))[0].height
   await page.getByRole("button", { name: "Expand" }).first().click()

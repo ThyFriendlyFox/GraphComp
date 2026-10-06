@@ -9,6 +9,7 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | Tokens (`graphcomp.css`, light + dark) | ✅ | `tests/registry.test.ts` token gates green |
 | FlowCanvas, FlowToolbar, FlowZoomControl | ✅ | E2E "zoom control changes the zoom level" |
 | FlowEdge | ✅ | E2E "renders the event flow with its edges" |
+| FlowBezierEdge, FlowStraightEdge, drag line shape | ✅ | `e2e/edge-styles.spec.ts`; `tests/flow-bezier-edge.test.tsx`, `tests/flow-straight-edge.test.tsx` |
 | NodePort | ✅ | `tests/node-port.test.tsx`; E2E keeps an edge connected after a port id changes |
 | NodeCard family | ✅ | `tests/node-card.test.tsx`; E2E "opening a trigger pushes the card below it down" |
 | NodeSegmented, NodeSelect, NodeStepper | ✅ | `tests/node-*.test.tsx` keyboard paths |
@@ -19,7 +20,7 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | E2E without third-party hosts | ❌ | ROADMAP "Hermetic E2E" |
 | NodeKnob, NodeWaveform, NodeDropzone | ❌ | ROADMAP items NodeKnob, NodeWaveform, NodeDropzone |
 | Docs site (`site/`, Vercel config) | 🚧 | `e2e/site.spec.ts`: 23 tests; Vercel project not created yet |
-| Docs site SEO, icons, OG images | 🚧 | `tests/seo.test.ts`: 6 tests; `public/og/` 13 images |
+| Docs site SEO, icons, OG images | 🚧 | `tests/seo.test.ts`: 6 tests; `public/og/` 15 images |
 | NodePressable and interaction motion | ✅ | `e2e/motion.spec.ts`: 8 motion tests, 40/40 over 5 repeats |
 | README GIFs (`pnpm gifs`) | ✅ | `.github/assets/*.gif`, 50 fps |
 | Scoped token theming (`--gc-*` on any element) | ✅ | Utilities compile to `var(--gc-*)`; see `docs/THEMING.md` |

@@ -2,6 +2,7 @@ import { useMemo, type ComponentProps, type ReactNode } from "react"
 import {
   Background,
   BackgroundVariant,
+  ConnectionLineType,
   ReactFlow,
   useReactFlow,
   useStore,
@@ -25,14 +26,16 @@ type FlowCanvasProps<N extends Node, E extends Edge> = ReactFlowProps<N, E> & {
 
 /**
  * React Flow, themed by GraphComp tokens. Registers `FlowEdge` as the `flow`
- * edge type and makes it the default. Motion respects the OS reduced-motion
- * setting for every component inside.
+ * edge type and makes it the default. The drag line takes the shape of the
+ * default edge type. Motion respects the OS reduced-motion setting for every
+ * component inside.
  */
 export function FlowCanvas<N extends Node = Node, E extends Edge = Edge>({
   grid = true,
   gridGap = 24,
   edgeTypes,
   defaultEdgeOptions,
+  connectionLineType,
   className,
   children,
   ...props
@@ -42,6 +45,12 @@ export function FlowCanvas<N extends Node = Node, E extends Edge = Edge>({
     () => ({ type: "flow", ...defaultEdgeOptions }),
     [defaultEdgeOptions],
   )
+  // An edge component names its drag line shape in a static `connectionLineType`.
+  // `FlowEdge` names none and is a smooth-step edge.
+  const defaultEdge = mergedEdgeTypes[mergedEdgeOptions.type] as
+    { connectionLineType?: ConnectionLineType } | undefined
+  const lineType =
+    connectionLineType ?? defaultEdge?.connectionLineType ?? ConnectionLineType.SmoothStep
 
   return (
     <MotionConfig reducedMotion="user">
@@ -49,6 +58,7 @@ export function FlowCanvas<N extends Node = Node, E extends Edge = Edge>({
         className={cn("gc-canvas bg-gc-canvas", className)}
         edgeTypes={mergedEdgeTypes}
         defaultEdgeOptions={mergedEdgeOptions}
+        connectionLineType={lineType}
         connectionLineStyle={{ stroke: "var(--gc-accent)", strokeWidth: 1.25 }}
         {...props}
       >

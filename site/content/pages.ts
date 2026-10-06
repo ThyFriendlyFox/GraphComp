@@ -22,6 +22,8 @@ export type Page = {
 export const componentNames = [
   "flow-canvas",
   "flow-edge",
+  "flow-bezier-edge",
+  "flow-straight-edge",
   "node-port",
   "node-card",
   "node-pressable",

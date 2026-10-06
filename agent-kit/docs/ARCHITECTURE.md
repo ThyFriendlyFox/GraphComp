@@ -39,6 +39,8 @@ How a component reaches a user's app:
 | `hooks/use-controllable-state.ts` | Controlled / uncontrolled state for every widget. |
 | `ui/flow-canvas.tsx` | `FlowCanvas` (themed `ReactFlow`), `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl`. |
 | `ui/flow-edge.tsx` | `FlowEdge`, registered as edge type `flow`. |
+| `ui/flow-bezier-edge.tsx` | `FlowBezierEdge`. Its static `connectionLineType` sets the drag line shape. |
+| `ui/flow-straight-edge.tsx` | `FlowStraightEdge`. Its static `connectionLineType` sets the drag line shape. |
 | `ui/node-port.tsx` | `NodePort`, a styled React Flow `Handle`. |
 | `ui/node-pressable.tsx` | `NodePressable`: spring press and accent highlight for every clickable part. |
 | `ui/node-card.tsx` | `NodeCard` and its parts; open/closed state lives in its context. |
