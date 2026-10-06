@@ -1,5 +1,11 @@
-import type { CSSProperties } from "react"
-import { Handle, Position, type HandleProps } from "@xyflow/react"
+import { useLayoutEffect, type CSSProperties } from "react"
+import {
+  Handle,
+  Position,
+  useNodeId,
+  useUpdateNodeInternals,
+  type HandleProps,
+} from "@xyflow/react"
 
 import { cn } from "@/lib/utils"
 
@@ -15,6 +21,7 @@ type NodePortProps = HandleProps & {
 const HEADER_CENTER = 22
 
 export function NodePort({
+  id,
   position,
   offset = 14,
   align = "center",
@@ -22,6 +29,16 @@ export function NodePort({
   style,
   ...props
 }: NodePortProps) {
+  const nodeId = useNodeId()
+  const updateNodeInternals = useUpdateNodeInternals()
+
+  useLayoutEffect(() => {
+    if (!nodeId) return
+
+    updateNodeInternals(nodeId)
+    return () => updateNodeInternals(nodeId)
+  }, [align, id, nodeId, position, updateNodeInternals])
+
   const placement: CSSProperties = {}
   if (position === Position.Left) placement.left = -offset
   if (position === Position.Right) placement.right = -offset
@@ -34,6 +51,7 @@ export function NodePort({
   return (
     <Handle
       position={position}
+      id={id}
       data-slot="node-port"
       className={cn("group/port p-1.5", className)}
       style={{ ...placement, ...style }}
