@@ -28,6 +28,28 @@ Browser tests need Chromium. Run `pnpm exec playwright install chromium`,
 or set `CHROMIUM_PATH` to an installed Chromium. `pnpm gifs` also needs
 ffmpeg on `PATH`, or `FFMPEG_PATH` set to the binary.
 
+### Behind a TLS proxy
+
+The docs site loads `https://usefulshelf.co/badge/usefulshelf.svg`. The
+site and the playground load `https://va.vercel-scripts.com/v1/script.debug.js`
+(Vercel Analytics in dev mode). Some sandboxes send HTTPS through a
+proxy with its own CA, and Chromium does not trust it. Both loads fail
+with `ERR_CERT_AUTHORITY_INVALID`. The E2E files fail on any console
+error, so about 23 tests in `e2e/site.spec.ts` and
+`e2e/event-flow.spec.ts` go red.
+
+To tell this from a real failure:
+
+1. Run the same tests on `main`. If `main` fails the same way, the
+   cause is the environment.
+2. Run the suite with a config outside the repo that extends
+   `playwright.config.ts`. Set `use.ignoreHTTPSErrors: true`, add
+   `--ignore-certificate-errors` to `launchOptions.args`, and set
+   `webServer.cwd` to the repo root.
+
+Report both results. A run with the override is evidence, not a green
+gate. CI does not use a proxy, so CI does not need this.
+
 ## How the frozen clock works
 
 A motion test or a recording stops page time before the app loads:

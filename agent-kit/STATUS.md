@@ -15,7 +15,8 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | event-flow block | ✅ | E2E suite; `verify/artifacts/event-flow-open.png` |
 | Registry build (`public/r`) | ✅ | `pnpm build` runs `shadcn build` |
 | Registry hosting (`graphcomp.reagent-systems.com/r`) | ❌ | ROADMAP "Publish the registry" |
-| CI | 🚧 | Workflows committed; first run pending on GitHub |
+| CI | ✅ | `ci.yml` green on `main` at `b9995a0`; `nightly.yml` and `stale.yml` green on schedule |
+| E2E without third-party hosts | ❌ | ROADMAP "Hermetic E2E" |
 | NodeKnob, NodeWaveform, NodeDropzone | ❌ | ROADMAP items NodeKnob, NodeWaveform, NodeDropzone |
 | Docs site (`site/`, Vercel config) | 🚧 | `e2e/site.spec.ts`: 23 tests; Vercel project not created yet |
 | Docs site SEO, icons, OG images | 🚧 | `tests/seo.test.ts`: 6 tests; `public/og/` 13 images |
@@ -28,6 +29,6 @@ States: ✅ done (gated) · 🚧 in progress · ❌ not started · 🧊 frozen/w
 
 ## Current week
 
-- **Shipping:** ROADMAP item 1, "Docs site". Next: "Node theming".
+- **Shipping:** ROADMAP item 1, "Docs site". Next: "Hermetic E2E".
 - **Last release:** none.
-- **Known red:** none. `pnpm verify` passes locally: 27 unit/registry tests, 13 E2E tests (8 of them motion tests).
+- **Known red:** none in CI. `pnpm verify` at `b9995a0`: 34 unit/registry tests, 37 E2E tests. Behind a TLS proxy, about 23 E2E tests fail on third-party loads; see `docs/TESTING.md`.

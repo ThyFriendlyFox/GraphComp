@@ -29,49 +29,56 @@ patcher from GraphComp parts alone.
 - **Scope guard:** No search. No MDX pipeline. No versioned docs. Pages cover shipped items only.
 - **Status:** in progress
 
-### 2. Node theming
+### 2. Hermetic E2E
+- **Promise:** `pnpm test:e2e` passes with every request to a host other than `localhost` blocked, and a test fails if a page requests such a host without a route for it.
+- **Evidence:** A Playwright fixture that routes third-party hosts (the UsefulShelf badge, Vercel Analytics) to local stubs; the suite green with the network blocked; `e2e/site.spec.ts` still finds the badge link in the server HTML.
+- **Use case:** Add a node canvas to an existing app. The E2E gate decides what ships; it must not go red when a third-party host is down.
+- **Scope guard:** Test setup only. No change to the badge, the analytics or the site markup.
+- **Status:** ready
+
+### 3. Node theming
 - **Promise:** `NodeCard` accepts `accent`, `tone` and `variant` props, and a `NodeSurface` slot renders any React content behind the node, clipped and non-interactive; a playground node with a custom accent and an animated gradient surface passes E2E, and every existing widget inside it takes the node's accent.
 - **Evidence:** `tests/node-card.test.tsx` cases for each prop; E2E that reads the computed port color of a themed node; light and dark screenshots of the themed node.
 - **Use case:** Re-theme every canvas in a product.
 - **Scope guard:** No theme editor UI. No per-widget color props. 7 tone presets only.
 - **Status:** ready
 
-### 3. Publish the registry
+### 4. Publish the registry
 - **Promise:** In a fresh Vite + React + Tailwind project, `npx shadcn add https://graphcomp.reagent-systems.com/r/event-flow.json` installs the block and its dependencies, and `vite build` passes, in a gate that runs in `pnpm verify`.
 - **Evidence:** The Vercel deploy of the docs site serves `public/r`; a new `verify/install-smoke.sh` gate that installs from the built registry (served locally) into a scratch project and builds it.
 - **Use case:** Add a node canvas to an existing app.
 - **Scope guard:** No docs site. No custom CLI. No npm package.
 - **Status:** ready
 
-### 4. NodeKnob
+### 5. NodeKnob
 - **Promise:** `NodeKnob` changes its value by vertical drag, wheel and arrow keys, exposes `role="slider"` with `aria-valuenow`, and animates the indicator with a spring, proven by unit tests and an E2E drag test.
 - **Evidence:** `tests/node-knob.test.tsx`; E2E drag step; screenshot in `verify/artifacts/`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** No MIDI learn. No bipolar or stepped detents (queue them under Later if needed).
 - **Status:** ready
 
-### 5. NodeWaveform
+### 6. NodeWaveform
 - **Promise:** `NodeWaveform` draws bars from a peaks array, shows played bars in full color and unplayed bars dimmed, and seeks by click, drag or arrow keys on a `role="slider"` scrubber, proven by unit tests.
 - **Evidence:** `tests/node-waveform.test.tsx`; screenshot in `verify/artifacts/`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** Draws given peaks only; no audio decoding and no playback engine. Play state is a prop.
 - **Status:** ready
 
-### 6. NodeDropzone
+### 7. NodeDropzone
 - **Promise:** `NodeDropzone` accepts files by drop and by keyboard-activated file picker, filters by `accept`, shows a drag-over state, and calls `onFiles` with the accepted files, proven by unit tests.
 - **Evidence:** `tests/node-dropzone.test.tsx`; E2E drop test with `setInputFiles`.
 - **Use case:** Build an audio patch editor.
 - **Scope guard:** No upload, no progress bar, no storage.
 - **Status:** ready
 
-### 7. Sound block
+### 8. Sound block
 - **Promise:** A `sound-flow` registry block composes NodeKnob, NodeWaveform and NodeDropzone into a "Tone Box" node that widens when a clip is added, and the E2E suite proves the width change animates.
 - **Evidence:** Block in `registry.json`; E2E width assertion; screenshot.
 - **Use case:** Build an audio patch editor.
-- **Scope guard:** Neighbour nodes do not move yet (that is item 8).
-- **Status:** blocked on items 4, 5 and 6
+- **Scope guard:** Neighbour nodes do not move yet (that is item 9).
+- **Status:** blocked on items 5, 6 and 7
 
-### 8. Neighbour reflow
+### 9. Neighbour reflow
 - **Promise:** When a node grows and overlaps a neighbour, `useNodeReflow` moves the neighbour clear with a spring, and moves it back when the node shrinks, proven by an E2E test that measures both positions.
 - **Evidence:** E2E test; screen recording linked in the PR.
 - **Use case:** Build a visual scripting editor.
@@ -119,3 +126,4 @@ into the queue above, one at a time, with a promise.
 - 2026-09-23 — Shipped out of queue: interaction motion, motion tests and README GIFs. The maintainer asked for press and action animations and for a way to test them. The widget key bug surfaced while recording.
 - 2026-09-23 — Inserted "Node theming" at position 1. The maintainer wants node colors and backgrounds swappable; every later widget depends on that API, so it ships first.
 - 2026-10-01 — Inserted "Docs site" at position 1. The maintainer asked for a website for the library, like the shadcn/ui site. The maintainer hosts it on Vercel. The deploy also serves `public/r`, so item 3 must pick one registry host.
+- 2026-10-06 — Inserted "Hermetic E2E" at position 2. While reviewing PR #16 I found that the E2E gate loads 2 third-party URLs; it goes red when a proxy blocks them, and would go red if either host went down. It is small and protects every later item. "Publish the registry" is now item 4.
