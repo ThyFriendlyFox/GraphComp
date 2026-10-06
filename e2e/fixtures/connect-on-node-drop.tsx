@@ -50,13 +50,28 @@ function TargetNode({ data }: NodeProps<FixtureNode>) {
   )
 }
 
-const nodeTypes: NodeTypes = { source: SourceNode, merge: MergeNode, target: TargetNode }
+function QuotedNode({ data }: NodeProps<FixtureNode>) {
+  return (
+    <div className={box} style={{ width: 200, height: 96 }}>
+      <NodePort id='say "hi"' type="target" position={Position.Left} offset={0} />
+      <span>{data.label}</span>
+    </div>
+  )
+}
+
+const nodeTypes: NodeTypes = {
+  source: SourceNode,
+  merge: MergeNode,
+  target: TargetNode,
+  quoted: QuotedNode,
+}
 
 const initialNodes: FixtureNode[] = [
   { id: "decision", type: "source", position: { x: 0, y: 0 }, data: { label: "Decision" } },
   { id: "other", type: "source", position: { x: 0, y: 220 }, data: { label: "Other" } },
   { id: "merge", type: "merge", position: { x: 380, y: 0 }, data: { label: "Merge" } },
   { id: "blocked", type: "target", position: { x: 380, y: 220 }, data: { label: "Blocked" } },
+  { id: "quoted", type: "quoted", position: { x: 380, y: 440 }, data: { label: "Quoted port" } },
 ]
 
 const initialEdges: Edge[] = [
@@ -87,6 +102,8 @@ function ConnectOnNodeDropFixture() {
         onConnectEnd={onConnectEnd}
         isValidConnection={isValidConnection}
         connectOnNodeDrop
+        // A held drag near the edge pans the canvas and moves the target off the pointer.
+        autoPanOnConnect={false}
         fitView
         fitViewOptions={{ padding: 0.3, maxZoom: 1 }}
       />

@@ -100,6 +100,14 @@ test.describe("FlowCanvas connectOnNodeDrop", () => {
     await expect(edges(page)).toHaveText("other:out->merge:a")
   })
 
+  test("a port id with quotes connects without a selector error", async ({ page }) => {
+    await dragPortOverNode(page, { nodeId: "decision", handleId: "out" }, "quoted")
+    await expect(ring(page)).toHaveAttribute("data-node-id", "quoted")
+    await page.mouse.up()
+
+    await expect(edges(page)).toHaveText('other:out->merge:a decision:out->quoted:say "hi"')
+  })
+
   test("a node without a free input gets no ring and no edge", async ({ page }) => {
     await dragPortOverNode(page, { nodeId: "decision", handleId: "out" }, "merge")
     await page.mouse.up()

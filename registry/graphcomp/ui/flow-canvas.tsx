@@ -219,9 +219,8 @@ function acceptsConnection(
   type: HandleType,
   handleId: string | null,
 ) {
-  const port = state.domNode?.querySelector(
-    `.react-flow__handle[data-id="${state.rfId}-${nodeId}-${handleId}-${type}"]`,
-  )
+  const id = CSS.escape(`${state.rfId}-${nodeId}-${handleId}-${type}`)
+  const port = state.domNode?.querySelector(`.react-flow__handle[data-id="${id}"]`)
   return !!port?.classList.contains("connectable") && port.classList.contains("connectableend")
 }
 
