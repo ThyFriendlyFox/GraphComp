@@ -55,6 +55,12 @@ export const componentDocs: ComponentDoc[] = [
             default: "24",
             description: "Grid cell size in flow units.",
           },
+          {
+            name: "connectionLineType",
+            type: "ConnectionLineType",
+            default: "shape of the default edge",
+            description: "The shape of the drag line while the user connects 2 ports.",
+          },
           { name: "...props", type: "ReactFlowProps", description: "Every React Flow prop." },
         ],
       },
@@ -65,6 +71,7 @@ export const componentDocs: ComponentDoc[] = [
     ],
     notes: [
       "FlowCanvas registers FlowEdge as the `flow` edge type and makes it the default.",
+      "The drag line has the shape of the default edge: right angles for FlowEdge.",
       "Every component inside follows the reduced motion setting of the operating system.",
       "Define `nodeTypes` at module scope. React Flow remounts every node when the object changes.",
     ],
@@ -94,6 +101,67 @@ export const componentDocs: ComponentDoc[] = [
     ],
     notes: [
       "FlowCanvas uses FlowEdge for every edge. You do not register it.",
+      "For curved or straight edges, use FlowBezierEdge or FlowStraightEdge.",
+      "The path draws from source to target in 500 ms. The midpoint dot springs in after 250 ms.",
+      "A selected edge takes the accent color.",
+    ],
+  },
+  {
+    name: "flow-bezier-edge",
+    group: "Canvas",
+    ...demo("flow-bezier-edge"),
+    usage: `import { FlowBezierEdge } from "@/components/ui/flow-bezier-edge"
+
+const edgeTypes = { flow: FlowBezierEdge }
+
+<FlowCanvas nodes={nodes} edges={edges} edgeTypes={edgeTypes} />`,
+    props: [
+      {
+        component: "FlowBezierEdge data",
+        rows: [
+          {
+            name: "dot",
+            type: "boolean",
+            default: "true",
+            description: "Draws a dot at the middle of the edge.",
+          },
+        ],
+      },
+    ],
+    notes: [
+      "Register FlowBezierEdge as the `flow` edge type to make every edge curved.",
+      "The drag line curves too while FlowBezierEdge is the default edge.",
+      "Define `edgeTypes` at module scope. React Flow remounts every edge when the object changes.",
+      "The path draws from source to target in 500 ms. The midpoint dot springs in after 250 ms.",
+      "A selected edge takes the accent color.",
+    ],
+  },
+  {
+    name: "flow-straight-edge",
+    group: "Canvas",
+    ...demo("flow-straight-edge"),
+    usage: `import { FlowStraightEdge } from "@/components/ui/flow-straight-edge"
+
+const edgeTypes = { flow: FlowStraightEdge }
+
+<FlowCanvas nodes={nodes} edges={edges} edgeTypes={edgeTypes} />`,
+    props: [
+      {
+        component: "FlowStraightEdge data",
+        rows: [
+          {
+            name: "dot",
+            type: "boolean",
+            default: "true",
+            description: "Draws a dot at the middle of the edge.",
+          },
+        ],
+      },
+    ],
+    notes: [
+      "Register FlowStraightEdge as the `flow` edge type to make every edge straight.",
+      "The drag line is straight too while FlowStraightEdge is the default edge.",
+      "Define `edgeTypes` at module scope. React Flow remounts every edge when the object changes.",
       "The path draws from source to target in 500 ms. The midpoint dot springs in after 250 ms.",
       "A selected edge takes the accent color.",
     ],

@@ -43,6 +43,33 @@ All `ReactFlow` props pass through. GraphComp adds or changes these:
 | `gridGap` | number | `24` | Grid cell size in flow units |
 | `edgeTypes` | `EdgeTypes` | `{ flow: FlowEdge }` | Merged over the default |
 | `defaultEdgeOptions` | object | `{ type: "flow" }` | Merged over the default |
+| `connectionLineType` | `ConnectionLineType` | shape of the default edge type | Shape of the drag line while the user connects 2 ports |
+
+### Edge shape
+
+Every edge takes the `flow` edge type unless it names another. To choose
+curved or straight edges, register that edge as `flow`, at module scope:
+
+```tsx
+import { FlowBezierEdge } from "@/components/ui/flow-bezier-edge"
+
+const edgeTypes = { flow: FlowBezierEdge }
+
+<FlowCanvas edgeTypes={edgeTypes} />
+```
+
+The drag line takes the same shape. `FlowCanvas` reads it from a static
+`connectionLineType` on the default edge component:
+
+| Default edge | Drag line |
+|---|---|
+| `FlowEdge` (no static) | `ConnectionLineType.SmoothStep` |
+| `FlowBezierEdge` | `ConnectionLineType.Bezier` |
+| `FlowStraightEdge` | `ConnectionLineType.Straight` |
+
+A `connectionLineType` prop on `FlowCanvas` wins over the default edge.
+React Flow draws its smooth-step drag line with a 5 px corner radius;
+`FlowEdge` uses 10 px. React Flow takes no radius for the drag line.
 
 ## Environment (repo tooling only)
 

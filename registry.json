@@ -47,6 +47,40 @@
       ]
     },
     {
+      "name": "flow-bezier-edge",
+      "type": "registry:ui",
+      "title": "Flow Bezier Edge",
+      "description": "A curved edge with a draw-in animation and a midpoint dot.",
+      "dependencies": ["@xyflow/react", "motion"],
+      "registryDependencies": [
+        "utils",
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/flow-bezier-edge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "flow-straight-edge",
+      "type": "registry:ui",
+      "title": "Flow Straight Edge",
+      "description": "A straight edge with a draw-in animation and a midpoint dot.",
+      "dependencies": ["@xyflow/react", "motion"],
+      "registryDependencies": [
+        "utils",
+        "https://graphcomp.reagent-systems.com/r/graphcomp-theme.json"
+      ],
+      "files": [
+        {
+          "path": "registry/graphcomp/ui/flow-straight-edge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "flow-canvas",
       "type": "registry:ui",
       "title": "Flow Canvas",
@@ -182,6 +216,8 @@
       "dependencies": ["@xyflow/react", "lucide-react"],
       "registryDependencies": [
         "https://graphcomp.reagent-systems.com/r/flow-canvas.json",
+        "https://graphcomp.reagent-systems.com/r/flow-bezier-edge.json",
+        "https://graphcomp.reagent-systems.com/r/flow-straight-edge.json",
         "https://graphcomp.reagent-systems.com/r/node-card.json",
         "https://graphcomp.reagent-systems.com/r/node-port.json",
         "https://graphcomp.reagent-systems.com/r/node-segmented.json",

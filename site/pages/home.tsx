@@ -136,7 +136,7 @@ export function HomePage() {
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Components</h2>
                 <p className="mt-3 text-gc-muted">
-                  {componentDocs.length} items today. 97 in the catalog.
+                  {componentDocs.length} items today. 98 in the catalog.
                 </p>
               </div>
               <Link

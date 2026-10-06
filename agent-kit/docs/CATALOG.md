@@ -50,9 +50,10 @@ takes its colors from the node it sits in (see `docs/THEMING.md`).
 | Item | What it is | Status | Wave |
 |---|---|---|---|
 | `flow-edge` | Right-angle edge, rounded corners, midpoint dot | ✅ | — |
+| `flow-bezier-edge` | Curved variant of `flow-edge`; the drag line curves too | ✅ | — |
+| `flow-straight-edge` | Straight variant of `flow-edge`; the drag line is straight too | ✅ | — |
 | `flow-edge-pulse` | Edge with dots that travel source to target while data flows | ◻️ | 1 |
 | `flow-edge-label` | Edge with a label chip at the midpoint | ◻️ | 1 |
-| `flow-edge-bezier` | Curved variant of `flow-edge` | ◻️ | 2 |
 | `flow-edge-button` | Edge with a delete or insert button on hover | ◻️ | 2 |
 | `node-port` | Accent dot outside the node edge | ✅ | — |
 | `node-port-typed` | Port colored and shaped by data type; rejects wrong types | ◻️ | 1 |

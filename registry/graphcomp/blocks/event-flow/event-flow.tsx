@@ -1,10 +1,11 @@
-import { useCallback } from "react"
+import { useCallback, useMemo, useState } from "react"
 import {
   addEdge,
   useEdgesState,
   useNodesState,
   type Connection,
   type Edge,
+  type EdgeTypes,
   type NodeTypes,
 } from "@xyflow/react"
 import { Workflow } from "lucide-react"
@@ -15,6 +16,9 @@ import {
   FlowToolbarTab,
   FlowZoomControl,
 } from "@/registry/graphcomp/ui/flow-canvas"
+import { FlowBezierEdge } from "@/registry/graphcomp/ui/flow-bezier-edge"
+import { FlowStraightEdge } from "@/registry/graphcomp/ui/flow-straight-edge"
+import { NodeSegmented } from "@/registry/graphcomp/ui/node-segmented"
 import {
   EntryNode,
   ItemNode,
@@ -34,6 +38,16 @@ const nodeTypes: NodeTypes = {
   script: ScriptNode,
   item: ItemNode,
 }
+
+const edgeTypes: EdgeTypes = { "flow-bezier": FlowBezierEdge, "flow-straight": FlowStraightEdge }
+
+type EdgeStyle = "flow" | "flow-bezier" | "flow-straight"
+
+const edgeStyles: { value: EdgeStyle; label: string }[] = [
+  { value: "flow", label: "Angle" },
+  { value: "flow-bezier", label: "Curve" },
+  { value: "flow-straight", label: "Straight" },
+]
 
 const initialNodes: EventFlowNode[] = [
   { id: "entry", type: "entry", position: { x: 0, y: 0 }, data: {} },
@@ -66,6 +80,8 @@ export function EventFlow({ className }: { className?: string }) {
     (connection: Connection) => setEdges((current) => addEdge(connection, current)),
     [setEdges],
   )
+  const [edgeStyle, setEdgeStyle] = useState<EdgeStyle>("flow")
+  const defaultEdgeOptions = useMemo(() => ({ type: edgeStyle }), [edgeStyle])
 
   return (
     <FlowCanvas
@@ -73,6 +89,8 @@ export function EventFlow({ className }: { className?: string }) {
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
+      defaultEdgeOptions={defaultEdgeOptions}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
@@ -82,7 +100,13 @@ export function EventFlow({ className }: { className?: string }) {
       <FlowToolbar>
         <FlowToolbarTab icon={<Workflow />}>Flow Graph</FlowToolbarTab>
         <FlowZoomControl className="mx-auto" />
-        <div className="w-24" />
+        <NodeSegmented
+          aria-label="Edge style"
+          options={edgeStyles}
+          value={edgeStyle}
+          onValueChange={setEdgeStyle}
+          className="h-7"
+        />
       </FlowToolbar>
     </FlowCanvas>
   )

@@ -3,7 +3,7 @@
 A registry item is one installable unit: a component, hook, block or
 theme, described in `registry.json` and served as
 `https://graphcomp.reagent-systems.com/r/<name>.json`. GraphComp has
-11 items. Install one with the shadcn CLI:
+13 items. Install one with the shadcn CLI:
 
 ```sh
 npx shadcn add https://graphcomp.reagent-systems.com/r/<name>.json
@@ -17,7 +17,9 @@ depends on `graphcomp-theme` and shadcn's `utils`.
 | `graphcomp-theme` | `registry:file` | `styles/graphcomp.css` |
 | `use-controllable-state` | `registry:hook` | `hooks/use-controllable-state.ts` |
 | `flow-canvas` | `registry:ui` | `FlowCanvas`, `FlowToolbar`, `FlowToolbarTab`, `FlowZoomControl` |
-| `flow-edge` | `registry:ui` | `FlowEdge` |
+| `flow-edge` | `registry:ui` | `FlowEdge`, the right-angle edge |
+| `flow-bezier-edge` | `registry:ui` | `FlowBezierEdge`, the curved edge |
+| `flow-straight-edge` | `registry:ui` | `FlowStraightEdge`, the straight edge |
 | `node-port` | `registry:ui` | `NodePort` |
 | `node-pressable` | `registry:ui` | `NodePressable`, the press-feedback button every widget uses |
 | `node-card` | `registry:ui` | `NodeCard` and its parts |

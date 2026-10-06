@@ -26,6 +26,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - Docs site previews play by themselves: a drawn cursor presses, drags and connects the real components in a loop. A press or key in the preview stops it; a Pause/Play button controls it; reduced motion starts it paused.
 - The UsefulShelf listing badge in the docs site footer.
 - Site icons (`favicon.ico`, `icon.svg`, Apple touch icon, 192 and 512 px icons, maskable icon, web manifest) and one Open Graph image per page. `pnpm assets` renders them.
+- `FlowBezierEdge` and `FlowStraightEdge`: curved and straight edges with the `FlowEdge` style. Register one as the `flow` edge type to use it for every edge; the drag line takes its shape. The `event-flow` toolbar switches between the 3 edge shapes.
 
 ### Changed
 
@@ -43,5 +44,6 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - The UsefulShelf badge is in the server-rendered HTML of every docs site page. Before, only the client-side footer drew it, and the UsefulShelf check did not find it.
 
 - Keys pressed in a widget no longer move or delete the node. Widgets carry the React Flow `nokey` class.
+- The drag line from a port has the shape of the default edge. Before, it was always a curve, and it snapped to right angles on release.
 
 ### Security

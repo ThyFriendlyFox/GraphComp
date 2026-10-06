@@ -69,3 +69,30 @@ test("widget keys do not move or delete the node", async ({ page }) => {
   const after = await node.boundingBox()
   expect({ x: after!.x, y: after!.y }).toEqual({ x: before!.x, y: before!.y })
 })
+
+test("the edge style control changes every edge and the drag line", async ({ page }) => {
+  const port = page.locator('[data-handleid="key-press-out"]')
+  async function dragLine() {
+    const from = (await port.boundingBox())!
+    await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2)
+    await page.mouse.down()
+    await page.mouse.move(from.x + 160, from.y + 140, { steps: 8 })
+    const d = await page.locator("path.react-flow__connection-path").getAttribute("d")
+    await page.mouse.up()
+    return d
+  }
+
+  expect(await dragLine()).not.toMatch(/C/)
+
+  await page.getByRole("radio", { name: "Curve" }).click()
+  await expect(page.locator('[data-slot="flow-bezier-edge"]')).toHaveCount(3)
+  await expect(page.locator('[data-slot="flow-edge"]')).toHaveCount(0)
+  expect(await dragLine()).toMatch(/C/)
+
+  await page.getByRole("radio", { name: "Straight" }).click()
+  await expect(page.locator('[data-slot="flow-straight-edge"]')).toHaveCount(3)
+  expect(await dragLine()).toMatch(/^M[^A-Za-z]+L[^A-Za-z]+$/)
+
+  await page.getByRole("radio", { name: "Angle" }).click()
+  await expect(page.locator('[data-slot="flow-edge"]')).toHaveCount(3)
+})
