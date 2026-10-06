@@ -25,6 +25,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - Docs site SEO: one static HTML file per route with title, description, canonical link, Open Graph, Twitter and JSON-LD tags; `404.html`, `sitemap.xml` and `robots.txt`.
 - Docs site previews play by themselves: a drawn cursor presses, drags and connects the real components in a loop. A press or key in the preview stops it; a Pause/Play button controls it; reduced motion starts it paused.
 - The UsefulShelf listing badge in the docs site footer.
+- `FlowEdge` takes `data.label`: text at the middle of the edge, in place of the dot. It follows the selected state, shrinks on a spring when pressed, and a click on it selects the edge.
 - Site icons (`favicon.ico`, `icon.svg`, Apple touch icon, 192 and 512 px icons, maskable icon, web manifest) and one Open Graph image per page. `pnpm assets` renders them.
 
 ### Changed

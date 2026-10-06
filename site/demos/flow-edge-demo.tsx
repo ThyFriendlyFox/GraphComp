@@ -28,8 +28,8 @@ const initialNodes: StepNode[] = [
 ]
 
 const edges: Edge[] = [
-  { id: "fetch-parse", source: "fetch", target: "parse" },
-  { id: "fetch-store", source: "fetch", target: "store", data: { dot: false } },
+  { id: "fetch-parse", source: "fetch", target: "parse", data: { label: "JSON" } },
+  { id: "fetch-store", source: "fetch", target: "store" },
 ]
 
 export default function FlowEdgeDemo() {

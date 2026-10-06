@@ -117,6 +117,22 @@ test("a press shrinks and highlights the button, then springs back", async ({ pa
   expect(settledAt(scales, 0.005)).toBeLessThanOrEqual(BUDGET_MS)
 })
 
+test("a press shrinks an edge label, then springs back", async ({ page }) => {
+  await page.goto("/e2e/fixtures/flow-edge.html")
+  await advance(page, 1000)
+  const label = page.locator('[data-slot="flow-edge-label"]').filter({ hasText: "Yes" })
+  await pressAndHold(page, label)
+  await advance(page, 200)
+
+  expect(await scaleOf(label)).toBeLessThan(0.97)
+
+  await page.mouse.up()
+  const scales = await sample(page, 500, () => scaleOf(label))
+  expect(scales.at(-1)).toBeCloseTo(1, 2)
+  expect(settledAt(scales, 0.005)).toBeLessThanOrEqual(BUDGET_MS)
+  await expect(label).toHaveAttribute("data-selected", "true")
+})
+
 test("the stepper rolls the old value out and the new value in", async ({ page }) => {
   await openFirstTrigger(page)
   const values = sensitivity(page).locator('[data-slot="node-stepper-value"]')
