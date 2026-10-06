@@ -8,7 +8,7 @@ runs the first 4. `pnpm gifs` makes the recordings.
 |---|---|---|---|
 | Behavior | Vitest + Testing Library (jsdom) | `tests/node-*.test.tsx` | `pnpm test`, `pnpm verify` |
 | Registry integrity | Vitest (node) | `tests/registry.test.ts` | `pnpm test`, `pnpm verify` |
-| Flows | Playwright | `e2e/event-flow.spec.ts` | `pnpm test:e2e`, `pnpm verify` |
+| Flows | Playwright | `e2e/event-flow.spec.ts`, `e2e/web-components.spec.ts` | `pnpm test:e2e`, `pnpm verify` |
 | Motion | Playwright on a frozen clock | `e2e/motion.spec.ts`, `e2e/helpers/motion.ts` | `pnpm test:e2e`, `pnpm verify` |
 | Recordings | Playwright on a frozen clock + ffmpeg | `scripts/record-gifs.mjs` | `pnpm gifs`, the `Record GIFs` workflow |
 

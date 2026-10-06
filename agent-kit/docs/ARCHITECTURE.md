@@ -2,7 +2,7 @@
 
 GraphComp is a shadcn-compatible component registry for node canvases,
 written in React 19 and TypeScript, built on React Flow 12, Tailwind CSS 4
-and Motion. The repo has 6 parts.
+and Motion. The repo has 7 parts.
 
 | Part | Folder | Task |
 |---|---|---|
@@ -10,6 +10,7 @@ and Motion. The repo has 6 parts.
 | Registry manifest | `registry.json` | Lists every item, its files and its dependencies. |
 | Docs site | `site/`, `index.html`, `vercel.json` | The public website: landing page and one docs page per registry item, with live previews. |
 | Playground | `playground/` | A Vite app at `/playground/` that renders the blocks for development and E2E. |
+| Web Components wrapper | `wc/` | `<gc-flow-canvas>`: the registry components in one script for HTML pages without React. Built to `dist/wc/graphcomp.js`. |
 | Tests | `tests/`, `e2e/` | Vitest unit and registry gates; Playwright E2E. |
 | Gate and tooling | `verify/`, `.github/`, `scripts/` | `pnpm verify`, CI, and the GIF recorder. |
 
@@ -57,6 +58,7 @@ How a component reaches a user's app:
 | widgets ↔ canvas | Widgets are plain React. They know nothing about React Flow except the `nodrag` / `nowheel` classes. |
 | blocks ↔ ui | Blocks compose `ui/` items. `ui/` never imports a block. |
 | playground ↔ registry | The playground imports the registry. The registry never imports the playground. |
+| wc ↔ registry | `wc/` imports the registry. Nothing in `registry/` imports `wc/`. `wc/` is not in `registry.json`. |
 | site ↔ registry | The site imports the registry and reads `registry.json` and the raw source. The registry never imports the site. |
 
 ## Docs site
@@ -72,4 +74,23 @@ How a component reaches a user's app:
 | `scripts/seo.ts` | Vite plugin: per-route HTML with the UsefulShelf badge, `404.html`, `sitemap.xml`, `robots.txt`. `SITE_URL` overrides the domain. |
 | `scripts/brand-assets.mjs` | `pnpm assets`: writes the icons and the OG images in `public/`. |
 | `site/lib/router.tsx` | A small history router. `vercel.json` rewrites unknown paths to `index.html`. |
-| `site/lib/highlight.ts` | Shiki, loaded on first use, with the TSX, CSS, Bash and JSON grammars. |
+| `site/lib/highlight.ts` | Shiki, loaded on first use, with the TSX, CSS, Bash, JSON and HTML grammars. |
+
+## Web Components wrapper
+
+| File | Task |
+|---|---|
+| `wc/graphcomp.tsx` | Defines `<gc-flow-canvas>`. Holds the nodes and edges, mounts React in an open shadow root, and fires the DOM events. |
+| `wc/canvas.tsx` | The React tree: `FlowCanvas` with a generic `card` node and the `event-flow` node types. |
+| `wc/graphcomp.css` | Tailwind, the React Flow base styles and `graphcomp.css`, scanned from `registry/graphcomp/` and `wc/`. |
+| `wc/vite.config.ts` | `pnpm wc:build`: one minified ES module at `dist/wc/graphcomp.js`, and `wc/example.html` copied as written. `pnpm build` runs it last. |
+| `wc/example.html` | A plain HTML page that loads the bundle with one script tag. Served at `/wc/example.html`. |
+
+The element uses a shadow root, so page styles and GraphComp styles stay
+apart. At runtime `graphcomp.tsx` adapts the stylesheet: `:root` tokens
+move to `:host`, `.dark` tokens move to `:host(:state(dark))`, and the
+Tailwind `@property` rules go to the document, because browsers ignore
+them in a shadow root.
+
+In dev, `vite.config.ts` serves `wc/graphcomp.tsx` at `/wc/graphcomp.js`,
+so `wc/example.html` works unchanged under `pnpm dev` and in the build.

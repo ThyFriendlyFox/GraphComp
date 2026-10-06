@@ -11,7 +11,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && pnpm registry:build && vite build",
+    "build": "tsc -b && pnpm registry:build && vite build && pnpm wc:build",
+    "wc:build": "vite build --config wc/vite.config.ts",
     "registry:build": "shadcn build --output public/r",
     "test": "vitest run",
     "test:e2e": "playwright test",

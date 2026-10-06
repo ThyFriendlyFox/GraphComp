@@ -68,6 +68,14 @@ export const pages: Page[] = [
     og: "docs-theming.png",
     section: "Docs",
   },
+  {
+    path: "/docs/web-components",
+    title: "Use without React",
+    description:
+      "Use GraphComp in any HTML page with one script tag. The <gc-flow-canvas> element renders nodes and edges from JSON and fires DOM events.",
+    og: "docs-web-components.png",
+    section: "Docs",
+  },
   ...componentNames.map((name) => ({
     path: `/docs/components/${name}`,
     title: item(name).title,

@@ -22,5 +22,6 @@
       "@/lib/*": ["./registry/graphcomp/lib/*"]
     }
   },
-  "include": ["registry", "playground", "site"]
+  "include": ["registry", "playground", "site", "wc"],
+  "exclude": ["wc/vite.config.ts"]
 }

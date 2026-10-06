@@ -90,7 +90,8 @@ export function Steps({ className, ...props }: ComponentProps<"ol">) {
 
 export function TextLink({ to, className, ...props }: ComponentProps<"a"> & { to: string }) {
   const style = cn("font-medium text-gc-accent underline-offset-4 hover:underline", className)
-  if (/^https?:/.test(to)) return <a href={to} className={style} {...props} />
+  // External links and static files, such as /wc/example.html, load a new page.
+  if (/^https?:|\.html$/.test(to)) return <a href={to} className={style} {...props} />
   return <Link to={to} className={style} {...props} />
 }
 

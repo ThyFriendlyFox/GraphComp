@@ -1,7 +1,7 @@
 import { CodeBlock } from "../components/code-block"
 import { Command } from "../components/command"
 import { Code, H1, H2, Lead, List, P, Steps, Table, TextLink } from "../components/prose"
-import { installUrl, registryItem } from "../lib/registry"
+import { installUrl, REGISTRY_URL, registryItem } from "../lib/registry"
 import { DocsPager } from "./docs-layout"
 
 export function IntroductionPage() {
@@ -225,6 +225,203 @@ export function ThemingPage() {
 </NodeCard>`}
       />
       <P>Set the same variable on the canvas wrapper to change every node at once.</P>
+
+      <DocsPager />
+    </article>
+  )
+}
+
+const bundleUrl = REGISTRY_URL.replace(/\/r$/, "/wc/graphcomp.js")
+
+export function WebComponentsPage() {
+  return (
+    <article>
+      <H1>Use without React</H1>
+      <Lead className="mt-3">
+        Load one script and use the <Code>{"<gc-flow-canvas>"}</Code> element in any HTML page. The
+        page needs no React and no build step.
+      </Lead>
+
+      <H2>Add the script</H2>
+      <P>
+        Add the script, then add the element with its nodes and edges as JSON. Give the element a
+        height.
+      </P>
+      <CodeBlock
+        lang="html"
+        title="index.html"
+        className="mt-4"
+        code={`<script type="module" src="${bundleUrl}"></script>
+
+<gc-flow-canvas style="height: 480px">
+  <script type="application/json">
+    {
+      "nodes": [
+        { "id": "a", "position": { "x": 0, "y": 0 }, "data": { "title": "Webhook" } },
+        { "id": "b", "position": { "x": 320, "y": 0 }, "data": { "title": "Filter" } }
+      ],
+      "edges": [{ "id": "a-b", "source": "a", "target": "b" }]
+    }
+  </script>
+</gc-flow-canvas>`}
+      />
+      <P>
+        The script contains React, React Flow, Motion and the GraphComp styles: about 620 kB, or 190
+        kB with gzip. Open the <TextLink to="/wc/example.html">example page</TextLink> and read its
+        source.
+      </P>
+      <P>
+        The file at this address changes with every release of the site. To keep one version,
+        download the file and serve it from your own site.
+      </P>
+
+      <H2>Attributes</H2>
+      <Table
+        head={["Attribute", "Value", "Description"]}
+        rows={[
+          [<Code>nodes</Code>, "JSON array", "The nodes. A new value replaces the nodes."],
+          [<Code>edges</Code>, "JSON array", "The edges. A new value replaces the edges."],
+          [
+            <Code>theme</Code>,
+            <>
+              <Code>light</Code>, <Code>dark</Code>
+            </>,
+            <>
+              Sets the theme. Without it, the element is dark inside an element with the{" "}
+              <Code>dark</Code> class.
+            </>,
+          ],
+          [<Code>grid</Code>, <Code>false</Code>, "Hides the grid."],
+        ]}
+      />
+      <P>
+        A child <Code>{'<script type="application/json">'}</Code> with{" "}
+        <Code>{"{ nodes, edges }"}</Code> sets the first nodes and edges when the <Code>nodes</Code>{" "}
+        attribute is not set.
+      </P>
+
+      <H2>Properties</H2>
+      <Table
+        head={["Property", "Type", "Description"]}
+        rows={[
+          [<Code>nodes</Code>, <Code>Node[]</Code>, "The current nodes. Set it to replace them."],
+          [<Code>edges</Code>, <Code>Edge[]</Code>, "The current edges. Set it to replace them."],
+          [<Code>fitView()</Code>, "method", "Fits every node into the view."],
+        ]}
+      />
+      <P>
+        Nodes and edges use the React Flow format. The element fits the first nodes into the view.
+        Call <Code>fitView()</Code> after you replace them.
+      </P>
+
+      <H2>Node types</H2>
+      <Table
+        head={["type", "Renders"]}
+        rows={[
+          [
+            <>
+              none, <Code>card</Code>
+            </>,
+            <>
+              A node with a header. <Code>data</Code>: <Code>title</Code>, <Code>eyebrow</Code>,{" "}
+              <Code>input</Code> and <Code>output</Code> (<Code>false</Code> hides that port).
+            </>,
+          ],
+          [
+            <>
+              <Code>entry</Code>, <Code>trigger-stack</Code>, <Code>script</Code>, <Code>item</Code>
+            </>,
+            <>
+              The nodes of the <TextLink to="/docs/components/event-flow">Event Flow</TextLink>{" "}
+              block. <Code>script</Code> takes <Code>data.title</Code>.
+            </>,
+          ],
+        ]}
+      />
+      <P>
+        Every edge is a <TextLink to="/docs/components/flow-edge">Flow Edge</TextLink>. Set{" "}
+        <Code>data.dot</Code> to <Code>false</Code> to hide its midpoint dot.
+      </P>
+
+      <H2>Events</H2>
+      <P>
+        Each event fires after the change. The <Code>nodes</Code> and <Code>edges</Code> properties
+        already hold the new state. The events bubble out of the shadow root.
+      </P>
+      <Table
+        head={["Event", "detail", "Fires when"]}
+        rows={[
+          [
+            <Code>gc-nodes-change</Code>,
+            <Code>{"{ changes, nodes }"}</Code>,
+            "A node moves, changes size, or is selected or deleted.",
+          ],
+          [
+            <Code>gc-edges-change</Code>,
+            <Code>{"{ changes, edges }"}</Code>,
+            "An edge is selected or deleted.",
+          ],
+          [
+            <Code>gc-connect</Code>,
+            <Code>{"{ connection, edges }"}</Code>,
+            "The user drags a new edge from a port to a port.",
+          ],
+        ]}
+      />
+      <CodeBlock
+        className="mt-4"
+        code={`const canvas = document.querySelector("gc-flow-canvas")
+
+canvas.addEventListener("gc-connect", (event) => {
+  console.log(event.detail.connection.source, event.detail.connection.target)
+})
+
+canvas.nodes = [...canvas.nodes, { id: "c", position: { x: 0, y: 160 }, data: { title: "Log" } }]`}
+      />
+
+      <H2>Theming</H2>
+      <P>
+        The element renders into a shadow root. Page styles do not reach the nodes, and GraphComp
+        styles do not reach the page. Set <Code>--gc-*</Code> tokens on the element itself. A token
+        on the element applies in light and dark.
+      </P>
+      <CodeBlock
+        lang="css"
+        className="mt-4"
+        code={`gc-flow-canvas {
+  height: 480px;
+  --gc-accent: #f97316;
+}
+
+/* Values for dark only */
+gc-flow-canvas:state(dark) {
+  --gc-canvas: #101012;
+}`}
+      />
+      <P>
+        Add the <Code>dark</Code> class to <Code>{"<html>"}</Code> or to any parent of the element
+        to use the dark tokens. The <Code>theme</Code> attribute overrides the class. The element
+        adds the Tailwind <Code>--tw-*</Code> property rules to the page, because browsers ignore
+        them inside a shadow root.
+      </P>
+
+      <H2>Limits</H2>
+      <List>
+        <li>You cannot add a node type. A custom node is a React component.</li>
+        <li>
+          Widget values inside a node, such as a select in a <Code>script</Code> node, are not in{" "}
+          <Code>data</Code> and fire no events.
+        </li>
+        <li>The element has no toolbar and no zoom control. The wheel zooms the canvas.</li>
+        <li>GraphComp has no element for one widget alone.</li>
+        <li>
+          The script contains its own React. A React app uses the{" "}
+          <TextLink to="/docs/installation">registry items</TextLink> instead.
+        </li>
+        <li>
+          The element needs custom element states: Chrome 125, Firefox 126, Safari 17.4 or later.
+        </li>
+      </List>
 
       <DocsPager />
     </article>

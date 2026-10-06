@@ -6,6 +6,7 @@ const gettingStarted = [
   { to: "/docs", label: "Introduction" },
   { to: "/docs/installation", label: "Installation" },
   { to: "/docs/theming", label: "Theming" },
+  { to: "/docs/web-components", label: "Use without React" },
 ]
 
 const groups = ["Canvas", "Nodes", "Widgets", "Blocks"] as const

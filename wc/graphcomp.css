@@ -1,0 +1,28 @@
+/*
+ * The stylesheet inside every <gc-flow-canvas> shadow root. It is the same
+ * stack as a React app: Tailwind, the React Flow base styles and the
+ * GraphComp tokens. `graphcomp.ts` adapts it to the shadow root at runtime.
+ */
+@import "tailwindcss" source(none);
+@import "@xyflow/react/dist/base.css";
+@import "../registry/graphcomp/styles/graphcomp.css";
+
+@source "../registry/graphcomp";
+@source "./";
+
+:host {
+  display: block;
+  position: relative;
+  height: 400px;
+  background: var(--gc-canvas);
+  color: var(--gc-fg);
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.gc-root {
+  width: 100%;
+  height: 100%;
+}

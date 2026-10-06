@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <title>GraphComp without React</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: system-ui, sans-serif;
+        background: #111113;
+        color: #ececec;
+      }
+      html:not(.dark) body {
+        background: #ffffff;
+        color: #1c1c1e;
+      }
+      gc-flow-canvas {
+        height: 480px;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .ember {
+        --gc-accent: #f97316;
+        --gc-ring: #f97316;
+      }
+    </style>
+    <script type="module" src="./graphcomp.js"></script>
+  </head>
+  <body>
+    <h1>GraphComp without React</h1>
+    <p>
+      <button type="button" id="theme">Toggle dark</button>
+      <button type="button" id="accent">Toggle accent</button>
+      <button type="button" id="add">Add node</button>
+    </p>
+
+    <gc-flow-canvas id="canvas">
+      <script type="application/json">
+        {
+          "nodes": [
+            {
+              "id": "webhook",
+              "position": { "x": 0, "y": 0 },
+              "data": { "eyebrow": "Input", "title": "Webhook", "input": false }
+            },
+            {
+              "id": "filter",
+              "position": { "x": 320, "y": 0 },
+              "data": { "eyebrow": "Step", "title": "Filter" }
+            },
+            {
+              "id": "email",
+              "type": "script",
+              "position": { "x": 660, "y": -60 },
+              "data": { "title": "Send Email" }
+            },
+            {
+              "id": "archive",
+              "position": { "x": 660, "y": 200 },
+              "data": { "eyebrow": "Output", "title": "Archive", "output": false }
+            }
+          ],
+          "edges": [
+            { "id": "webhook-filter", "source": "webhook", "target": "filter" },
+            { "id": "filter-email", "source": "filter", "target": "email" }
+          ]
+        }
+      </script>
+    </gc-flow-canvas>
+
+    <p>Last event: <output id="log">none</output></p>
+
+    <script type="module">
+      const canvas = document.getElementById("canvas")
+      const log = document.getElementById("log")
+
+      for (const type of ["gc-nodes-change", "gc-edges-change", "gc-connect"]) {
+        canvas.addEventListener(type, (event) => {
+          const kinds = (event.detail.changes ?? []).map((change) => change.type)
+          log.textContent = `${type} ${kinds.join(" ")}`.trim()
+        })
+      }
+
+      document.getElementById("theme").addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark")
+      })
+      document.getElementById("accent").addEventListener("click", () => {
+        canvas.classList.toggle("ember")
+      })
+      document.getElementById("add").addEventListener("click", () => {
+        const id = `node-${canvas.nodes.length + 1}`
+        canvas.nodes = [
+          ...canvas.nodes,
+          { id, position: { x: 300, y: 200 }, data: { eyebrow: "Step", title: "New Step" } },
+        ]
+      })
+    </script>
+  </body>
+</html>

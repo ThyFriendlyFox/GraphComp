@@ -57,6 +57,15 @@ for (const name of pages) {
   })
 }
 
+test("the Use without React page shows the script tag and opens the example", async ({ page }) => {
+  await page.goto("/docs/web-components")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Use without React")
+  await expect(page.locator('[data-slot="code-block"]').first()).toContainText("/wc/graphcomp.js")
+  await page.getByRole("link", { name: "example page" }).click()
+  await expect(page).toHaveURL(/\/wc\/example\.html$/)
+  await expect(page.locator("gc-flow-canvas .react-flow__node")).toHaveCount(4)
+})
+
 test("the manual tab shows the source with user import paths", async ({ page }) => {
   await page.goto("/docs/components/node-select")
   await page.getByRole("tab", { name: "Manual" }).click()

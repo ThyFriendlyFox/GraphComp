@@ -1,6 +1,6 @@
 import type { HighlighterCore } from "shiki/core"
 
-export type Lang = "tsx" | "css" | "bash" | "json"
+export type Lang = "tsx" | "css" | "bash" | "json" | "html"
 
 let highlighter: Promise<HighlighterCore> | undefined
 
@@ -18,6 +18,7 @@ function load() {
           import("shiki/langs/css.mjs"),
           import("shiki/langs/bash.mjs"),
           import("shiki/langs/json.mjs"),
+          import("shiki/langs/html.mjs"),
         ],
         engine: createJavaScriptRegexEngine(),
       }),

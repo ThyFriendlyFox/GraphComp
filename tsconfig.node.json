@@ -20,6 +20,7 @@
   },
   "include": [
     "vite.config.ts",
+    "wc/vite.config.ts",
     "playwright.config.ts",
     "e2e",
     "verify",

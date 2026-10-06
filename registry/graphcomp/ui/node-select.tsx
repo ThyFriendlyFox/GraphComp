@@ -57,7 +57,10 @@ export function NodeSelect<T extends string>({
     if (!open) return
     listRef.current?.focus()
     function onPointerDown(event: PointerEvent) {
-      if (!rootRef.current?.contains(event.target as Node)) setOpen(false)
+      // composedPath, not target: inside a shadow root the document sees the
+      // shadow host as the target, so every press would count as outside.
+      const root = rootRef.current
+      if (root && !event.composedPath().includes(root)) setOpen(false)
     }
     document.addEventListener("pointerdown", onPointerDown)
     return () => document.removeEventListener("pointerdown", onPointerDown)
