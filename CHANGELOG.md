@@ -26,6 +26,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 - Docs site previews play by themselves: a drawn cursor presses, drags and connects the real components in a loop. A press or key in the preview stops it; a Pause/Play button controls it; reduced motion starts it paused.
 - The UsefulShelf listing badge in the docs site footer.
 - Site icons (`favicon.ico`, `icon.svg`, Apple touch icon, 192 and 512 px icons, maskable icon, web manifest) and one Open Graph image per page. `pnpm assets` renders them.
+- `<gc-flow-canvas>`: a custom element for HTML pages without React or a build step. One script tag loads `/wc/graphcomp.js`. Nodes and edges come from JSON; changes fire DOM events (issue #17). The docs page is "Use without React".
 
 ### Changed
 
@@ -39,6 +40,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/) · Versioning: [SemVer](
 
 ### Fixed
 
+- `NodeSelect` stays open when the user presses inside it in a shadow root. Before, the document saw the shadow host as the target and closed the list.
 - `NodePort` refreshes React Flow port measurements when a port mounts, unmounts or changes its id, position or alignment.
 - The UsefulShelf badge is in the server-rendered HTML of every docs site page. Before, only the client-side footer drew it, and the UsefulShelf check did not find it.
 

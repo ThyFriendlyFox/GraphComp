@@ -66,6 +66,7 @@ installed Chromium binary.
 | TypeScript version | `typescript-eslint` supports TypeScript < 6.1. Do not bump TypeScript past it until typescript-eslint does. |
 | Opacity animations in tests | Motion can hand opacity tweens to the Web Animations API, which ignores the fake clock. Motion that a test must see uses a motion value (`useSpring`). See `docs/TESTING.md`. |
 | `whileTap` and children | Motion does not pass `whileTap` states to children reliably; an inherited variant can freeze a child's animation. `NodePressable` drives its highlight from callbacks instead. |
+| Shadow root (`<gc-flow-canvas>`) | The wrapper renders the components in a shadow root. A `document` listener sees the shadow host as `event.target`, so an outside-press check uses `event.composedPath()`, never `contains(event.target)`. Browsers ignore `@property` in a shadow root; `wc/graphcomp.tsx` moves those rules to the document. |
 | Playwright browsers | The Playwright version pins a Chromium build. In sandboxes without the download, use `CHROMIUM_PATH`. |
 | E2E behind a TLS proxy | The pages load 2 third-party URLs. A sandbox proxy with its own CA makes them fail with `ERR_CERT_AUTHORITY_INVALID`, and the console-error checks fail about 23 tests. Run `main` the same way first; see `docs/TESTING.md`. Never add the workaround to the repo config. |
 

@@ -19,11 +19,12 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | E2E without third-party hosts | ❌ | ROADMAP "Hermetic E2E" |
 | NodeKnob, NodeWaveform, NodeDropzone | ❌ | ROADMAP items NodeKnob, NodeWaveform, NodeDropzone |
 | Docs site (`site/`, Vercel config) | 🚧 | `e2e/site.spec.ts`: 23 tests; Vercel project not created yet |
-| Docs site SEO, icons, OG images | 🚧 | `tests/seo.test.ts`: 6 tests; `public/og/` 13 images |
+| Docs site SEO, icons, OG images | 🚧 | `tests/seo.test.ts`: 6 tests; `public/og/` 14 images |
 | NodePressable and interaction motion | ✅ | `e2e/motion.spec.ts`: 8 motion tests, 40/40 over 5 repeats |
 | README GIFs (`pnpm gifs`) | ✅ | `.github/assets/*.gif`, 50 fps |
 | Scoped token theming (`--gc-*` on any element) | ✅ | Utilities compile to `var(--gc-*)`; see `docs/THEMING.md` |
 | Node theming props and `NodeSurface` | ❌ | ROADMAP "Node theming" |
+| Web Components wrapper (`<gc-flow-canvas>`, `/wc/graphcomp.js`) | ✅ | `e2e/web-components.spec.ts`: 6 tests; `pnpm build` writes `dist/wc/graphcomp.js` and `dist/wc/example.html` |
 
 States: ✅ done (gated) · 🚧 in progress · ❌ not started · 🧊 frozen/won't do.
 

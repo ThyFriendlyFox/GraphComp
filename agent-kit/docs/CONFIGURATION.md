@@ -1,8 +1,9 @@
 # Configuration
 
 GraphComp has no config file. Users configure it in 2 places: CSS
-variables in `graphcomp.css`, and props on `FlowCanvas`. The repo's
-tooling reads 3 environment variables.
+variables in `graphcomp.css`, and props on `FlowCanvas`. Pages without
+React use the attributes of `<gc-flow-canvas>`. The repo's tooling reads
+3 environment variables.
 
 A missing variable falls back to the default below. A token set to an
 invalid CSS value makes that one property fall back to its initial value;
@@ -43,6 +44,30 @@ All `ReactFlow` props pass through. GraphComp adds or changes these:
 | `gridGap` | number | `24` | Grid cell size in flow units |
 | `edgeTypes` | `EdgeTypes` | `{ flow: FlowEdge }` | Merged over the default |
 | `defaultEdgeOptions` | object | `{ type: "flow" }` | Merged over the default |
+
+## `<gc-flow-canvas>` (`wc/graphcomp.tsx`)
+
+The Web Components wrapper. Attributes:
+
+| Field | Type | Default | Use |
+|---|---|---|---|
+| `nodes` | JSON array | `[]` | Nodes in React Flow format. A new value replaces the nodes |
+| `edges` | JSON array | `[]` | Edges in React Flow format. A new value replaces the edges |
+| `theme` | `light` \| `dark` | unset | Unset: dark inside any `.dark` element, else light |
+| `grid` | `false` | unset | `false` hides the grid |
+
+Without a `nodes` attribute, a child `<script type="application/json">`
+with `{ "nodes": [...], "edges": [...] }` sets the first nodes and edges.
+
+Properties: `nodes` and `edges` (get the current state; set to replace
+it) and `fitView()`. Events, all with `bubbles` and `composed`, fire after
+the change: `gc-nodes-change` (`{ changes, nodes }`), `gc-edges-change`
+(`{ changes, edges }`), `gc-connect` (`{ connection, edges }`).
+
+Node `type`: unset or `card` (`data`: `title`, `eyebrow`, `input`,
+`output`), or the `event-flow` types `entry`, `trigger-stack`, `script`,
+`item`. Set `--gc-*` tokens on the element itself; the shadow root
+resets them below it.
 
 ## Environment (repo tooling only)
 
