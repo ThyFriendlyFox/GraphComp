@@ -54,7 +54,13 @@ Then import the theme once in your global CSS:
 @import "./styles/graphcomp.css";
 ```
 
-Add the `dark` class to `<html>` for the dark theme.
+Add the `dark` class to `<html>` for the dark theme. The theme does not
+change what `dark:` means in your app. To make your own `dark:` utilities
+follow the same class, add this line to your global CSS:
+
+```css
+@custom-variant dark (&:where(.dark, .dark *));
+```
 
 ## Use
 

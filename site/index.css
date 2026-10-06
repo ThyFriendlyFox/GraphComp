@@ -4,6 +4,8 @@
 
 @source "../registry";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 html,
 body,
 #root {

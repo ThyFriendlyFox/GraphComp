@@ -10,9 +10,10 @@
  * Every GraphComp component reads its colors from these variables. Change a
  * value here to re-theme every node, edge and widget at once. All names use
  * the `gc-` prefix so they never collide with shadcn/ui tokens.
+ *
+ * Dark values apply under a `.dark` ancestor. This file declares no `dark`
+ * variant, so the host's `dark:` utilities keep their own meaning.
  */
-
-@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --gc-canvas: #f4f4f5;
