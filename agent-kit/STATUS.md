@@ -7,7 +7,7 @@ behavior change. The weekly cycle (WEEKLY.md step 5) refreshes it.
 | Area | State | Evidence |
 |---|---|---|
 | Tokens (`graphcomp.css`, light + dark) | ✅ | `tests/registry.test.ts` token gates green |
-| FlowCanvas, FlowToolbar, FlowZoomControl | ✅ | E2E "zoom control changes the zoom level" |
+| FlowCanvas, FlowToolbar, FlowZoomControl | ✅ | E2E "zoom control changes the zoom level"; `e2e/connect-on-node-drop.spec.ts`: 4 tests for `connectOnNodeDrop` |
 | FlowEdge | ✅ | E2E "renders the event flow with its edges" |
 | NodePort | ✅ | `tests/node-port.test.tsx`; E2E keeps an edge connected after a port id changes |
 | NodeCard family | ✅ | `tests/node-card.test.tsx`; E2E "opening a trigger pushes the card below it down" |
